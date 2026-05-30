@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>皮特智学 | 医学心理学期末复习</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="side">
+        <div class="brand">
+          <img src="./public/pete-logo.png" alt="皮特智学" />
+          <div>
+            <strong>皮特智学</strong>
+            <span>扬州大学医学部</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="主导航">
+          <button class="nav-item active" data-view="practice" title="刷题">
+            <span>⌁</span><b>刷题</b>
+          </button>
+          <button class="nav-item" data-view="review" title="重点">
+            <span>◇</span><b>重点</b>
+          </button>
+          <button class="nav-item" data-view="manage" title="资料">
+            <span>＋</span><b>资料</b>
+          </button>
+        </nav>
+
+        <div class="pete-mini" aria-hidden="true">
+          <img src="./public/pete-avatar.jpg" alt="" />
+          <div class="pulse-ring"></div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">医学心理学</p>
+            <h1>期末复习题库</h1>
+          </div>
+          <div class="stats" id="stats"></div>
+        </header>
+
+        <section class="workspace view active" id="practice-view">
+          <div class="filters">
+            <label>
+              <span>题源</span>
+              <select id="source-filter">
+                <option value="all">全部</option>
+                <option value="原题（老师配套习题）">原题</option>
+                <option value="新编拓展题（AI深度改编）">新编</option>
+                <option value="todo">待核验</option>
+              </select>
+            </label>
+            <label>
+              <span>考点</span>
+              <select id="topic-filter">
+                <option value="all">全部考点</option>
+              </select>
+            </label>
+            <label class="search-box">
+              <span>搜索</span>
+              <input id="search-input" type="search" placeholder="题干 / 选项" />
+            </label>
+            <button class="icon-btn" id="shuffle-btn" title="随机一题">↻</button>
+          </div>
+
+          <div class="quiz-layout">
+            <section class="question-panel">
+              <div class="question-meta">
+                <span id="source-badge"></span>
+                <span id="topic-badge"></span>
+                <span id="progress-badge"></span>
+              </div>
+              <h2 id="question-stem"></h2>
+              <div class="options" id="options"></div>
+              <div class="actions">
+                <button class="primary" id="check-btn">提交</button>
+                <button class="ghost" id="prev-btn">上一题</button>
+                <button class="ghost" id="next-btn">下一题</button>
+              </div>
+              <div class="explanation" id="explanation" hidden></div>
+            </section>
+
+            <section class="queue-panel">
+              <div class="queue-head">
+                <strong>题目列表</strong>
+                <span id="queue-count"></span>
+              </div>
+              <div class="question-list" id="question-list"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="workspace view" id="review-view">
+          <div class="review-grid" id="topic-grid"></div>
+        </section>
+
+        <section class="workspace view" id="manage-view">
+          <div class="manage-layout">
+            <section>
+              <p class="eyebrow">题库扩容</p>
+              <h2>导入 JSON</h2>
+              <textarea id="import-json" spellcheck="false" placeholder='[{"stem":"...","options":{"A":"..."},"answer":"A"}]'></textarea>
+              <div class="actions">
+                <button class="primary" id="import-btn">导入</button>
+                <button class="ghost" id="reset-local-btn">清空本地导入</button>
+              </div>
+            </section>
+            <section>
+              <p class="eyebrow">资料状态</p>
+              <h2>首期资料</h2>
+              <div class="source-log" id="source-log"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./public/questions.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
