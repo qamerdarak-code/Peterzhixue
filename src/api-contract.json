@@ -1,0 +1,51 @@
+{
+  "project": "皮特智学",
+  "version": "0.1.0",
+  "subjects": [
+    {
+      "id": "medical-psychology",
+      "name": "医学心理学",
+      "school": "扬州大学医学部",
+      "phase": "首期"
+    }
+  ],
+  "reservedEndpoints": [
+    {
+      "method": "GET",
+      "path": "/api/subjects",
+      "purpose": "返回可复习科目列表，后续新增医学科目时扩展。"
+    },
+    {
+      "method": "GET",
+      "path": "/api/subjects/:subjectId/questions",
+      "purpose": "按科目返回原题与新编拓展题。"
+    },
+    {
+      "method": "POST",
+      "path": "/api/subjects/:subjectId/materials",
+      "purpose": "上传课程PPT、期末重点、配套练习题等资料。"
+    },
+    {
+      "method": "POST",
+      "path": "/api/subjects/:subjectId/questions/import",
+      "purpose": "导入结构化题库，字段兼容当前前端JSON导入格式。"
+    }
+  ],
+  "questionSchema": {
+    "id": "string",
+    "source": "原题（老师配套习题） | 新编拓展题（AI深度改编）",
+    "sourceFile": "string",
+    "type": "single",
+    "stem": "string",
+    "options": {
+      "A": "string",
+      "B": "string",
+      "C": "string",
+      "D": "string",
+      "E": "string"
+    },
+    "answer": "string",
+    "explanation": "string",
+    "knowledge": ["string"]
+  }
+}
