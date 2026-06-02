@@ -13,7 +13,7 @@
           <img src="./public/pete-logo.png" alt="皮特智学" />
           <div>
             <strong>皮特智学</strong>
-            <span>扬州大学医学部</span>
+            <span>多学科期末复习</span>
           </div>
         </div>
 
@@ -22,7 +22,7 @@
             <span>⌂</span><b>首页</b>
           </button>
           <button class="nav-item" data-view="practice" title="医学心理学">
-            <span>⌁</span><b>医学心理学</b>
+            <span>⌁</span><b>学科学习</b>
           </button>
         </nav>
 
@@ -37,11 +37,11 @@
           <div class="home-hero">
             <div class="home-copy">
               <p class="eyebrow">Peter Zhixue</p>
-              <h1>为期末复习开一个干净、高效的入口。</h1>
-              <p class="home-lede">首期上线《医学心理学》，后续学科会在这里继续扩展。</p>
+              <h1>把医学部期末复习，放进一个清爽的学科空间。</h1>
+              <p class="home-lede">医学心理学与医学统计学已上线，后续科目会继续按独立题库和重点页扩展。</p>
               <div class="home-actions">
-                <button class="primary" data-view="practice">进入医学心理学</button>
-                <button class="ghost" data-view="review">查看重点</button>
+                <button class="primary" data-view="practice" data-subject="medical-psychology">进入医学心理学</button>
+                <button class="ghost" data-view="practice" data-subject="medical-statistics">进入医学统计学</button>
               </div>
               <div class="home-stats" id="home-stats"></div>
             </div>
@@ -73,12 +73,20 @@
                   <h2>医学心理学</h2>
                   <p>老师配套原题、AI 拓展题、重点考点与资料导入都已整合。</p>
                 </div>
-                <button class="primary" data-view="practice">开始刷题</button>
+                <button class="primary" data-view="practice" data-subject="medical-psychology">开始刷题</button>
+              </article>
+              <article class="subject-card subject-ready">
+                <div>
+                  <span class="subject-pill">已上线</span>
+                  <h2>医学统计学</h2>
+                  <p>已接入选择题部分，支持刷题、按考点复习与后续资料扩展。</p>
+                </div>
+                <button class="primary" data-view="practice" data-subject="medical-statistics">开始刷题</button>
               </article>
               <article class="subject-card subject-soon">
                 <div>
                   <span class="subject-pill">预留</span>
-                  <h2>其他医学科目</h2>
+                  <h2>更多医学科目</h2>
                   <p>后续导入资料后，可以按相同结构扩展独立题库和重点页。</p>
                 </div>
                 <button class="ghost" disabled>待添加</button>
@@ -90,8 +98,8 @@
         <div class="course-shell">
           <header class="topbar">
             <div>
-              <p class="eyebrow">医学心理学</p>
-              <h1>期末复习题库</h1>
+              <p class="eyebrow" id="course-eyebrow">医学心理学</p>
+              <h1 id="course-title">期末复习题库</h1>
             </div>
             <div class="stats" id="stats"></div>
           </header>
@@ -176,6 +184,16 @@
             </div>
           </section>
         </div>
+
+        <footer class="site-footer">
+          <div class="chairman-card">
+            <img src="./public/chairman-zhou-pete.jpg" alt="皮特科技有限公司董事长周皮特" />
+            <div>
+              <p class="eyebrow">皮特科技有限公司</p>
+              <h2>董事长周皮特</h2>
+            </div>
+          </div>
+        </footer>
       </main>
     </div>
 
