@@ -364,7 +364,7 @@ body.is-course .course-shell {
 
 .subject-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -431,6 +431,34 @@ body.is-course .course-shell {
   border-color: var(--ink);
   background: var(--ink);
   color: #fff;
+}
+
+.site-footer {
+  padding: 38px 0 0;
+}
+
+.chairman-card {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.06);
+}
+
+.chairman-card img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  object-position: 50% 26%;
+  border-radius: 8px;
+}
+
+.chairman-card h2 {
+  font-size: 20px;
 }
 
 .topbar {
