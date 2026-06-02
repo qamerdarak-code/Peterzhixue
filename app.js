@@ -7,6 +7,7 @@ let selected = "";
 let checked = false;
 
 const els = {
+  homeStats: document.querySelector("#home-stats"),
   stats: document.querySelector("#stats"),
   sourceFilter: document.querySelector("#source-filter"),
   topicFilter: document.querySelector("#topic-filter"),
@@ -56,11 +57,13 @@ function renderStats() {
   const original = questions.filter((q) => q.source.includes("原题")).length;
   const ai = questions.filter((q) => q.source.includes("新编")).length;
   const todo = questions.filter((q) => !q.answer).length;
-  els.stats.innerHTML = `
+  const markup = `
     <span>原题 ${original}</span>
     <span>新编 ${ai}</span>
     <span>待核验 ${todo}</span>
   `;
+  els.stats.innerHTML = markup;
+  if (els.homeStats) els.homeStats.innerHTML = markup;
 }
 
 function initTopics() {
@@ -226,9 +229,16 @@ function renderSources() {
 }
 
 function showView(view) {
+  const isHome = view === "home";
+  document.body.classList.toggle("is-home", isHome);
+  document.body.classList.toggle("is-course", !isHome);
   document.querySelectorAll(".view").forEach((node) => node.classList.remove("active"));
   document.querySelector(`#${view}-view`).classList.add("active");
   document.querySelectorAll(".nav-item").forEach((button) => {
+    const active = isHome ? button.dataset.view === "home" : button.dataset.view !== "home";
+    button.classList.toggle("active", active);
+  });
+  document.querySelectorAll(".course-tab").forEach((button) => {
     button.classList.toggle("active", button.dataset.view === view);
   });
 }
@@ -262,7 +272,7 @@ function resetLocal() {
   applyFilters();
 }
 
-document.querySelectorAll(".nav-item").forEach((button) => {
+document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => showView(button.dataset.view));
 });
 
@@ -281,3 +291,4 @@ initTopics();
 renderTopics();
 renderSources();
 applyFilters();
+showView("home");
