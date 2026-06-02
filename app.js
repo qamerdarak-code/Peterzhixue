@@ -1,5 +1,7 @@
-const data = window.PETE_QUESTIONS;
-let localQuestions = JSON.parse(localStorage.getItem("pete-extra-questions") || "[]");
+const subjects = window.PETE_SUBJECTS || { "medical-psychology": window.PETE_QUESTIONS };
+let activeSubjectId = "medical-psychology";
+let data = subjects[activeSubjectId];
+let localQuestions = readLocalQuestions();
 let questions = [...data.questions, ...normalizeImported(localQuestions)];
 let filtered = [...questions];
 let currentIndex = 0;
@@ -9,6 +11,8 @@ let checked = false;
 const els = {
   homeStats: document.querySelector("#home-stats"),
   stats: document.querySelector("#stats"),
+  courseEyebrow: document.querySelector("#course-eyebrow"),
+  courseTitle: document.querySelector("#course-title"),
   sourceFilter: document.querySelector("#source-filter"),
   topicFilter: document.querySelector("#topic-filter"),
   searchInput: document.querySelector("#search-input"),
@@ -30,6 +34,10 @@ const els = {
   resetLocalBtn: document.querySelector("#reset-local-btn"),
   sourceLog: document.querySelector("#source-log"),
 };
+
+function readLocalQuestions() {
+  return JSON.parse(localStorage.getItem(`pete-extra-questions-${activeSubjectId}`) || "[]");
+}
 
 function normalizeImported(items) {
   return items
@@ -63,10 +71,19 @@ function renderStats() {
     <span>待核验 ${todo}</span>
   `;
   els.stats.innerHTML = markup;
-  if (els.homeStats) els.homeStats.innerHTML = markup;
+  if (els.homeStats) {
+    const subjectCount = Object.keys(subjects).length;
+    const total = Object.values(subjects).reduce((sum, subject) => sum + subject.questions.length, 0);
+    els.homeStats.innerHTML = `
+      <span>学科 ${subjectCount}</span>
+      <span>总题量 ${total}</span>
+      <span>当前 ${data.meta.subject}</span>
+    `;
+  }
 }
 
 function initTopics() {
+  els.topicFilter.innerHTML = '<option value="all">全部考点</option>';
   const topics = [...new Set(questions.flatMap((q) => q.knowledge || []))].filter(Boolean);
   for (const topic of topics) {
     const option = document.createElement("option");
@@ -74,6 +91,25 @@ function initTopics() {
     option.textContent = topic;
     els.topicFilter.append(option);
   }
+}
+
+function selectSubject(subjectId) {
+  if (!subjects[subjectId]) return;
+  activeSubjectId = subjectId;
+  data = subjects[activeSubjectId];
+  localQuestions = readLocalQuestions();
+  questions = [...data.questions, ...normalizeImported(localQuestions)];
+  filtered = [...questions];
+  currentIndex = 0;
+  selected = "";
+  checked = false;
+  els.courseEyebrow.textContent = data.meta.subject;
+  els.courseTitle.textContent = `${data.meta.subject}期末复习题库`;
+  renderStats();
+  initTopics();
+  renderTopics();
+  renderSources();
+  applyFilters();
 }
 
 function applyFilters() {
@@ -222,7 +258,7 @@ function renderSources() {
   const skipped = data.meta.skippedLegacyPpt || [];
   els.sourceLog.innerHTML = `
     <div class="source-row"><strong>题库</strong><small>原题 ${data.meta.originalCount}；新编 ${data.meta.extendedCount}；待核验 ${data.meta.missingAnswerCount}</small></div>
-    <div class="source-row"><strong>正确题源</strong><small>医学心理学试题(1)(1).docx 已作为主来源</small></div>
+    <div class="source-row"><strong>当前学科</strong><small>${data.meta.subject}；${data.meta.source || data.meta.latestAudit?.source || "资料库已同步"}</small></div>
     <div class="source-row"><strong>待转换课件</strong><small>${skipped.join("；") || "无"}</small></div>
     <div class="source-row"><strong>扩展接口</strong><small>支持 JSON 导入并写入 localStorage；后续可替换为 /api/subjects/:id/questions</small></div>
   `;
@@ -248,7 +284,7 @@ function importQuestions() {
     const parsed = JSON.parse(els.importJson.value || "[]");
     if (!Array.isArray(parsed)) throw new Error("JSON root must be an array");
     localQuestions = [...localQuestions, ...parsed];
-    localStorage.setItem("pete-extra-questions", JSON.stringify(localQuestions));
+    localStorage.setItem(`pete-extra-questions-${activeSubjectId}`, JSON.stringify(localQuestions));
     questions = [...data.questions, ...normalizeImported(localQuestions)];
     filtered = [...questions];
     renderStats();
@@ -262,7 +298,7 @@ function importQuestions() {
 }
 
 function resetLocal() {
-  localStorage.removeItem("pete-extra-questions");
+  localStorage.removeItem(`pete-extra-questions-${activeSubjectId}`);
   localQuestions = [];
   questions = [...data.questions];
   filtered = [...questions];
@@ -273,7 +309,10 @@ function resetLocal() {
 }
 
 document.querySelectorAll("[data-view]").forEach((button) => {
-  button.addEventListener("click", () => showView(button.dataset.view));
+  button.addEventListener("click", () => {
+    if (button.dataset.subject) selectSubject(button.dataset.subject);
+    showView(button.dataset.view);
+  });
 });
 
 els.sourceFilter.addEventListener("change", applyFilters);
@@ -287,8 +326,5 @@ els.importBtn.addEventListener("click", importQuestions);
 els.resetLocalBtn.addEventListener("click", resetLocal);
 
 renderStats();
-initTopics();
-renderTopics();
-renderSources();
-applyFilters();
+selectSubject(activeSubjectId);
 showView("home");
