@@ -228,142 +228,25 @@ body.is-course .course-shell {
 .boxing-stage::before {
   content: "";
   position: absolute;
-  width: min(88%, 360px);
-  aspect-ratio: 1;
-  border-radius: 50%;
+  width: min(92%, 390px);
+  aspect-ratio: 10 / 13;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--line);
-  box-shadow: inset 0 0 0 28px rgba(0, 113, 227, 0.05);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.1);
   z-index: -1;
 }
 
-.boxing-pete {
-  position: relative;
-  width: 230px;
-  height: 320px;
-  display: grid;
-  place-items: center;
-  animation: boxer-bob 1.16s ease-in-out infinite;
-}
-
-.boxing-pete img {
-  width: 190px;
-  height: 300px;
-  border-radius: 8px;
+.boxing-video {
+  width: min(92%, 390px);
+  aspect-ratio: 10 / 13;
+  display: block;
   object-fit: cover;
-  object-position: 48% 42%;
+  object-position: center;
   border: 5px solid #fff;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
-}
-
-.boxing-real::after {
-  content: "";
-  position: absolute;
-  left: 48px;
-  right: 44px;
-  bottom: 14px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.16);
-  filter: blur(10px);
-  z-index: -1;
-  animation: floor-shadow 1.16s ease-in-out infinite;
-}
-
-.glove {
-  position: absolute;
-  width: 58px;
-  height: 49px;
-  border-radius: 42% 44% 50% 46%;
-  background:
-    linear-gradient(115deg, rgba(255, 255, 255, 0.62), transparent 28%),
-    linear-gradient(145deg, #ff3b30, #b71f25);
-  box-shadow:
-    inset -8px -10px 18px rgba(0, 0, 0, 0.18),
-    0 15px 26px rgba(183, 31, 37, 0.28);
-}
-
-.glove::after {
-  content: "";
-  position: absolute;
-  inset: auto 12px -10px;
-  height: 17px;
   border-radius: 8px;
-  background: #f5f5f7;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.glove-left {
-  left: 20px;
-  bottom: 95px;
-  transform: rotate(22deg);
-  animation: guard-hand 1.16s ease-in-out infinite;
-}
-
-.glove-right {
-  right: 6px;
-  top: 116px;
-  animation: punch-hand 1.16s cubic-bezier(0.2, 0.85, 0.25, 1) infinite;
-}
-
-.hit-ring {
-  position: absolute;
-  right: 12%;
-  top: 38%;
-  width: 78px;
-  height: 78px;
-  border: 2px solid rgba(0, 113, 227, 0.32);
-  border-radius: 50%;
-  opacity: 0;
-  animation: hit-burst 1.2s ease-out infinite;
-}
-
-.speed-line {
-  position: absolute;
-  right: 14%;
-  width: 124px;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.65), transparent);
-  opacity: 0;
-  animation: speed-flash 1.2s ease-out infinite;
-}
-
-.line-a {
-  top: 38%;
-}
-
-.line-b {
-  top: 46%;
-  width: 94px;
-  animation-delay: 80ms;
-}
-
-.impact-dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  opacity: 0;
-  animation: dot-pop 1.2s ease-out infinite;
-}
-
-.dot-a {
-  right: 18%;
-  top: 32%;
-}
-
-.dot-b {
-  right: 13%;
-  top: 42%;
-  animation-delay: 80ms;
-}
-
-.dot-c {
-  right: 22%;
-  top: 50%;
-  animation-delay: 120ms;
+  background: #000;
+  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.13);
 }
 
 .subject-section {
@@ -854,95 +737,6 @@ textarea:focus {
 .source-row strong {
   display: block;
   margin-bottom: 4px;
-}
-
-@keyframes boxer-bob {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1deg) scale(1);
-  }
-  50% {
-    transform: translateY(-8px) rotate(1deg) scale(1.01);
-  }
-}
-
-@keyframes punch-hand {
-  0%,
-  58%,
-  100% {
-    transform: translate(0, 0) rotate(-12deg) scale(1);
-  }
-  72% {
-    transform: translate(62px, -14px) rotate(-4deg) scale(1.08);
-  }
-  86% {
-    transform: translate(14px, 3px) rotate(-18deg) scale(0.98);
-  }
-}
-
-@keyframes guard-hand {
-  0%,
-  100% {
-    transform: translateY(0) rotate(22deg);
-  }
-  50% {
-    transform: translateY(6px) rotate(16deg);
-  }
-}
-
-@keyframes floor-shadow {
-  0%,
-  100% {
-    transform: scaleX(0.95);
-    opacity: 0.46;
-  }
-  50% {
-    transform: scaleX(1.08);
-    opacity: 0.32;
-  }
-}
-
-@keyframes hit-burst {
-  0%,
-  66% {
-    transform: scale(0.4);
-    opacity: 0;
-  }
-  73% {
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1.55);
-    opacity: 0;
-  }
-}
-
-@keyframes speed-flash {
-  0%,
-  62%,
-  100% {
-    transform: translateX(16px);
-    opacity: 0;
-  }
-  72% {
-    transform: translateX(-12px);
-    opacity: 1;
-  }
-}
-
-@keyframes dot-pop {
-  0%,
-  66% {
-    transform: translate(0, 0) scale(0.6);
-    opacity: 0;
-  }
-  74% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(22px, -18px) scale(1.3);
-    opacity: 0;
-  }
 }
 
 @media (max-width: 980px) {
