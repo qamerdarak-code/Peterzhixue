@@ -180,12 +180,11 @@ body.is-course .course-shell {
 }
 
 .home-hero {
-  min-height: calc(100vh - 150px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(340px, 0.74fr);
   align-items: center;
-  gap: clamp(24px, 5vw, 72px);
-  padding: 32px 0 46px;
+  gap: 42px;
+  padding: 18px 0 14px;
 }
 
 .home-copy {
@@ -220,7 +219,7 @@ body.is-course .course-shell {
 .boxing-stage {
   position: relative;
   isolation: isolate;
-  min-height: 430px;
+  min-height: 360px;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -229,7 +228,7 @@ body.is-course .course-shell {
 .boxing-stage::before {
   content: "";
   position: absolute;
-  width: min(92%, 430px);
+  width: min(88%, 360px);
   aspect-ratio: 1;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.72);
@@ -240,26 +239,41 @@ body.is-course .course-shell {
 
 .boxing-pete {
   position: relative;
-  width: 210px;
-  height: 240px;
+  width: 230px;
+  height: 320px;
   display: grid;
   place-items: center;
-  animation: boxer-bob 1.2s ease-in-out infinite;
+  animation: boxer-bob 1.16s ease-in-out infinite;
 }
 
 .boxing-pete img {
-  width: 148px;
-  height: 148px;
-  border-radius: 50%;
+  width: 190px;
+  height: 300px;
+  border-radius: 8px;
   object-fit: cover;
+  object-position: 48% 42%;
   border: 5px solid #fff;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
 }
 
+.boxing-real::after {
+  content: "";
+  position: absolute;
+  left: 48px;
+  right: 44px;
+  bottom: 14px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.16);
+  filter: blur(10px);
+  z-index: -1;
+  animation: floor-shadow 1.16s ease-in-out infinite;
+}
+
 .glove {
   position: absolute;
-  width: 62px;
-  height: 52px;
+  width: 58px;
+  height: 49px;
   border-radius: 42% 44% 50% 46%;
   background:
     linear-gradient(115deg, rgba(255, 255, 255, 0.62), transparent 28%),
@@ -280,24 +294,24 @@ body.is-course .course-shell {
 }
 
 .glove-left {
-  left: 18px;
-  bottom: 42px;
-  transform: rotate(16deg);
-  animation: guard-hand 1.2s ease-in-out infinite;
+  left: 20px;
+  bottom: 95px;
+  transform: rotate(22deg);
+  animation: guard-hand 1.16s ease-in-out infinite;
 }
 
 .glove-right {
-  right: 8px;
-  top: 74px;
-  animation: punch-hand 1.2s cubic-bezier(0.2, 0.85, 0.25, 1) infinite;
+  right: 6px;
+  top: 116px;
+  animation: punch-hand 1.16s cubic-bezier(0.2, 0.85, 0.25, 1) infinite;
 }
 
 .hit-ring {
   position: absolute;
-  right: 16%;
-  top: 34%;
-  width: 86px;
-  height: 86px;
+  right: 12%;
+  top: 38%;
+  width: 78px;
+  height: 78px;
   border: 2px solid rgba(0, 113, 227, 0.32);
   border-radius: 50%;
   opacity: 0;
@@ -306,8 +320,8 @@ body.is-course .course-shell {
 
 .speed-line {
   position: absolute;
-  right: 20%;
-  width: 132px;
+  right: 14%;
+  width: 124px;
   height: 2px;
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, rgba(0, 113, 227, 0.65), transparent);
@@ -353,7 +367,7 @@ body.is-course .course-shell {
 }
 
 .subject-section {
-  padding: 28px 0 10px;
+  padding: 8px 0 10px;
 }
 
 .section-head {
@@ -845,10 +859,10 @@ textarea:focus {
 @keyframes boxer-bob {
   0%,
   100% {
-    transform: translateY(0) rotate(-1deg);
+    transform: translateY(0) rotate(-1deg) scale(1);
   }
   50% {
-    transform: translateY(-10px) rotate(1deg);
+    transform: translateY(-8px) rotate(1deg) scale(1.01);
   }
 }
 
@@ -856,23 +870,35 @@ textarea:focus {
   0%,
   58%,
   100% {
-    transform: translate(0, 0) rotate(-16deg) scale(1);
+    transform: translate(0, 0) rotate(-12deg) scale(1);
   }
   72% {
-    transform: translate(74px, -12px) rotate(-8deg) scale(1.05);
+    transform: translate(62px, -14px) rotate(-4deg) scale(1.08);
   }
   86% {
-    transform: translate(18px, 2px) rotate(-18deg) scale(0.98);
+    transform: translate(14px, 3px) rotate(-18deg) scale(0.98);
   }
 }
 
 @keyframes guard-hand {
   0%,
   100% {
-    transform: translateY(0) rotate(16deg);
+    transform: translateY(0) rotate(22deg);
   }
   50% {
-    transform: translateY(8px) rotate(10deg);
+    transform: translateY(6px) rotate(16deg);
+  }
+}
+
+@keyframes floor-shadow {
+  0%,
+  100% {
+    transform: scaleX(0.95);
+    opacity: 0.46;
+  }
+  50% {
+    transform: scaleX(1.08);
+    opacity: 0.32;
   }
 }
 
