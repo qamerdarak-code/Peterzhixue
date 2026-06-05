@@ -256,11 +256,30 @@ function renderTopics() {
 
 function renderSources() {
   const skipped = data.meta.skippedLegacyPpt || [];
+  const resources = data.resources || [];
+  const resourceMarkup = resources.length
+    ? `
+    <div class="resource-grid">
+      ${resources
+        .map(
+          (resource) => `
+        <a class="resource-card" href="${resource.src}" target="_blank" rel="noreferrer">
+          <img src="${resource.src}" alt="${resource.title}" loading="lazy" />
+          <span>${resource.type || "资料"}</span>
+          <strong>${resource.title}</strong>
+        </a>
+      `
+        )
+        .join("")}
+    </div>
+  `
+    : "";
   els.sourceLog.innerHTML = `
     <div class="source-row"><strong>题库</strong><small>原题 ${data.meta.originalCount}；新编 ${data.meta.extendedCount}；待核验 ${data.meta.missingAnswerCount}</small></div>
     <div class="source-row"><strong>当前学科</strong><small>${data.meta.subject}；${data.meta.source || data.meta.latestAudit?.source || "资料库已同步"}</small></div>
     <div class="source-row"><strong>待转换课件</strong><small>${skipped.join("；") || "无"}</small></div>
     <div class="source-row"><strong>扩展接口</strong><small>支持 JSON 导入并写入 localStorage；后续可替换为 /api/subjects/:id/questions</small></div>
+    ${resourceMarkup}
   `;
 }
 
