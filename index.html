@@ -35,22 +35,14 @@
       <main class="main">
         <section class="home-view view active" id="home-view">
           <div class="home-hero">
-            <div class="home-copy">
-              <p class="eyebrow">Peter Zhixue</p>
-              <h1>把医学部期末复习，放进一个清爽的学科空间。</h1>
-              <p class="home-lede">医学心理学、医学统计学与医学寄生虫学已上线，后续科目会继续按独立题库和重点页扩展。</p>
-              <div class="home-actions">
-                <button class="primary" data-view="practice" data-subject="medical-psychology">进入医学心理学</button>
-                <button class="ghost" data-view="practice" data-subject="medical-statistics">进入医学统计学</button>
-                <button class="ghost" data-view="practice" data-subject="medical-parasitology">进入医学寄生虫学</button>
-              </div>
-              <div class="home-stats" id="home-stats"></div>
-            </div>
-
             <div class="boxing-stage" aria-label="皮特打拳击动画展示">
               <video class="boxing-video" autoplay loop muted playsinline preload="metadata" poster="./public/pete-boxing-real.jpg">
                 <source src="./public/pete-boxing-wide.mp4" type="video/mp4" />
               </video>
+              <div class="hero-overlay">
+                <p class="eyebrow">Peter Zhixue</p>
+                <h1>把医学部期末复习，放进一个清爽的学科空间。</h1>
+              </div>
             </div>
           </div>
 
@@ -93,6 +85,7 @@
                 <button class="ghost" disabled>待添加</button>
               </article>
             </div>
+            <div class="home-stats" id="home-stats" hidden></div>
           </section>
         </section>
 
@@ -134,6 +127,8 @@
               </label>
               <button class="icon-btn" id="shuffle-btn" title="随机一题">↻</button>
             </div>
+
+            <div class="practice-summary" id="practice-summary"></div>
 
             <div class="quiz-layout">
               <section class="question-panel">
