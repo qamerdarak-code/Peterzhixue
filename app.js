@@ -7,6 +7,9 @@ let filtered = [...questions];
 let currentIndex = 0;
 let selected = "";
 let checked = false;
+let practiceState = readPracticeState();
+let wrongOnly = false;
+const retryingQuestions = new Set();
 
 const els = {
   homeStats: document.querySelector("#home-stats"),
@@ -33,10 +36,31 @@ const els = {
   importBtn: document.querySelector("#import-btn"),
   resetLocalBtn: document.querySelector("#reset-local-btn"),
   sourceLog: document.querySelector("#source-log"),
+  practiceSummary: document.querySelector("#practice-summary"),
 };
 
 function readLocalQuestions() {
   return JSON.parse(localStorage.getItem(`pete-extra-questions-${activeSubjectId}`) || "[]");
+}
+
+function emptyPracticeState() {
+  return { attempts: {}, wrongArchive: {} };
+}
+
+function readPracticeState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(`pete-practice-state-${activeSubjectId}`) || "{}");
+    return {
+      attempts: saved.attempts || {},
+      wrongArchive: saved.wrongArchive || {},
+    };
+  } catch {
+    return emptyPracticeState();
+  }
+}
+
+function savePracticeState() {
+  localStorage.setItem(`pete-practice-state-${activeSubjectId}`, JSON.stringify(practiceState));
 }
 
 function normalizeImported(items) {
@@ -61,14 +85,76 @@ function optionAnswer(answer) {
   return answer.length > 1 ? answer.split("").join(" / ") : answer;
 }
 
+function getPracticeTotals() {
+  const records = Object.values(practiceState.attempts);
+  const totalAttempts = records.reduce((sum, item) => sum + (item.attempts || 0), 0);
+  const correctAttempts = records.reduce((sum, item) => sum + (item.correct || 0), 0);
+  const doneQuestions = records.length;
+  const wrongQuestions = Object.keys(practiceState.wrongArchive).length;
+  const accuracy = totalAttempts ? Math.round((correctAttempts / totalAttempts) * 100) : 0;
+  return { totalAttempts, correctAttempts, doneQuestions, wrongQuestions, accuracy };
+}
+
+function recordAttempt(q, choice, isCorrect) {
+  if (!q || !q.answer || !choice) return;
+  const previous = practiceState.attempts[q.id] || {
+    attempts: 0,
+    correct: 0,
+    wrong: 0,
+  };
+  const record = {
+    ...previous,
+    attempts: previous.attempts + 1,
+    correct: previous.correct + (isCorrect ? 1 : 0),
+    wrong: previous.wrong + (isCorrect ? 0 : 1),
+    lastSelected: choice,
+    lastCorrect: isCorrect,
+    lastAt: new Date().toISOString(),
+  };
+  practiceState.attempts[q.id] = record;
+  if (!isCorrect) {
+    practiceState.wrongArchive[q.id] = {
+      id: q.id,
+      stem: q.stem,
+      answer: q.answer,
+      selected: choice,
+      source: q.source,
+      topic: (q.knowledge || [])[0] || "",
+      at: record.lastAt,
+    };
+  }
+  savePracticeState();
+}
+
+function renderPracticeSummary() {
+  if (!els.practiceSummary) return;
+  const totals = getPracticeTotals();
+  els.practiceSummary.innerHTML = `
+    <div class="summary-metric"><span>已做题目</span><strong>${totals.doneQuestions}</strong></div>
+    <div class="summary-metric"><span>提交次数</span><strong>${totals.totalAttempts}</strong></div>
+    <div class="summary-metric"><span>正确率</span><strong>${totals.accuracy}%</strong></div>
+    <button class="wrong-book ${wrongOnly ? "active" : ""}" id="wrong-only-btn" ${totals.wrongQuestions ? "" : "disabled"}>
+      错题本 ${totals.wrongQuestions}
+    </button>
+  `;
+  const wrongBtn = document.querySelector("#wrong-only-btn");
+  wrongBtn?.addEventListener("click", () => {
+    wrongOnly = !wrongOnly;
+    applyFilters();
+  });
+}
+
 function renderStats() {
   const original = questions.filter((q) => q.source.includes("原题")).length;
   const ai = questions.filter((q) => q.source.includes("新编")).length;
   const todo = questions.filter((q) => !q.answer).length;
+  const totals = getPracticeTotals();
   const markup = `
     <span>原题 ${original}</span>
     <span>新编 ${ai}</span>
     <span>待核验 ${todo}</span>
+    <span>正确率 ${totals.accuracy}%</span>
+    <span>错题 ${totals.wrongQuestions}</span>
   `;
   els.stats.innerHTML = markup;
   if (els.homeStats) {
@@ -98,14 +184,18 @@ function selectSubject(subjectId) {
   activeSubjectId = subjectId;
   data = subjects[activeSubjectId];
   localQuestions = readLocalQuestions();
+  practiceState = readPracticeState();
   questions = [...data.questions, ...normalizeImported(localQuestions)];
   filtered = [...questions];
   currentIndex = 0;
   selected = "";
   checked = false;
+  wrongOnly = false;
+  retryingQuestions.clear();
   els.courseEyebrow.textContent = data.meta.subject;
   els.courseTitle.textContent = `${data.meta.subject}期末复习题库`;
   renderStats();
+  renderPracticeSummary();
   initTopics();
   renderTopics();
   renderSources();
@@ -122,14 +212,16 @@ function applyFilters() {
       sourceValue === "all" ||
       (sourceValue === "todo" ? !q.answer : q.source === sourceValue);
     const topicOk = topicValue === "all" || (q.knowledge || []).includes(topicValue);
+    const wrongOk = !wrongOnly || Boolean(practiceState.wrongArchive[q.id]);
     const haystack = `${q.stem} ${Object.values(q.options).join(" ")}`.toLowerCase();
     const keywordOk = !keyword || haystack.includes(keyword);
-    return sourceOk && topicOk && keywordOk;
+    return sourceOk && topicOk && wrongOk && keywordOk;
   });
 
   currentIndex = Math.min(currentIndex, Math.max(filtered.length - 1, 0));
   selected = "";
   checked = false;
+  renderPracticeSummary();
   renderQuestion();
   renderQueue();
 }
@@ -138,13 +230,17 @@ function currentQuestion() {
   return filtered[currentIndex];
 }
 
+function renderExplanation(q, verdict) {
+  const answer = q.answer || "";
+  els.explanation.hidden = false;
+  els.explanation.innerHTML = `<strong>${verdict}：${optionAnswer(answer) || "未提供"}</strong><br>${q.explanation || ""}<br><small>来源：${q.sourceFile || "资料库"}</small>`;
+}
+
 function renderQuestion() {
   const q = currentQuestion();
   els.options.innerHTML = "";
   els.explanation.hidden = true;
   els.explanation.textContent = "";
-  selected = "";
-  checked = false;
 
   if (!q) {
     els.sourceBadge.textContent = "无题目";
@@ -155,21 +251,34 @@ function renderQuestion() {
     return;
   }
 
+  const record = retryingQuestions.has(q.id) ? null : practiceState.attempts[q.id];
+  selected = record?.lastSelected || "";
+  checked = Boolean(record?.lastSelected && q.answer);
   els.checkBtn.disabled = false;
   els.sourceBadge.textContent = q.source;
   els.topicBadge.textContent = (q.knowledge || ["未分类"])[0];
   els.progressBadge.textContent = `${currentIndex + 1} / ${filtered.length}`;
   els.stem.textContent = q.stem;
-  els.checkBtn.textContent = q.answer ? "提交" : "待核验";
+  els.checkBtn.textContent = checked ? "重做此题" : q.answer ? "提交" : "待核验";
 
   Object.entries(q.options).forEach(([key, value]) => {
     const button = document.createElement("button");
     button.className = "option";
     button.dataset.key = key;
     button.innerHTML = `<b>${key}</b><span>${value}</span>`;
+    button.classList.toggle("selected", selected === key);
+    if (checked) {
+      const isCorrect = q.answer.includes(key);
+      button.classList.toggle("correct", isCorrect);
+      button.classList.toggle("wrong", Boolean(selected && key === selected && !isCorrect));
+    }
     button.addEventListener("click", () => chooseOption(key));
     els.options.append(button);
   });
+
+  if (checked) {
+    renderExplanation(q, record.lastCorrect ? "上次答对" : "上次答错");
+  }
 }
 
 function chooseOption(key) {
@@ -183,8 +292,14 @@ function chooseOption(key) {
 function checkAnswer() {
   const q = currentQuestion();
   if (!q) return;
+  if (checked) {
+    retryingQuestions.add(q.id);
+    renderQuestion();
+    return;
+  }
   checked = true;
   const answer = q.answer || "";
+  const isSelectedCorrect = Boolean(selected && answer.includes(selected));
 
   document.querySelectorAll(".option").forEach((option) => {
     const key = option.dataset.key;
@@ -195,13 +310,20 @@ function checkAnswer() {
 
   const verdict = answer
     ? selected
-      ? answer.includes(selected)
+      ? isSelectedCorrect
         ? "答对了"
         : "再看一眼"
       : "参考答案"
     : "待核验";
-  els.explanation.hidden = false;
-  els.explanation.innerHTML = `<strong>${verdict}：${optionAnswer(answer) || "未提供"}</strong><br>${q.explanation || ""}<br><small>来源：${q.sourceFile || "资料库"}</small>`;
+  if (selected && answer) {
+    retryingQuestions.delete(q.id);
+    recordAttempt(q, selected, isSelectedCorrect);
+    renderStats();
+    renderPracticeSummary();
+    renderQueue();
+  }
+  els.checkBtn.textContent = "重做此题";
+  renderExplanation(q, verdict);
 }
 
 function move(delta) {
@@ -223,8 +345,19 @@ function renderQueue() {
   els.questionList.innerHTML = "";
   filtered.forEach((q, index) => {
     const chip = document.createElement("button");
-    chip.className = `question-chip ${index === currentIndex ? "active" : ""}`;
-    chip.innerHTML = `<small>${q.id}</small><span>${q.stem}</span>`;
+    const record = practiceState.attempts[q.id];
+    const archivedWrong = practiceState.wrongArchive[q.id];
+    chip.className = [
+      "question-chip",
+      index === currentIndex ? "active" : "",
+      record ? "done" : "",
+      record?.lastCorrect ? "last-correct" : "",
+      archivedWrong ? "archived-wrong" : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+    const status = archivedWrong ? "错题" : record ? "已做" : "";
+    chip.innerHTML = `<small>${q.id}${status ? ` · ${status}` : ""}</small><span>${q.stem}</span>`;
     chip.addEventListener("click", () => {
       currentIndex = index;
       renderQuestion();
@@ -307,6 +440,7 @@ function importQuestions() {
     questions = [...data.questions, ...normalizeImported(localQuestions)];
     filtered = [...questions];
     renderStats();
+    renderPracticeSummary();
     renderTopics();
     renderSources();
     applyFilters();
@@ -322,6 +456,7 @@ function resetLocal() {
   questions = [...data.questions];
   filtered = [...questions];
   renderStats();
+  renderPracticeSummary();
   renderTopics();
   renderSources();
   applyFilters();
