@@ -180,32 +180,10 @@ body.is-course .course-shell {
 }
 
 .home-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(420px, 0.9fr);
-  align-items: center;
-  gap: 42px;
-  padding: 18px 0 14px;
+  display: block;
+  padding: 10px 0 18px;
 }
 
-.home-copy {
-  display: grid;
-  gap: 18px;
-  align-content: center;
-}
-
-.home-copy h1 {
-  max-width: 780px;
-}
-
-.home-lede {
-  max-width: 620px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 20px;
-  line-height: 1.6;
-}
-
-.home-actions,
 .home-stats {
   display: flex;
   gap: 10px;
@@ -219,34 +197,61 @@ body.is-course .course-shell {
 .boxing-stage {
   position: relative;
   isolation: isolate;
-  min-height: 340px;
+  width: 100%;
+  min-height: 560px;
   display: grid;
   place-items: center;
   overflow: hidden;
-}
-
-.boxing-stage::before {
-  content: "";
-  position: absolute;
-  width: min(100%, 580px);
   aspect-ratio: 16 / 9;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--line);
-  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.1);
-  z-index: -1;
+  background: #000;
+  box-shadow: 0 28px 58px rgba(0, 0, 0, 0.16);
+}
+
+.boxing-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.48)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.34));
+  pointer-events: none;
 }
 
 .boxing-video {
-  width: min(100%, 560px);
-  aspect-ratio: 16 / 9;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   display: block;
   object-fit: cover;
   object-position: center;
-  border: 5px solid #fff;
-  border-radius: 8px;
+  border: 0;
+  border-radius: inherit;
   background: #000;
-  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.13);
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  width: min(900px, calc(100% - 48px));
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-overlay .eyebrow {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.hero-overlay h1 {
+  max-width: 860px;
+  color: #fff;
+  text-shadow: 0 10px 34px rgba(0, 0, 0, 0.46);
 }
 
 .subject-section {
@@ -498,6 +503,56 @@ textarea:focus {
   transform: translateY(-1px);
 }
 
+.practice-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.summary-metric,
+.wrong-book {
+  min-height: 62px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.04);
+}
+
+.summary-metric {
+  display: grid;
+  gap: 4px;
+}
+
+.summary-metric span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.summary-metric strong {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.wrong-book {
+  min-width: 124px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.wrong-book.active {
+  border-color: rgba(199, 66, 90, 0.46);
+  background: rgba(199, 66, 90, 0.1);
+  color: var(--rose);
+}
+
+.wrong-book:disabled {
+  color: var(--muted);
+  cursor: default;
+  opacity: 0.66;
+}
+
 .quiz-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 318px;
@@ -676,6 +731,27 @@ textarea:focus {
   background: var(--accent-soft);
 }
 
+.question-chip.done small {
+  color: var(--accent);
+}
+
+.question-chip.archived-wrong {
+  border-color: rgba(199, 66, 90, 0.36);
+  background: rgba(199, 66, 90, 0.07);
+}
+
+.question-chip.archived-wrong small {
+  color: var(--rose);
+}
+
+.question-chip.last-correct:not(.archived-wrong) {
+  border-color: rgba(0, 163, 122, 0.28);
+}
+
+.question-chip.last-correct:not(.archived-wrong) small {
+  color: var(--mint);
+}
+
 .question-chip small {
   color: var(--muted);
   white-space: nowrap;
@@ -802,6 +878,7 @@ textarea:focus {
   .manage-layout,
   .review-grid,
   .resource-grid,
+  .practice-summary,
   .subject-grid {
     grid-template-columns: 1fr;
   }
@@ -815,7 +892,7 @@ textarea:focus {
   }
 
   .boxing-stage {
-    min-height: 340px;
+    min-height: 430px;
   }
 
   .queue-panel {
@@ -860,11 +937,15 @@ textarea:focus {
 
   .home-hero {
     min-height: auto;
-    padding-top: 20px;
+    padding-top: 10px;
   }
 
-  .home-lede {
-    font-size: 17px;
+  .boxing-stage {
+    min-height: 360px;
+  }
+
+  .hero-overlay {
+    width: calc(100% - 28px);
   }
 
   .filters {
