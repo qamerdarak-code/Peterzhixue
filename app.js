@@ -5,7 +5,7 @@ let localQuestions = readLocalQuestions();
 let questions = [...data.questions, ...normalizeImported(localQuestions)];
 let filtered = [...questions];
 let currentIndex = 0;
-let selected = "";
+let selected = [];
 let checked = false;
 let practiceState = readPracticeState();
 let wrongOnly = false;
@@ -71,7 +71,7 @@ function normalizeImported(items) {
       source: item.source || "新编拓展题（AI深度改编）",
       sourceFile: item.sourceFile || "本地导入",
       number: item.number || index + 1,
-      type: "single",
+      type: item.type || ((item.answer || "").length > 1 ? "multiple" : "single"),
       stem: item.stem,
       options: item.options,
       answer: (item.answer || "").toUpperCase(),
@@ -83,6 +83,23 @@ function normalizeImported(items) {
 function optionAnswer(answer) {
   if (!answer) return "";
   return answer.length > 1 ? answer.split("").join(" / ") : answer;
+}
+
+function answerKeys(value) {
+  return (value || "").split("").filter(Boolean).sort();
+}
+
+function normalizeSelection(value) {
+  if (Array.isArray(value)) return [...new Set(value)].sort();
+  return (value || "").split("").filter(Boolean).sort();
+}
+
+function selectionValue() {
+  return normalizeSelection(selected).join("");
+}
+
+function isMultipleQuestion(q) {
+  return q?.type === "multiple" || (q?.answer || "").length > 1;
 }
 
 function getPracticeTotals() {
@@ -188,7 +205,7 @@ function selectSubject(subjectId) {
   questions = [...data.questions, ...normalizeImported(localQuestions)];
   filtered = [...questions];
   currentIndex = 0;
-  selected = "";
+  selected = [];
   checked = false;
   wrongOnly = false;
   retryingQuestions.clear();
@@ -219,7 +236,7 @@ function applyFilters() {
   });
 
   currentIndex = Math.min(currentIndex, Math.max(filtered.length - 1, 0));
-  selected = "";
+  selected = [];
   checked = false;
   renderPracticeSummary();
   renderQuestion();
@@ -252,25 +269,25 @@ function renderQuestion() {
   }
 
   const record = retryingQuestions.has(q.id) ? null : practiceState.attempts[q.id];
-  selected = record?.lastSelected || "";
+  selected = record?.lastSelected ? normalizeSelection(record.lastSelected) : [];
   checked = Boolean(record?.lastSelected && q.answer);
   els.checkBtn.disabled = false;
   els.sourceBadge.textContent = q.source;
   els.topicBadge.textContent = (q.knowledge || ["未分类"])[0];
   els.progressBadge.textContent = `${currentIndex + 1} / ${filtered.length}`;
   els.stem.textContent = q.stem;
-  els.checkBtn.textContent = checked ? "重做此题" : q.answer ? "提交" : "待核验";
+  els.checkBtn.textContent = checked ? "重做此题" : q.answer ? (isMultipleQuestion(q) ? "提交多选" : "提交") : "待核验";
 
   Object.entries(q.options).forEach(([key, value]) => {
     const button = document.createElement("button");
     button.className = "option";
     button.dataset.key = key;
     button.innerHTML = `<b>${key}</b><span>${value}</span>`;
-    button.classList.toggle("selected", selected === key);
+    button.classList.toggle("selected", normalizeSelection(selected).includes(key));
     if (checked) {
       const isCorrect = q.answer.includes(key);
       button.classList.toggle("correct", isCorrect);
-      button.classList.toggle("wrong", Boolean(selected && key === selected && !isCorrect));
+      button.classList.toggle("wrong", Boolean(normalizeSelection(selected).includes(key) && !isCorrect));
     }
     button.addEventListener("click", () => chooseOption(key));
     els.options.append(button);
@@ -283,9 +300,20 @@ function renderQuestion() {
 
 function chooseOption(key) {
   if (checked) return;
-  selected = key;
+  const q = currentQuestion();
+  if (isMultipleQuestion(q)) {
+    const next = new Set(normalizeSelection(selected));
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    selected = [...next].sort();
+  } else {
+    selected = [key];
+  }
   document.querySelectorAll(".option").forEach((option) => {
-    option.classList.toggle("selected", option.dataset.key === key);
+    option.classList.toggle("selected", normalizeSelection(selected).includes(option.dataset.key));
   });
 }
 
@@ -299,25 +327,26 @@ function checkAnswer() {
   }
   checked = true;
   const answer = q.answer || "";
-  const isSelectedCorrect = Boolean(selected && answer.includes(selected));
+  const choice = selectionValue();
+  const isSelectedCorrect = Boolean(choice && answerKeys(answer).join("") === choice);
 
   document.querySelectorAll(".option").forEach((option) => {
     const key = option.dataset.key;
     const isCorrect = answer.includes(key);
     option.classList.toggle("correct", isCorrect);
-    option.classList.toggle("wrong", Boolean(selected && key === selected && !isCorrect));
+    option.classList.toggle("wrong", Boolean(normalizeSelection(selected).includes(key) && !isCorrect));
   });
 
   const verdict = answer
-    ? selected
+    ? choice
       ? isSelectedCorrect
         ? "答对了"
         : "再看一眼"
       : "参考答案"
     : "待核验";
-  if (selected && answer) {
+  if (choice && answer) {
     retryingQuestions.delete(q.id);
-    recordAttempt(q, selected, isSelectedCorrect);
+    recordAttempt(q, choice, isSelectedCorrect);
     renderStats();
     renderPracticeSummary();
     renderQueue();
