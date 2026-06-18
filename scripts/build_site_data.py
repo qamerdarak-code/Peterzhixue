@@ -9,6 +9,7 @@ OUT = ROOT / "public" / "questions.js"
 STATISTICS_DOCX_TEXT = ROOT / "extracted" / "medical-statistics-docx.txt"
 STATISTICS_EXTRA_QUESTIONS = ROOT / "extracted" / "statistics-extra-questions.json"
 PARASITOLOGY_DOC = ROOT / "extracted" / "parasitology-choices.doc"
+XIGAI_DOC = ROOT / "extracted" / "xigai-choices.doc"
 
 
 TOPICS = [
@@ -842,6 +843,204 @@ def parse_parasitology_questions():
     return questions, audit
 
 
+XIGAI_TOPICS = [
+    {
+        "name": "导论与理论体系",
+        "note": "重点掌握习近平新时代中国特色社会主义思想的时代背景、主要内容、历史地位和“两个确立”的决定性意义。",
+    },
+    {
+        "name": "中国式现代化与民族复兴",
+        "note": "重点理解新时代坚持和发展中国特色社会主义、全面建设社会主义现代化国家、推进中华民族伟大复兴的核心要求。",
+    },
+    {
+        "name": "党的领导与全面从严治党",
+        "note": "重点把握中国共产党领导是中国特色社会主义最本质特征，以及党的建设、自我革命、全面从严治党的要求。",
+    },
+    {
+        "name": "人民民主、法治与文化",
+        "note": "重点区分全过程人民民主、全面依法治国、社会主义文化强国、意识形态工作和社会主义核心价值观等考点。",
+    },
+    {
+        "name": "发展、民生与生态文明",
+        "note": "重点掌握新发展理念、高质量发展、共同富裕、民生保障、人与自然和谐共生、美丽中国建设等内容。",
+    },
+    {
+        "name": "安全、强军、统一与外交",
+        "note": "重点掌握总体国家安全观、习近平强军思想、“一国两制”、祖国统一、中国特色大国外交和人类命运共同体。",
+    },
+]
+
+
+def decode_xigai_doc():
+    if not XIGAI_DOC.exists():
+        return ""
+    text = XIGAI_DOC.read_bytes().decode("utf-16le", errors="ignore").replace("\x00", "")
+    text = text.replace("\r", "\n").replace("\x0b", "\n").replace("\x0c", "\n")
+    start = text.find("导论")
+    if start > -1:
+        text = text[start:]
+    return re.sub(r"\n{3,}", "\n\n", text)
+
+
+def infer_xigai_topic(stem, options):
+    haystack = stem + " " + " ".join(options.values())
+    if any(key in haystack for key in ["全面从严治党", "自我革命", "党的领导", "党的建设", "反腐败"]):
+        return "党的领导与全面从严治党"
+    if any(key in haystack for key in ["全过程人民民主", "依法治国", "法治", "文化", "意识形态", "核心价值观"]):
+        return "人民民主、法治与文化"
+    if any(key in haystack for key in ["高质量发展", "共同富裕", "民生", "生态", "绿水青山", "碳达峰", "碳中和"]):
+        return "发展、民生与生态文明"
+    if any(key in haystack for key in ["国家安全", "强军", "一国两制", "祖国统一", "外交", "人类命运共同体", "一带一路"]):
+        return "安全、强军、统一与外交"
+    if any(key in haystack for key in ["中国式现代化", "民族复兴", "现代化强国", "中国特色社会主义"]):
+        return "中国式现代化与民族复兴"
+    return "导论与理论体系"
+
+
+def parse_xigai_answer_list(value):
+    answers = {}
+    spans = []
+    range_re = re.compile(r"(\d{1,3})\s*[-—－]\s*(\d{1,3})\s*[.．、]?\s*([A-E]+)")
+    pair_re = re.compile(r"(\d{1,3})\s*[.．、]?\s*([A-E]{1,8})(?=\d{1,3}\s*(?:[.．、]|[-—－])|\s|$)")
+    for match in range_re.finditer(value):
+        first = int(match.group(1))
+        last = int(match.group(2))
+        letters = match.group(3).strip()
+        if last >= first and len(letters) == last - first + 1:
+            for number, answer in zip(range(first, last + 1), letters):
+                answers[number] = answer
+            spans.append(match.span())
+
+    chars = list(value)
+    for start, end in spans:
+        for index in range(start, end):
+            chars[index] = " "
+    rest = "".join(chars)
+    for number, answer in pair_re.findall(rest):
+        answers[int(number)] = answer[:5]
+    return answers
+
+
+def parse_xigai_options(body):
+    label = r"([A-E])(?:[.．、]\s*|\s*(?=[\u4e00-\u9fff“”]))"
+    option_re = re.compile(r"(?s)" + label + r"(.*?)(?=(?:" + label + r")|$)")
+    matches = list(option_re.finditer(body))
+    if not matches:
+        return "", {}
+    stem = normalize_space(body[: matches[0].start()])
+    options = {
+        match.group(1): normalize_space(match.group(2)).strip("。；;，,")
+        for match in matches
+        if normalize_space(match.group(2))
+    }
+    return stem, options
+
+
+def repair_xigai_missing_a_option(stem, options, answer):
+    if "A" not in options and "A" in answer and "）。" in stem:
+        prefix, suffix = stem.split("）。", 1)
+        suffix = normalize_space(suffix)
+        if suffix:
+            stem = prefix + "）。"
+            options = {"A": suffix, **options}
+    return stem, options
+
+
+def parse_xigai_questions():
+    text = decode_xigai_doc()
+    if not text:
+        return [], {"source": "习概导引整理（带答案）(1).doc", "parsed": 0, "referenceBlocks": 0, "inlineAnswers": 0, "ignored": 0}
+
+    question_start_re = re.compile(r"(?m)^\s*(\d{1,3})[.．、]?\s*")
+    answer_marker_re = re.compile(r"参考答案\s*[^\n\dA-E]*")
+    heading_terms = ["（一）单选题", "单选题", "一、单项选择题", "（二）多选题", "二、多选题", "多选题"]
+    heading_re = re.compile("|".join(re.escape(term) for term in heading_terms))
+    topic_notes = {topic["name"]: topic["note"] for topic in XIGAI_TOPICS}
+    parsed = []
+    ignored = 0
+    reference_blocks = 0
+    segment_start = 0
+
+    def add_question(number, stem, options, answer, source_hint):
+        nonlocal ignored
+        stem, options = repair_xigai_missing_a_option(stem, options, answer)
+        if not stem or len(options) < 4 or not answer or any(key not in options for key in answer):
+            ignored += 1
+            return
+        topic = infer_xigai_topic(stem, options)
+        answer_text = "；".join(f"{key}. {options[key]}" for key in answer if key in options)
+        parsed.append(
+            {
+                "id": "",
+                "source": "原题（老师配套习题）",
+                "sourceFile": f"习概导引整理（带答案）(1).doc；{source_hint}",
+                "number": number,
+                "type": "multiple" if len(answer) > 1 else "single",
+                "stem": stem,
+                "options": options,
+                "answer": answer,
+                "explanation": f"答案为 {answer}：{answer_text}。考点：{topic}。{topic_notes[topic]}",
+                "knowledge": [topic],
+            }
+        )
+
+    for marker in answer_marker_re.finditer(text):
+        segment = text[segment_start : marker.start()]
+        headings = list(heading_re.finditer(segment))
+        if headings:
+            segment = segment[headings[-1].end() :]
+        answers = parse_xigai_answer_list(text[marker.end() : marker.end() + 500])
+        question_matches = list(question_start_re.finditer(segment))
+        block_count = 0
+        for index, match in enumerate(question_matches):
+            number = int(match.group(1))
+            end = question_matches[index + 1].start() if index + 1 < len(question_matches) else len(segment)
+            body = segment[match.end() : end].strip()
+            if "答案" in body:
+                continue
+            stem, options = parse_xigai_options(body)
+            if number in answers:
+                add_question(number, stem, options, answers[number], "参考答案表")
+                block_count += 1
+        if block_count:
+            reference_blocks += 1
+        segment_start = marker.end()
+
+    inline_re = re.compile(r"(?ms)(?:^|\n)\s*(\d{1,3})[.．、]?\s*(.*?)(?:\n\s*)?答案[:：]\s*([A-E]{1,5})")
+    inline_answers = 0
+    for match in inline_re.finditer(text):
+        number = int(match.group(1))
+        stem, options = parse_xigai_options(match.group(2).strip())
+        if any(marker in stem for marker in ["答案要点", "答：", "重要知识点", "练习题"]):
+            continue
+        if len(stem) > 500:
+            continue
+        add_question(number, stem, options, match.group(3), "逐题答案")
+        inline_answers += 1
+
+    questions = []
+    seen = set()
+    for item in parsed:
+        key = normalize_key(item["stem"])
+        if key in seen:
+            continue
+        seen.add(key)
+        questions.append(item)
+
+    for index, question in enumerate(questions, 1):
+        question["id"] = f"xigai-{index:04d}"
+        question["number"] = index
+
+    audit = {
+        "source": "习概导引整理（带答案）(1).doc",
+        "referenceBlocks": reference_blocks,
+        "inlineAnswers": inline_answers,
+        "parsed": len(questions),
+        "ignored": ignored,
+    }
+    return questions, audit
+
+
 def main():
     originals = json.loads(QUESTIONS_IN.read_text(encoding="utf-8"))
     originals = [enrich_original(q) for q in originals if len(q.get("options", {})) >= 4]
@@ -941,10 +1140,29 @@ def main():
         "questions": parasitology,
     }
 
+    xigai, xigai_audit = parse_xigai_questions()
+    xigai_payload = {
+        "meta": {
+            "project": "皮特智学",
+            "subject": "习概",
+            "subjectId": "xigai",
+            "school": "扬州大学医学部",
+            "originalCount": len(xigai),
+            "extendedCount": 0,
+            "missingAnswerCount": sum(1 for q in xigai if not q.get("answer")),
+            "source": "习概导引整理（带答案）(1).doc",
+            "parseAudit": xigai_audit,
+        },
+        "topics": XIGAI_TOPICS,
+        "resources": [],
+        "questions": xigai,
+    }
+
     subjects = {
         "medical-psychology": psychology_payload,
         "medical-statistics": statistics_payload,
         "medical-parasitology": parasitology_payload,
+        "xigai": xigai_payload,
     }
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
