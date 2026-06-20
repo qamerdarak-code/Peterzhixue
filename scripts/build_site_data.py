@@ -10,6 +10,7 @@ STATISTICS_DOCX_TEXT = ROOT / "extracted" / "medical-statistics-docx.txt"
 STATISTICS_EXTRA_QUESTIONS = ROOT / "extracted" / "statistics-extra-questions.json"
 PARASITOLOGY_DOC = ROOT / "extracted" / "parasitology-choices.doc"
 XIGAI_DOC = ROOT / "extracted" / "xigai-choices.doc"
+PATHOLOGY_DOC = ROOT / "extracted" / "pathology-slides.doc"
 
 
 TOPICS = [
@@ -1041,6 +1042,270 @@ def parse_xigai_questions():
     return questions, audit
 
 
+PATHOLOGY_TOPICS = [
+    {
+        "name": "急性炎症与感染",
+        "note": "重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+    },
+    {
+        "name": "循环障碍与血管病变",
+        "note": "重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+    },
+    {
+        "name": "肿瘤病理",
+        "note": "重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
+    },
+    {
+        "name": "肝胆与消化系统病变",
+        "note": "重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
+    },
+    {
+        "name": "妊娠滋养细胞与胎盘病变",
+        "note": "重点识别绒毛水肿、间质血管消失和滋养层细胞增生。",
+    },
+]
+
+
+PATHOLOGY_SLIDES = [
+    {
+        "number": 3,
+        "diagnosis": "急性蜂窝织性阑尾炎",
+        "tissue": "阑尾",
+        "topic": "急性炎症与感染",
+        "features": "粘膜层、粘膜下层、肌层及浆膜层均充血水肿，组织内大量中性粒细胞弥漫性浸润，可见渗出物。",
+        "image": "./public/pathology-appendicitis.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Acute_Appendicitis,_HE_1.jpg",
+        "credit": "Wikimedia Commons：Acute Appendicitis, HE",
+    },
+    {
+        "number": 5,
+        "diagnosis": "肺水肿",
+        "tissue": "肺",
+        "topic": "循环障碍与血管病变",
+        "features": "肺泡壁毛细血管扩张，充满红细胞；肺泡腔内有大量均匀红染的水肿液。",
+        "image": "./public/pathology-pulmonary-edema.jpg",
+        "page": "https://pathology.or.jp/corepicturesEN/05/c01/04.html",
+        "credit": "Japanese Society of Pathology Core Pictures：Pulmonary edema",
+    },
+    {
+        "number": 6,
+        "diagnosis": "肺脂肪栓塞",
+        "tissue": "肺",
+        "topic": "循环障碍与血管病变",
+        "features": "肺间质血管和肺泡壁毛细血管内可见大小不一的圆形或不规则形脂肪栓塞物。",
+        "image": "./public/pathology-fat-embolism.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Histopathology_of_a_pulmonary_artery_with_fat_embolism_and_a_bone_marrow_fragment.jpg",
+        "credit": "Wikimedia Commons：Pulmonary artery fat embolism",
+    },
+    {
+        "number": 7,
+        "diagnosis": "肠腺癌",
+        "tissue": "结肠",
+        "topic": "肿瘤病理",
+        "features": "癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Colorectal_adenocarcinoma_(2).jpg",
+        "page": "https://en.wikipedia.org/wiki/Histopathology_of_colorectal_adenocarcinoma",
+        "credit": "Wikimedia Commons：Colorectal adenocarcinoma",
+    },
+    {
+        "number": 8,
+        "diagnosis": "血吸虫肝",
+        "tissue": "肝",
+        "topic": "急性炎症与感染",
+        "features": "慢性虫卵结节内可见异物巨细胞、淋巴细胞浸润和肉芽组织增生，可见钙化死卵。",
+        "image": "./public/pathology-schistosomiasis-liver.jpg",
+        "page": "https://pathology.or.jp/corepicturesEN/10/c06/02.html",
+        "credit": "Japanese Society of Pathology Core Pictures：Schistosomiasis",
+    },
+    {
+        "number": 12,
+        "diagnosis": "水泡状胎块",
+        "tissue": "胎盘",
+        "topic": "妊娠滋养细胞与胎盘病变",
+        "features": "胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。",
+        "image": "./public/pathology-hydatidiform-mole.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Hydatidiform_mole_(1)_complete_type.jpg",
+        "credit": "Wikimedia Commons：Hydatidiform mole",
+    },
+    {
+        "number": 13,
+        "diagnosis": "转移性印戒细胞癌",
+        "tissue": "淋巴结",
+        "topic": "肿瘤病理",
+        "features": "淋巴结边缘窦处可见大量印戒细胞，胞浆内黏液将细胞核挤向一侧。",
+        "image": "./public/pathology-signet-ring-node.jpg",
+        "page": "https://patologia.cm.umk.pl/atlas/lymphatics/signet/",
+        "credit": "Patologia CM UMK：Metastatic signet-ring cell carcinoma",
+    },
+    {
+        "number": 15,
+        "diagnosis": "鳞状细胞癌",
+        "tissue": "皮肤",
+        "topic": "肿瘤病理",
+        "features": "癌细胞呈片状或巢状排列，细胞多边形、胞浆丰富、核异型明显；癌巢中心角化形成癌珠。",
+        "image": "./public/pathology-squamous-cell-carcinoma.jpg",
+        "page": "https://pathology.or.jp/corepictures2010/20/c09/04.html",
+        "credit": "Japanese Society of Pathology Core Pictures：Squamous cell carcinoma",
+    },
+    {
+        "number": 17,
+        "diagnosis": "大叶性肺炎",
+        "tissue": "肺",
+        "topic": "急性炎症与感染",
+        "features": "病变均匀一致，肺泡腔内充满大量纤维素和嗜中性白细胞，纤维素互相结成网。",
+        "image": "./public/pathology-lobar-pneumonia.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Lung_biopsy_showing_lobar_pneumonia_10X.jpg",
+        "credit": "Wikimedia Commons：Lobar pneumonia",
+    },
+    {
+        "number": 18,
+        "diagnosis": "肝硬化",
+        "tissue": "肝",
+        "topic": "肝胆与消化系统病变",
+        "features": "肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/9/94/Cirrhosis_high_mag.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Cirrhosis_high_mag.jpg",
+        "credit": "Wikimedia Commons：Cirrhosis high magnification",
+    },
+    {
+        "number": 20,
+        "diagnosis": "血栓",
+        "tissue": "静脉",
+        "topic": "循环障碍与血管病变",
+        "features": "静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/7/79/Complete_organization_of_thromboembolus_with_recanalization.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Complete_organization_of_thromboembolus_with_recanalization.jpg",
+        "credit": "Wikimedia Commons：Organized thromboembolus with recanalization",
+    },
+    {
+        "number": 21,
+        "diagnosis": "动脉粥样硬化",
+        "tissue": "动脉",
+        "topic": "循环障碍与血管病变",
+        "features": "内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/f/f2/RCA_atherosclerosis.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg",
+        "credit": "Wikimedia Commons：Coronary atherosclerosis",
+    },
+    {
+        "number": 23,
+        "diagnosis": "胃溃疡",
+        "tissue": "胃",
+        "topic": "肝胆与消化系统病变",
+        "features": "可见渗出层、坏死层、肉芽组织层和瘢痕层；肉芽组织内有新生毛细血管、纤维母细胞及慢性炎细胞。",
+        "image": "./public/pathology-gastric-ulcer.jpg",
+        "page": "https://pathorama.ch/pathopic/4977/show",
+        "credit": "Pathorama：Gastric ulcer histology",
+    },
+    {
+        "number": 24,
+        "diagnosis": "肺结核",
+        "tissue": "肺",
+        "topic": "急性炎症与感染",
+        "features": "可见结核结节和干酪样坏死，周围有类上皮细胞、郎罕斯巨细胞及淋巴细胞浸润。",
+        "image": "./public/pathology-lung-tuberculosis.jpg",
+        "page": "https://eliph.klinikum.uni-heidelberg.de/allg/106/lungentuberkulose",
+        "credit": "Heidelberg ELIPH：Lung tuberculosis",
+    },
+    {
+        "number": 25,
+        "diagnosis": "肾结核",
+        "tissue": "肾",
+        "topic": "急性炎症与感染",
+        "features": "肾组织内可见结核结节，中央常发生干酪样坏死，周围为上皮样细胞、多核巨细胞、淋巴细胞和纤维细胞。",
+        "image": "./public/pathology-kidney-tuberculosis.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Tuberculous_caseous_granuloma_(1)_TBLB.jpg",
+        "credit": "Wikimedia Commons：Tuberculous caseous granuloma",
+    },
+    {
+        "number": 28,
+        "diagnosis": "化脓性脑膜炎",
+        "tissue": "脑",
+        "topic": "急性炎症与感染",
+        "features": "蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。",
+        "image": "https://www.meddean.luc.edu/lumen/meded/mech/cases/case5/neuro05.jpg",
+        "page": "https://www.meddean.luc.edu/lumen/meded/mech/cases/case5/list.htm",
+        "credit": "Loyola University Medical Education：Acute meningitis",
+    },
+    {
+        "number": 30,
+        "diagnosis": "肝脂肪变性",
+        "tissue": "肝",
+        "topic": "肝胆与消化系统病变",
+        "features": "肝小叶结构基本完好，小叶中央区肝细胞胞浆内有大小不等的脂肪空泡，严重者细胞核被挤向一边。",
+        "image": "./public/pathology-fatty-liver.jpg",
+        "page": "https://commons.wikimedia.org/wiki/File:Fatty_change_liver_-_Lipid_steatosis_10X.jpg",
+        "credit": "Wikimedia Commons：Fatty change liver",
+    },
+]
+
+
+def parse_pathology_questions():
+    letters = ["A", "B", "C", "D"]
+    topic_notes = {topic["name"]: topic["note"] for topic in PATHOLOGY_TOPICS}
+    questions = []
+    diagnoses = [slide["diagnosis"] for slide in PATHOLOGY_SLIDES]
+
+    for index, slide in enumerate(PATHOLOGY_SLIDES):
+        same_topic = [
+            item
+            for item in PATHOLOGY_SLIDES
+            if item["diagnosis"] != slide["diagnosis"] and item["topic"] == slide["topic"]
+        ]
+        pool = same_topic + [
+            item
+            for item in PATHOLOGY_SLIDES
+            if item["diagnosis"] != slide["diagnosis"] and item not in same_topic
+        ]
+        distractors = []
+        cursor = index
+        while len(distractors) < 3 and pool:
+            candidate = pool[cursor % len(pool)]["diagnosis"]
+            if candidate not in distractors and candidate != slide["diagnosis"]:
+                distractors.append(candidate)
+            cursor += 1
+
+        correct_position = index % 4
+        ordered = distractors[:]
+        ordered.insert(correct_position, slide["diagnosis"])
+        options = {letters[i]: ordered[i] for i in range(4)}
+        answer = letters[correct_position]
+        answer_text = options[answer]
+        source_file = "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索"
+        questions.append(
+            {
+                "id": f"path-{index + 1:04d}",
+                "source": "原题（老师配套习题）",
+                "sourceFile": source_file,
+                "number": index + 1,
+                "type": "single",
+                "stem": f"观察图中{slide['tissue']}切片的局部形态，最可能的病理诊断是？",
+                "options": options,
+                "answer": answer,
+                "explanation": (
+                    f"答案为 {answer}：{answer_text}。镜下要点：{slide['features']} "
+                    f"考点：{slide['topic']}。{topic_notes[slide['topic']]}"
+                ),
+                "knowledge": [slide["topic"]],
+                "image": {
+                    "src": slide["image"],
+                    "alt": f"{slide['diagnosis']}显微切片图",
+                    "caption": f"{slide['tissue']}切片示教图：用于训练识别{slide['diagnosis']}的局部镜下特征",
+                    "page": slide["page"],
+                    "credit": slide["credit"],
+                },
+            }
+        )
+
+    audit = {
+        "source": PATHOLOGY_DOC.name,
+        "parsed": len(questions),
+        "diagnoses": diagnoses,
+        "localImages": sum(1 for slide in PATHOLOGY_SLIDES if slide["image"].startswith("./public/")),
+    }
+    return questions, audit
+
+
 def main():
     originals = json.loads(QUESTIONS_IN.read_text(encoding="utf-8"))
     originals = [enrich_original(q) for q in originals if len(q.get("options", {})) >= 4]
@@ -1158,11 +1423,37 @@ def main():
         "questions": xigai,
     }
 
+    pathology, pathology_audit = parse_pathology_questions()
+    pathology_payload = {
+        "meta": {
+            "project": "皮特智学",
+            "subject": "病理切片",
+            "subjectId": "pathology-slides",
+            "school": "扬州大学医学部",
+            "originalCount": len(pathology),
+            "extendedCount": 0,
+            "missingAnswerCount": sum(1 for q in pathology if not q.get("answer")),
+            "source": "病理切片整理137937885386235187.1ea17c5a4335782.doc",
+            "parseAudit": pathology_audit,
+        },
+        "topics": PATHOLOGY_TOPICS,
+        "resources": [
+            {
+                "title": slide["diagnosis"],
+                "type": slide["tissue"],
+                "src": slide["image"],
+            }
+            for slide in PATHOLOGY_SLIDES
+        ],
+        "questions": pathology,
+    }
+
     subjects = {
         "medical-psychology": psychology_payload,
         "medical-statistics": statistics_payload,
         "medical-parasitology": parasitology_payload,
         "xigai": xigai_payload,
+        "pathology-slides": pathology_payload,
     }
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
