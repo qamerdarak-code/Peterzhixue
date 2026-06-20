@@ -588,6 +588,35 @@ textarea:focus {
   margin: 20px 0;
 }
 
+.question-media {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 20px;
+}
+
+.question-media a {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0b0b0c;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+
+.question-media img {
+  width: 100%;
+  max-height: 430px;
+  display: block;
+  object-fit: contain;
+  background: #0b0b0c;
+}
+
+.question-media small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .option {
   display: grid;
   grid-template-columns: 34px 1fr;
