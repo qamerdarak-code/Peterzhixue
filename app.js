@@ -24,6 +24,7 @@ const els = {
   topicBadge: document.querySelector("#topic-badge"),
   progressBadge: document.querySelector("#progress-badge"),
   stem: document.querySelector("#question-stem"),
+  media: document.querySelector("#question-media"),
   options: document.querySelector("#options"),
   explanation: document.querySelector("#explanation"),
   checkBtn: document.querySelector("#check-btn"),
@@ -77,7 +78,20 @@ function normalizeImported(items) {
       answer: (item.answer || "").toUpperCase(),
       explanation: item.explanation || "本地导入题，解析待补充。",
       knowledge: item.knowledge || ["本地扩展"],
+      image: item.image || null,
     }));
+}
+
+function escapeHtml(value = "") {
+  return String(value).replace(/[&<>"']/g, (char) => (
+    {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#39;",
+    }[char]
+  ));
 }
 
 function optionAnswer(answer) {
@@ -230,7 +244,8 @@ function applyFilters() {
       (sourceValue === "todo" ? !q.answer : q.source === sourceValue);
     const topicOk = topicValue === "all" || (q.knowledge || []).includes(topicValue);
     const wrongOk = !wrongOnly || Boolean(practiceState.wrongArchive[q.id]);
-    const haystack = `${q.stem} ${Object.values(q.options).join(" ")}`.toLowerCase();
+    const imageText = q.image ? `${q.image.alt || ""} ${q.image.caption || ""} ${q.image.credit || ""}` : "";
+    const haystack = `${q.stem} ${Object.values(q.options).join(" ")} ${imageText}`.toLowerCase();
     const keywordOk = !keyword || haystack.includes(keyword);
     return sourceOk && topicOk && wrongOk && keywordOk;
   });
@@ -249,8 +264,11 @@ function currentQuestion() {
 
 function renderExplanation(q, verdict) {
   const answer = q.answer || "";
+  const imageCredit = q.image?.page
+    ? `<br><small>显微图：<a href="${q.image.page}" target="_blank" rel="noreferrer">${escapeHtml(q.image.credit || q.image.page)}</a></small>`
+    : "";
   els.explanation.hidden = false;
-  els.explanation.innerHTML = `<strong>${verdict}：${optionAnswer(answer) || "未提供"}</strong><br>${q.explanation || ""}<br><small>来源：${q.sourceFile || "资料库"}</small>`;
+  els.explanation.innerHTML = `<strong>${verdict}：${optionAnswer(answer) || "未提供"}</strong><br>${q.explanation || ""}<br><small>来源：${q.sourceFile || "资料库"}</small>${imageCredit}`;
 }
 
 function renderQuestion() {
@@ -258,6 +276,10 @@ function renderQuestion() {
   els.options.innerHTML = "";
   els.explanation.hidden = true;
   els.explanation.textContent = "";
+  if (els.media) {
+    els.media.hidden = true;
+    els.media.innerHTML = "";
+  }
 
   if (!q) {
     els.sourceBadge.textContent = "无题目";
@@ -277,6 +299,19 @@ function renderQuestion() {
   els.progressBadge.textContent = `${currentIndex + 1} / ${filtered.length}`;
   els.stem.textContent = q.stem;
   els.checkBtn.textContent = checked ? "重做此题" : q.answer ? (isMultipleQuestion(q) ? "提交多选" : "提交") : "待核验";
+
+  if (els.media && q.image?.src) {
+    const href = q.image.page || q.image.src;
+    const alt = escapeHtml(q.image.alt || q.stem);
+    const caption = escapeHtml(q.image.caption || q.image.credit || "显微图");
+    els.media.hidden = false;
+    els.media.innerHTML = `
+      <a href="${href}" target="_blank" rel="noreferrer">
+        <img src="${q.image.src}" alt="${alt}" loading="lazy" />
+      </a>
+      <small>${caption}</small>
+    `;
+  }
 
   Object.entries(q.options).forEach(([key, value]) => {
     const button = document.createElement("button");
