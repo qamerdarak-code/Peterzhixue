@@ -1,5 +1,6 @@
 import json
 import re
+import unicodedata
 from pathlib import Path
 
 
@@ -11,6 +12,7 @@ STATISTICS_EXTRA_QUESTIONS = ROOT / "extracted" / "statistics-extra-questions.js
 PARASITOLOGY_DOC = ROOT / "extracted" / "parasitology-choices.doc"
 XIGAI_DOC = ROOT / "extracted" / "xigai-choices.doc"
 PATHOLOGY_DOC = ROOT / "extracted" / "pathology-slides.doc"
+MICROBIOLOGY_PDF = ROOT / "extracted" / "microbiology-300.pdf"
 
 
 TOPICS = [
@@ -1063,6 +1065,10 @@ PATHOLOGY_TOPICS = [
         "name": "妊娠滋养细胞与胎盘病变",
         "note": "重点识别绒毛水肿、间质血管消失和滋养层细胞增生。",
     },
+    {
+        "name": "器官/组织识别",
+        "note": "先从上皮、腺体、肺泡、肝小叶、血管壁、脑膜、胎盘绒毛等结构判断来源，再进入病变诊断。",
+    },
 ]
 
 
@@ -1103,9 +1109,9 @@ PATHOLOGY_SLIDES = [
         "tissue": "结肠",
         "topic": "肿瘤病理",
         "features": "癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Colorectal_adenocarcinoma_(2).jpg",
-        "page": "https://en.wikipedia.org/wiki/Histopathology_of_colorectal_adenocarcinoma",
-        "credit": "Wikimedia Commons：Colorectal adenocarcinoma",
+        "image": "./public/pathology-colon-adenocarcinoma.jpg",
+        "page": "https://pathology.or.jp/corepicturesEN/09/c09/02.html",
+        "credit": "Japanese Society of Pathology Core Pictures：Colon adenocarcinoma",
     },
     {
         "number": 8,
@@ -1163,9 +1169,9 @@ PATHOLOGY_SLIDES = [
         "tissue": "肝",
         "topic": "肝胆与消化系统病变",
         "features": "肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/9/94/Cirrhosis_high_mag.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Cirrhosis_high_mag.jpg",
-        "credit": "Wikimedia Commons：Cirrhosis high magnification",
+        "image": "./public/pathology-cirrhosis.jpg",
+        "page": "https://pathology.or.jp/corepicturesEN/10/c01/08.html",
+        "credit": "Japanese Society of Pathology Core Pictures：Liver cirrhosis",
     },
     {
         "number": 20,
@@ -1173,7 +1179,7 @@ PATHOLOGY_SLIDES = [
         "tissue": "静脉",
         "topic": "循环障碍与血管病变",
         "features": "静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/7/79/Complete_organization_of_thromboembolus_with_recanalization.jpg",
+        "image": "./public/pathology-thrombus-recanalization.jpg",
         "page": "https://commons.wikimedia.org/wiki/File:Complete_organization_of_thromboembolus_with_recanalization.jpg",
         "credit": "Wikimedia Commons：Organized thromboembolus with recanalization",
     },
@@ -1183,7 +1189,7 @@ PATHOLOGY_SLIDES = [
         "tissue": "动脉",
         "topic": "循环障碍与血管病变",
         "features": "内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。",
-        "image": "https://upload.wikimedia.org/wikipedia/commons/f/f2/RCA_atherosclerosis.jpg",
+        "image": "./public/pathology-atherosclerosis.jpg",
         "page": "https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg",
         "credit": "Wikimedia Commons：Coronary atherosclerosis",
     },
@@ -1223,9 +1229,9 @@ PATHOLOGY_SLIDES = [
         "tissue": "脑",
         "topic": "急性炎症与感染",
         "features": "蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。",
-        "image": "https://www.meddean.luc.edu/lumen/meded/mech/cases/case5/neuro05.jpg",
-        "page": "https://www.meddean.luc.edu/lumen/meded/mech/cases/case5/list.htm",
-        "credit": "Loyola University Medical Education：Acute meningitis",
+        "image": "./public/pathology-purulent-meningitis.jpg",
+        "page": "https://peir.path.uab.edu/library/picture.php?/10775",
+        "credit": "PEIR Digital Library：Bacterial meningitis",
     },
     {
         "number": 30,
@@ -1245,6 +1251,30 @@ def parse_pathology_questions():
     topic_notes = {topic["name"]: topic["note"] for topic in PATHOLOGY_TOPICS}
     questions = []
     diagnoses = [slide["diagnosis"] for slide in PATHOLOGY_SLIDES]
+    tissues = list(dict.fromkeys(slide["tissue"] for slide in PATHOLOGY_SLIDES))
+
+    def image_payload(slide):
+        return {
+            "src": slide["image"],
+            "alt": "病理显微切片图",
+            "caption": "",
+            "page": slide["page"],
+            "credit": slide["credit"],
+        }
+
+    def choice_set(correct, pool, offset):
+        distractors = []
+        cursor = offset
+        candidates = [item for item in pool if item != correct]
+        while len(distractors) < 3 and candidates:
+            candidate = candidates[cursor % len(candidates)]
+            if candidate not in distractors:
+                distractors.append(candidate)
+            cursor += 1
+        correct_position = offset % 4
+        ordered = distractors[:]
+        ordered.insert(correct_position, correct)
+        return {letters[i]: ordered[i] for i in range(4)}, letters[correct_position]
 
     for index, slide in enumerate(PATHOLOGY_SLIDES):
         same_topic = [
@@ -1257,43 +1287,47 @@ def parse_pathology_questions():
             for item in PATHOLOGY_SLIDES
             if item["diagnosis"] != slide["diagnosis"] and item not in same_topic
         ]
-        distractors = []
-        cursor = index
-        while len(distractors) < 3 and pool:
-            candidate = pool[cursor % len(pool)]["diagnosis"]
-            if candidate not in distractors and candidate != slide["diagnosis"]:
-                distractors.append(candidate)
-            cursor += 1
-
-        correct_position = index % 4
-        ordered = distractors[:]
-        ordered.insert(correct_position, slide["diagnosis"])
-        options = {letters[i]: ordered[i] for i in range(4)}
-        answer = letters[correct_position]
+        options, answer = choice_set(slide["diagnosis"], [item["diagnosis"] for item in pool], index)
         answer_text = options[answer]
         source_file = "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索"
         questions.append(
             {
-                "id": f"path-{index + 1:04d}",
+                "id": f"path-dx-{index + 1:04d}",
                 "source": "原题（老师配套习题）",
                 "sourceFile": source_file,
                 "number": index + 1,
                 "type": "single",
-                "stem": f"观察图中{slide['tissue']}切片的局部形态，最可能的病理诊断是？",
+                "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
                 "options": options,
                 "answer": answer,
                 "explanation": (
                     f"答案为 {answer}：{answer_text}。镜下要点：{slide['features']} "
+                    f"器官/组织：{slide['tissue']}。"
                     f"考点：{slide['topic']}。{topic_notes[slide['topic']]}"
                 ),
                 "knowledge": [slide["topic"]],
-                "image": {
-                    "src": slide["image"],
-                    "alt": f"{slide['diagnosis']}显微切片图",
-                    "caption": f"{slide['tissue']}切片示教图：用于训练识别{slide['diagnosis']}的局部镜下特征",
-                    "page": slide["page"],
-                    "credit": slide["credit"],
-                },
+                "image": image_payload(slide),
+            }
+        )
+
+        organ_options, organ_answer = choice_set(slide["tissue"], tissues, index + 1)
+        organ_answer_text = organ_options[organ_answer]
+        questions.append(
+            {
+                "id": f"path-organ-{index + 1:04d}",
+                "source": "新编拓展题（AI深度改编）",
+                "sourceFile": source_file,
+                "number": len(PATHOLOGY_SLIDES) + index + 1,
+                "type": "single",
+                "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+                "options": organ_options,
+                "answer": organ_answer,
+                "explanation": (
+                    f"答案为 {organ_answer}：{organ_answer_text}。该图对应诊断为{slide['diagnosis']}；"
+                    f"识别依据：{slide['features']} 先判断组织来源，再结合局部病变形态确定诊断。"
+                ),
+                "knowledge": ["器官/组织识别"],
+                "image": image_payload(slide),
             }
         )
 
@@ -1302,6 +1336,371 @@ def parse_pathology_questions():
         "parsed": len(questions),
         "diagnoses": diagnoses,
         "localImages": sum(1 for slide in PATHOLOGY_SLIDES if slide["image"].startswith("./public/")),
+        "diagnosisQuestions": len(PATHOLOGY_SLIDES),
+        "organQuestions": len(PATHOLOGY_SLIDES),
+    }
+    return questions, audit
+
+
+MICROBIOLOGY_TOPICS = [
+    {
+        "name": "细菌学总论",
+        "note": "重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+    },
+    {
+        "name": "常见细菌与致病机制",
+        "note": "重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+    },
+    {
+        "name": "病毒学",
+        "note": "重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+    },
+    {
+        "name": "真菌学",
+        "note": "重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+    },
+    {
+        "name": "免疫与疫苗",
+        "note": "重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+    },
+    {
+        "name": "微生物检验与防治",
+        "note": "重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+    },
+]
+
+
+MICROBIOLOGY_KEYWORDS = {
+    "细菌学总论": [
+        "细菌",
+        "正常微生物群",
+        "质粒",
+        "F质粒",
+        "转座子",
+        "生长",
+        "芽孢",
+        "菌毛",
+        "鞭毛",
+        "荚膜",
+        "二分裂",
+        "毒血症",
+        "菌血症",
+        "败血症",
+        "内毒素",
+        "外毒素",
+    ],
+    "常见细菌与致病机制": [
+        "伤寒",
+        "沙门",
+        "结核",
+        "分枝杆菌",
+        "破伤风",
+        "肉毒",
+        "白喉",
+        "炭疽",
+        "霍乱",
+        "淋病",
+        "梅毒",
+        "螺旋体",
+        "支原体",
+        "衣原体",
+        "立克次体",
+        "链球菌",
+        "葡萄球菌",
+    ],
+    "病毒学": [
+        "病毒",
+        "噬菌体",
+        "EBV",
+        "CMV",
+        "巨细胞病毒",
+        "脊髓灰质炎",
+        "肝炎",
+        "HSV",
+        "HIV",
+        "流感",
+        "冠状病毒",
+        "包涵体",
+        "复制",
+        "吸附",
+        "穿入",
+        "脱壳",
+    ],
+    "真菌学": ["真菌", "皮肤癣菌", "癣菌", "小孢子", "毛癣菌", "白假丝酵母", "新生隐球菌"],
+    "免疫与疫苗": ["疫苗", "抗体", "抗原", "免疫", "sIgA", "CTL", "血清学", "异嗜性抗体", "基因工程疫苗"],
+    "微生物检验与防治": ["诊断", "培养", "标本", "染色", "检查", "试验", "耐药", "抗生素", "消毒", "灭菌", "外斐反应"],
+}
+
+
+def decode_microbiology_pdf():
+    if not MICROBIOLOGY_PDF.exists():
+        return ""
+    try:
+        import pdfplumber
+    except ImportError:
+        return ""
+    pages = []
+    with pdfplumber.open(MICROBIOLOGY_PDF) as pdf:
+        for page in pdf.pages:
+            pages.append(page.extract_text() or "")
+    text = unicodedata.normalize("NFKC", "\n".join(pages))
+    text = text.translate(
+        str.maketrans(
+            {
+                "⼀": "一",
+                "⼆": "二",
+                "⽣": "生",
+                "⽤": "用",
+                "⾎": "血",
+                "⼈": "人",
+                "⼝": "口",
+                "⿐": "鼻",
+                "⽿": "耳",
+                "⽪": "皮",
+                "⽑": "毛",
+                "⼦": "子",
+                "⼩": "小",
+                "⼤": "大",
+                "⼗": "十",
+                "⾊": "色",
+                "⽀": "支",
+                "⾝": "身",
+                "⽩": "白",
+                "⻛": "风",
+                "⻔": "门",
+                "⻅": "见",
+                "⻜": "飞",
+                "⻩": "黄",
+                "⻢": "马",
+                "⻩": "黄",
+                "⻓": "长",
+                "⻝": "食",
+                "⻉": "贝",
+                "⻤": "鬼",
+                "⾁": "肉",
+                "⾻": "骨",
+                "⿊": "黑",
+                "．": ".",
+                "　": " ",
+                "√": "",
+                "×": "",
+                "∞": "",
+                "←": "",
+                "→": "",
+                "｡": "",
+                "⇌": "",
+                "↑": "",
+                "↓": "",
+                "，": "，",
+            }
+        )
+    )
+    text = unicodedata.normalize("NFKC", text)
+    text = re.sub(r"\(cid:\d+\)", "", text)
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text
+
+
+def clean_microbiology_text(value):
+    value = normalize_space(value)
+    value = re.sub(r"\(cid:\d+\)", "", value)
+    value = re.sub(r"^[,，.。'’、\s]+", "", value)
+    value = re.sub(r"\s+", "", value)
+    value = re.sub(r"[√×∞←→｡⇌↑↓]", "", value)
+    value = re.sub(r"(?<=[\u4e00-\u9fff])[Pp]$", "", value)
+    return value.strip()
+
+
+def infer_microbiology_topic(stem, options):
+    haystack = stem + " " + " ".join(options.values())
+    scored = []
+    for topic, keys in MICROBIOLOGY_KEYWORDS.items():
+        score = sum(1 for key in keys if key and key in haystack)
+        if score:
+            scored.append((score, topic))
+    if scored:
+        return max(scored, key=lambda item: item[0])[1]
+    return "细菌学总论"
+
+
+def parse_microbiology_questions():
+    text = decode_microbiology_pdf()
+    if not text:
+        return [], {"source": MICROBIOLOGY_PDF.name, "parsed": 0, "ignored": 0}
+
+    shared_token = "\u5171\u7528"
+    noise_prefix = "\u4e00xX\u03c3\u03b8\u0398"
+    answer_re = re.compile(r"[（(]\s*([A-E])\s*[)）]")
+    number_re = re.compile(r"^(\d{1,3}|[23][sS]\d)\s*[.、,]?\s*(.*)")
+    option_start_re = re.compile(rf"^[{noise_prefix}]*\s*[A-E]\s*[.、,]?")
+    standalone_noise_re = re.compile(
+        r"^[\s\-—·.。、“”‘’\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341Xx\u03c3\u03b8\u0398]+$"
+    )
+
+    lines = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        line = re.sub(r"\(cid:\d+\)", "", line)
+        line = re.sub(r"\s+", " ", line).strip()
+        if not line or standalone_noise_re.fullmatch(line):
+            continue
+        lines.append(line)
+
+    def source_number(token, previous):
+        digits = re.sub(r"\D", "", token.replace("s", "5").replace("S", "5"))
+        number = int(digits) if digits else None
+        if number == 711 and 105 <= previous <= 112:
+            return 111
+        if number == 399 and previous >= 295:
+            return 300
+        return number
+
+    def plausible_number(number, previous):
+        if number is None:
+            return False
+        if previous == 0:
+            return number == 1
+        return number > previous and number - previous <= 12
+
+    def find_question_markers():
+        markers = []
+        previous = 0
+        index = 0
+        while index < len(lines):
+            match = number_re.match(lines[index])
+            if not match:
+                index += 1
+                continue
+            number = source_number(match.group(1), previous)
+            if not plausible_number(number, previous):
+                index += 1
+                continue
+
+            joined = match.group(2)
+            answer_end = index
+            cursor = index
+            while not answer_re.search(joined) and cursor + 1 < len(lines):
+                next_line = lines[cursor + 1]
+                if option_start_re.match(next_line):
+                    break
+                next_match = number_re.match(next_line)
+                if next_match and plausible_number(source_number(next_match.group(1), previous), previous):
+                    break
+                cursor += 1
+                joined += next_line
+                answer_end = cursor
+                if cursor - index > 12:
+                    break
+
+            if answer_re.search(joined):
+                markers.append({"sourceNumber": number, "start": index, "answerEnd": answer_end, "joined": joined})
+                previous = number
+                index = answer_end + 1
+            else:
+                index += 1
+        return markers
+
+    def parse_options(option_lines):
+        options = {}
+        current = None
+        embedded_option_re = re.compile(rf"([{noise_prefix}]+)([A-E])(?=[\u4e00-\u9fff])")
+        option_re = re.compile(rf"^\s*[{noise_prefix}]*\s*([A-E])\s*[.、,]?\s*(.*)")
+        for original in option_lines:
+            expanded = embedded_option_re.sub(r"\1\n\2", original)
+            for line in expanded.splitlines():
+                match = option_re.match(line)
+                if match:
+                    key = match.group(1)
+                    value = clean_microbiology_text(match.group(2))
+                    if value and key not in options:
+                        options[key] = value
+                        current = key
+                    elif key in options:
+                        current = key
+                elif current and shared_token not in line and not answer_re.search(line):
+                    options[current] = clean_microbiology_text(options[current] + line)
+        return options
+
+    def shared_bank_from_gap(gap_lines):
+        shared_indexes = [index for index, line in enumerate(gap_lines) if shared_token in line]
+        if not shared_indexes:
+            return {}
+        return parse_options(gap_lines[shared_indexes[-1] + 1 :])
+
+    def lines_before_shared_bank(option_lines):
+        for index, line in enumerate(option_lines):
+            if shared_token in line:
+                return option_lines[:index]
+        return option_lines
+
+    markers = find_question_markers()
+    topic_notes = {topic["name"]: topic["note"] for topic in MICROBIOLOGY_TOPICS}
+    questions = []
+    ignored = 0
+    previous_answer_end = -1
+    shared_options = {}
+    shared_group_active = False
+
+    for index, marker in enumerate(markers):
+        gap_lines = lines[previous_answer_end + 1 : marker["start"]] if previous_answer_end >= 0 else []
+        new_shared_options = shared_bank_from_gap(gap_lines)
+        if len(new_shared_options) >= 4:
+            shared_options = new_shared_options
+            shared_group_active = True
+
+        answer_match = answer_re.search(marker["joined"])
+        before_answer = marker["joined"][: answer_match.start()]
+        after_answer = marker["joined"][answer_match.end() :]
+        stem = clean_microbiology_text(before_answer) or clean_microbiology_text(after_answer)
+        answer = answer_match.group(1)
+        next_start = markers[index + 1]["start"] if index + 1 < len(markers) else len(lines)
+        option_lines = lines_before_shared_bank(lines[marker["answerEnd"] + 1 : next_start])
+        options = parse_options(option_lines)
+        if len(options) >= 4:
+            shared_group_active = False
+        elif shared_group_active and shared_options:
+            options = dict(shared_options)
+
+        if not stem or len(options) < 4 or answer not in options:
+            ignored += 1
+            previous_answer_end = marker["answerEnd"]
+            continue
+        topic = infer_microbiology_topic(stem, options)
+        answer_text = options.get(answer, "")
+        questions.append(
+            {
+                "id": "",
+                "source": "原题（老师配套习题）",
+                "sourceFile": "1_微生物300道题.pdf",
+                "number": marker["sourceNumber"],
+                "sourceNumber": marker["sourceNumber"],
+                "type": "single",
+                "stem": stem,
+                "options": options,
+                "answer": answer,
+                "explanation": f"答案为 {answer}：{answer_text}。考点：{topic}。{topic_notes[topic]}",
+                "knowledge": [topic],
+            }
+        )
+        previous_answer_end = marker["answerEnd"]
+
+    questions.sort(key=lambda item: item["sourceNumber"])
+    parsed_source_numbers = {question["sourceNumber"] for question in questions}
+    missing_source_numbers = [number for number in range(1, 301) if number not in parsed_source_numbers]
+    for index, question in enumerate(questions, 1):
+        question["id"] = f"micro-{index:04d}"
+        question["number"] = index
+
+    audit = {
+        "source": MICROBIOLOGY_PDF.name,
+        "advertisedCount": 300,
+        "questionMarkers": len(markers),
+        "parsed": len(questions),
+        "ignored": ignored,
+        "missingSourceNumbers": missing_source_numbers,
     }
     return questions, audit
 
@@ -1430,8 +1829,8 @@ def main():
             "subject": "病理切片",
             "subjectId": "pathology-slides",
             "school": "扬州大学医学部",
-            "originalCount": len(pathology),
-            "extendedCount": 0,
+            "originalCount": sum(1 for q in pathology if q["source"].startswith("原题")),
+            "extendedCount": sum(1 for q in pathology if q["source"].startswith("新编")),
             "missingAnswerCount": sum(1 for q in pathology if not q.get("answer")),
             "source": "病理切片整理137937885386235187.1ea17c5a4335782.doc",
             "parseAudit": pathology_audit,
@@ -1448,12 +1847,31 @@ def main():
         "questions": pathology,
     }
 
+    microbiology, microbiology_audit = parse_microbiology_questions()
+    microbiology_payload = {
+        "meta": {
+            "project": "皮特智学",
+            "subject": "医学微生物学",
+            "subjectId": "medical-microbiology",
+            "school": "扬州大学医学部",
+            "originalCount": len(microbiology),
+            "extendedCount": 0,
+            "missingAnswerCount": sum(1 for q in microbiology if not q.get("answer")),
+            "source": "1_微生物300道题.pdf",
+            "parseAudit": microbiology_audit,
+        },
+        "topics": MICROBIOLOGY_TOPICS,
+        "resources": [],
+        "questions": microbiology,
+    }
+
     subjects = {
         "medical-psychology": psychology_payload,
         "medical-statistics": statistics_payload,
         "medical-parasitology": parasitology_payload,
         "xigai": xigai_payload,
         "pathology-slides": pathology_payload,
+        "medical-microbiology": microbiology_payload,
     }
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
