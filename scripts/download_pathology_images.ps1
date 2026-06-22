@@ -15,7 +15,7 @@ $items = @(
   },
   @{
     Name = "pathology-colon-adenocarcinoma.jpg"
-    Url = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Colorectal%20adenocarcinoma%20%282%29.jpg?width=960"
+    Url = "https://pathology.or.jp/corepicturesEN/09/c09/images/02_m.jpg"
   },
   @{
     Name = "pathology-schistosomiasis-liver.jpg"
@@ -39,7 +39,7 @@ $items = @(
   },
   @{
     Name = "pathology-cirrhosis.jpg"
-    Url = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cirrhosis%20high%20mag.jpg?width=960"
+    Url = "https://pathology.or.jp/corepicturesEN/10/c01/images/08_m.jpg"
   },
   @{
     Name = "pathology-thrombus-recanalization.jpg"
@@ -63,7 +63,7 @@ $items = @(
   },
   @{
     Name = "pathology-purulent-meningitis.jpg"
-    Url = "https://meddean.luc.edu/lumen/meded/orfpath/cns/mgmen4.jpg"
+    Url = "https://peir.path.uab.edu/library/_data/i/upload/2013/08/01/20130801102416-7675e733-la.jpg"
   },
   @{
     Name = "pathology-fatty-liver.jpg"
