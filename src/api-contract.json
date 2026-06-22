@@ -7,6 +7,36 @@
       "name": "医学心理学",
       "school": "扬州大学医学部",
       "phase": "首期"
+    },
+    {
+      "id": "medical-statistics",
+      "name": "医学统计学",
+      "school": "扬州大学医学部",
+      "phase": "已上线"
+    },
+    {
+      "id": "medical-parasitology",
+      "name": "医学寄生虫学",
+      "school": "扬州大学医学部",
+      "phase": "已上线"
+    },
+    {
+      "id": "xigai",
+      "name": "习概",
+      "school": "扬州大学医学部",
+      "phase": "已上线"
+    },
+    {
+      "id": "pathology-slides",
+      "name": "病理切片",
+      "school": "扬州大学医学部",
+      "phase": "已上线"
+    },
+    {
+      "id": "medical-microbiology",
+      "name": "医学微生物学",
+      "school": "扬州大学医学部",
+      "phase": "已上线"
     }
   ],
   "reservedEndpoints": [
@@ -42,7 +72,7 @@
       "B": "string",
       "C": "string",
       "D": "string",
-      "E": "string"
+      "E": "string | optional"
     },
     "answer": "string",
     "explanation": "string",
