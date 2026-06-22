@@ -25374,12 +25374,12 @@ window.PETE_SUBJECTS = {
       "subjectId": "pathology-slides",
       "school": "扬州大学医学部",
       "originalCount": 17,
-      "extendedCount": 0,
+      "extendedCount": 17,
       "missingAnswerCount": 0,
       "source": "病理切片整理137937885386235187.1ea17c5a4335782.doc",
       "parseAudit": {
         "source": "pathology-slides.doc",
-        "parsed": 17,
+        "parsed": 34,
         "diagnoses": [
           "急性蜂窝织性阑尾炎",
           "肺水肿",
@@ -25399,7 +25399,9 @@ window.PETE_SUBJECTS = {
           "化脓性脑膜炎",
           "肝脂肪变性"
         ],
-        "localImages": 12
+        "localImages": 17,
+        "diagnosisQuestions": 17,
+        "organQuestions": 17
       }
     },
     "topics": [
@@ -25422,6 +25424,10 @@ window.PETE_SUBJECTS = {
       {
         "name": "妊娠滋养细胞与胎盘病变",
         "note": "重点识别绒毛水肿、间质血管消失和滋养层细胞增生。"
+      },
+      {
+        "name": "器官/组织识别",
+        "note": "先从上皮、腺体、肺泡、肝小叶、血管壁、脑膜、胎盘绒毛等结构判断来源，再进入病变诊断。"
       }
     ],
     "resources": [
@@ -25443,7 +25449,7 @@ window.PETE_SUBJECTS = {
       {
         "title": "肠腺癌",
         "type": "结肠",
-        "src": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Colorectal_adenocarcinoma_(2).jpg"
+        "src": "./public/pathology-colon-adenocarcinoma.jpg"
       },
       {
         "title": "血吸虫肝",
@@ -25473,17 +25479,17 @@ window.PETE_SUBJECTS = {
       {
         "title": "肝硬化",
         "type": "肝",
-        "src": "https://upload.wikimedia.org/wikipedia/commons/9/94/Cirrhosis_high_mag.jpg"
+        "src": "./public/pathology-cirrhosis.jpg"
       },
       {
         "title": "血栓",
         "type": "静脉",
-        "src": "https://upload.wikimedia.org/wikipedia/commons/7/79/Complete_organization_of_thromboembolus_with_recanalization.jpg"
+        "src": "./public/pathology-thrombus-recanalization.jpg"
       },
       {
         "title": "动脉粥样硬化",
         "type": "动脉",
-        "src": "https://upload.wikimedia.org/wikipedia/commons/f/f2/RCA_atherosclerosis.jpg"
+        "src": "./public/pathology-atherosclerosis.jpg"
       },
       {
         "title": "胃溃疡",
@@ -25503,7 +25509,7 @@ window.PETE_SUBJECTS = {
       {
         "title": "化脓性脑膜炎",
         "type": "脑",
-        "src": "https://www.meddean.luc.edu/lumen/meded/mech/cases/case5/neuro05.jpg"
+        "src": "./public/pathology-purulent-meningitis.jpg"
       },
       {
         "title": "肝脂肪变性",
@@ -25513,12 +25519,12 @@ window.PETE_SUBJECTS = {
     ],
     "questions": [
       {
-        "id": "path-0001",
+        "id": "path-dx-0001",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 1,
         "type": "single",
-        "stem": "观察图中阑尾切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "急性蜂窝织性阑尾炎",
           "B": "血吸虫肝",
@@ -25526,25 +25532,51 @@ window.PETE_SUBJECTS = {
           "D": "肺结核"
         },
         "answer": "A",
-        "explanation": "答案为 A：急性蜂窝织性阑尾炎。镜下要点：粘膜层、粘膜下层、肌层及浆膜层均充血水肿，组织内大量中性粒细胞弥漫性浸润，可见渗出物。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "explanation": "答案为 A：急性蜂窝织性阑尾炎。镜下要点：粘膜层、粘膜下层、肌层及浆膜层均充血水肿，组织内大量中性粒细胞弥漫性浸润，可见渗出物。 器官/组织：阑尾。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
           "src": "./public/pathology-appendicitis.jpg",
-          "alt": "急性蜂窝织性阑尾炎显微切片图",
-          "caption": "阑尾切片示教图：用于训练识别急性蜂窝织性阑尾炎的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:Acute_Appendicitis,_HE_1.jpg",
           "credit": "Wikimedia Commons：Acute Appendicitis, HE"
         }
       },
       {
-        "id": "path-0002",
+        "id": "path-organ-0001",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 18,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "结肠",
+          "B": "阑尾",
+          "C": "肝",
+          "D": "胎盘"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：阑尾。该图对应诊断为急性蜂窝织性阑尾炎；识别依据：粘膜层、粘膜下层、肌层及浆膜层均充血水肿，组织内大量中性粒细胞弥漫性浸润，可见渗出物。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-appendicitis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:Acute_Appendicitis,_HE_1.jpg",
+          "credit": "Wikimedia Commons：Acute Appendicitis, HE"
+        }
+      },
+      {
+        "id": "path-dx-0002",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 2,
         "type": "single",
-        "stem": "观察图中肺切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "血栓",
           "B": "肺水肿",
@@ -25552,25 +25584,51 @@ window.PETE_SUBJECTS = {
           "D": "急性蜂窝织性阑尾炎"
         },
         "answer": "B",
-        "explanation": "答案为 B：肺水肿。镜下要点：肺泡壁毛细血管扩张，充满红细胞；肺泡腔内有大量均匀红染的水肿液。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "explanation": "答案为 B：肺水肿。镜下要点：肺泡壁毛细血管扩张，充满红细胞；肺泡腔内有大量均匀红染的水肿液。 器官/组织：肺。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
           "src": "./public/pathology-pulmonary-edema.jpg",
-          "alt": "肺水肿显微切片图",
-          "caption": "肺切片示教图：用于训练识别肺水肿的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://pathology.or.jp/corepicturesEN/05/c01/04.html",
           "credit": "Japanese Society of Pathology Core Pictures：Pulmonary edema"
         }
       },
       {
-        "id": "path-0003",
+        "id": "path-organ-0002",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 19,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "肝",
+          "B": "胎盘",
+          "C": "肺",
+          "D": "淋巴结"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：肺。该图对应诊断为肺水肿；识别依据：肺泡壁毛细血管扩张，充满红细胞；肺泡腔内有大量均匀红染的水肿液。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-pulmonary-edema.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathology.or.jp/corepicturesEN/05/c01/04.html",
+          "credit": "Japanese Society of Pathology Core Pictures：Pulmonary edema"
+        }
+      },
+      {
+        "id": "path-dx-0003",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 3,
         "type": "single",
-        "stem": "观察图中肺切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "动脉粥样硬化",
           "B": "急性蜂窝织性阑尾炎",
@@ -25578,25 +25636,51 @@ window.PETE_SUBJECTS = {
           "D": "肠腺癌"
         },
         "answer": "C",
-        "explanation": "答案为 C：肺脂肪栓塞。镜下要点：肺间质血管和肺泡壁毛细血管内可见大小不一的圆形或不规则形脂肪栓塞物。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "explanation": "答案为 C：肺脂肪栓塞。镜下要点：肺间质血管和肺泡壁毛细血管内可见大小不一的圆形或不规则形脂肪栓塞物。 器官/组织：肺。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
           "src": "./public/pathology-fat-embolism.jpg",
-          "alt": "肺脂肪栓塞显微切片图",
-          "caption": "肺切片示教图：用于训练识别肺脂肪栓塞的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:Histopathology_of_a_pulmonary_artery_with_fat_embolism_and_a_bone_marrow_fragment.jpg",
           "credit": "Wikimedia Commons：Pulmonary artery fat embolism"
         }
       },
       {
-        "id": "path-0004",
+        "id": "path-organ-0003",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 20,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "胎盘",
+          "B": "淋巴结",
+          "C": "皮肤",
+          "D": "肺"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：肺。该图对应诊断为肺脂肪栓塞；识别依据：肺间质血管和肺泡壁毛细血管内可见大小不一的圆形或不规则形脂肪栓塞物。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-fat-embolism.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:Histopathology_of_a_pulmonary_artery_with_fat_embolism_and_a_bone_marrow_fragment.jpg",
+          "credit": "Wikimedia Commons：Pulmonary artery fat embolism"
+        }
+      },
+      {
+        "id": "path-dx-0004",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 4,
         "type": "single",
-        "stem": "观察图中结肠切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "肺水肿",
           "B": "肺脂肪栓塞",
@@ -25604,25 +25688,51 @@ window.PETE_SUBJECTS = {
           "D": "肠腺癌"
         },
         "answer": "D",
-        "explanation": "答案为 D：肠腺癌。镜下要点：癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。 考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
+        "explanation": "答案为 D：肠腺癌。镜下要点：癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。 器官/组织：结肠。考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
         "knowledge": [
           "肿瘤病理"
         ],
         "image": {
-          "src": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Colorectal_adenocarcinoma_(2).jpg",
-          "alt": "肠腺癌显微切片图",
-          "caption": "结肠切片示教图：用于训练识别肠腺癌的局部镜下特征",
-          "page": "https://en.wikipedia.org/wiki/Histopathology_of_colorectal_adenocarcinoma",
-          "credit": "Wikimedia Commons：Colorectal adenocarcinoma"
+          "src": "./public/pathology-colon-adenocarcinoma.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathology.or.jp/corepicturesEN/09/c09/02.html",
+          "credit": "Japanese Society of Pathology Core Pictures：Colon adenocarcinoma"
         }
       },
       {
-        "id": "path-0005",
+        "id": "path-organ-0004",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 21,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "结肠",
+          "B": "淋巴结",
+          "C": "皮肤",
+          "D": "静脉"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：结肠。该图对应诊断为肠腺癌；识别依据：癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-colon-adenocarcinoma.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathology.or.jp/corepicturesEN/09/c09/02.html",
+          "credit": "Japanese Society of Pathology Core Pictures：Colon adenocarcinoma"
+        }
+      },
+      {
+        "id": "path-dx-0005",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 5,
         "type": "single",
-        "stem": "观察图中肝切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "血吸虫肝",
           "B": "化脓性脑膜炎",
@@ -25630,25 +25740,51 @@ window.PETE_SUBJECTS = {
           "D": "肺脂肪栓塞"
         },
         "answer": "A",
-        "explanation": "答案为 A：血吸虫肝。镜下要点：慢性虫卵结节内可见异物巨细胞、淋巴细胞浸润和肉芽组织增生，可见钙化死卵。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "explanation": "答案为 A：血吸虫肝。镜下要点：慢性虫卵结节内可见异物巨细胞、淋巴细胞浸润和肉芽组织增生，可见钙化死卵。 器官/组织：肝。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
           "src": "./public/pathology-schistosomiasis-liver.jpg",
-          "alt": "血吸虫肝显微切片图",
-          "caption": "肝切片示教图：用于训练识别血吸虫肝的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://pathology.or.jp/corepicturesEN/10/c06/02.html",
           "credit": "Japanese Society of Pathology Core Pictures：Schistosomiasis"
         }
       },
       {
-        "id": "path-0006",
+        "id": "path-organ-0005",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 22,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "皮肤",
+          "B": "肝",
+          "C": "静脉",
+          "D": "动脉"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：肝。该图对应诊断为血吸虫肝；识别依据：慢性虫卵结节内可见异物巨细胞、淋巴细胞浸润和肉芽组织增生，可见钙化死卵。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-schistosomiasis-liver.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathology.or.jp/corepicturesEN/10/c06/02.html",
+          "credit": "Japanese Society of Pathology Core Pictures：Schistosomiasis"
+        }
+      },
+      {
+        "id": "path-dx-0006",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 6,
         "type": "single",
-        "stem": "观察图中胎盘切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "转移性印戒细胞癌",
           "B": "水泡状胎块",
@@ -25656,25 +25792,51 @@ window.PETE_SUBJECTS = {
           "D": "大叶性肺炎"
         },
         "answer": "B",
-        "explanation": "答案为 B：水泡状胎块。镜下要点：胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。 考点：妊娠滋养细胞与胎盘病变。重点识别绒毛水肿、间质血管消失和滋养层细胞增生。",
+        "explanation": "答案为 B：水泡状胎块。镜下要点：胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。 器官/组织：胎盘。考点：妊娠滋养细胞与胎盘病变。重点识别绒毛水肿、间质血管消失和滋养层细胞增生。",
         "knowledge": [
           "妊娠滋养细胞与胎盘病变"
         ],
         "image": {
           "src": "./public/pathology-hydatidiform-mole.jpg",
-          "alt": "水泡状胎块显微切片图",
-          "caption": "胎盘切片示教图：用于训练识别水泡状胎块的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:Hydatidiform_mole_(1)_complete_type.jpg",
           "credit": "Wikimedia Commons：Hydatidiform mole"
         }
       },
       {
-        "id": "path-0007",
+        "id": "path-organ-0006",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 23,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "静脉",
+          "B": "动脉",
+          "C": "胎盘",
+          "D": "胃"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：胎盘。该图对应诊断为水泡状胎块；识别依据：胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-hydatidiform-mole.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:Hydatidiform_mole_(1)_complete_type.jpg",
+          "credit": "Wikimedia Commons：Hydatidiform mole"
+        }
+      },
+      {
+        "id": "path-dx-0007",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 7,
         "type": "single",
-        "stem": "观察图中淋巴结切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "水泡状胎块",
           "B": "大叶性肺炎",
@@ -25682,25 +25844,51 @@ window.PETE_SUBJECTS = {
           "D": "肝硬化"
         },
         "answer": "C",
-        "explanation": "答案为 C：转移性印戒细胞癌。镜下要点：淋巴结边缘窦处可见大量印戒细胞，胞浆内黏液将细胞核挤向一侧。 考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
+        "explanation": "答案为 C：转移性印戒细胞癌。镜下要点：淋巴结边缘窦处可见大量印戒细胞，胞浆内黏液将细胞核挤向一侧。 器官/组织：淋巴结。考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
         "knowledge": [
           "肿瘤病理"
         ],
         "image": {
           "src": "./public/pathology-signet-ring-node.jpg",
-          "alt": "转移性印戒细胞癌显微切片图",
-          "caption": "淋巴结切片示教图：用于训练识别转移性印戒细胞癌的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://patologia.cm.umk.pl/atlas/lymphatics/signet/",
           "credit": "Patologia CM UMK：Metastatic signet-ring cell carcinoma"
         }
       },
       {
-        "id": "path-0008",
+        "id": "path-organ-0007",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 24,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "动脉",
+          "B": "胃",
+          "C": "肾",
+          "D": "淋巴结"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：淋巴结。该图对应诊断为转移性印戒细胞癌；识别依据：淋巴结边缘窦处可见大量印戒细胞，胞浆内黏液将细胞核挤向一侧。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-signet-ring-node.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://patologia.cm.umk.pl/atlas/lymphatics/signet/",
+          "credit": "Patologia CM UMK：Metastatic signet-ring cell carcinoma"
+        }
+      },
+      {
+        "id": "path-dx-0008",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 8,
         "type": "single",
-        "stem": "观察图中皮肤切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "大叶性肺炎",
           "B": "肝硬化",
@@ -25708,25 +25896,51 @@ window.PETE_SUBJECTS = {
           "D": "鳞状细胞癌"
         },
         "answer": "D",
-        "explanation": "答案为 D：鳞状细胞癌。镜下要点：癌细胞呈片状或巢状排列，细胞多边形、胞浆丰富、核异型明显；癌巢中心角化形成癌珠。 考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
+        "explanation": "答案为 D：鳞状细胞癌。镜下要点：癌细胞呈片状或巢状排列，细胞多边形、胞浆丰富、核异型明显；癌巢中心角化形成癌珠。 器官/组织：皮肤。考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
         "knowledge": [
           "肿瘤病理"
         ],
         "image": {
           "src": "./public/pathology-squamous-cell-carcinoma.jpg",
-          "alt": "鳞状细胞癌显微切片图",
-          "caption": "皮肤切片示教图：用于训练识别鳞状细胞癌的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://pathology.or.jp/corepictures2010/20/c09/04.html",
           "credit": "Japanese Society of Pathology Core Pictures：Squamous cell carcinoma"
         }
       },
       {
-        "id": "path-0009",
+        "id": "path-organ-0008",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 25,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "皮肤",
+          "B": "胃",
+          "C": "肾",
+          "D": "脑"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：皮肤。该图对应诊断为鳞状细胞癌；识别依据：癌细胞呈片状或巢状排列，细胞多边形、胞浆丰富、核异型明显；癌巢中心角化形成癌珠。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-squamous-cell-carcinoma.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathology.or.jp/corepictures2010/20/c09/04.html",
+          "credit": "Japanese Society of Pathology Core Pictures：Squamous cell carcinoma"
+        }
+      },
+      {
+        "id": "path-dx-0009",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 9,
         "type": "single",
-        "stem": "观察图中肺切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "大叶性肺炎",
           "B": "水泡状胎块",
@@ -25734,25 +25948,51 @@ window.PETE_SUBJECTS = {
           "D": "鳞状细胞癌"
         },
         "answer": "A",
-        "explanation": "答案为 A：大叶性肺炎。镜下要点：病变均匀一致，肺泡腔内充满大量纤维素和嗜中性白细胞，纤维素互相结成网。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "explanation": "答案为 A：大叶性肺炎。镜下要点：病变均匀一致，肺泡腔内充满大量纤维素和嗜中性白细胞，纤维素互相结成网。 器官/组织：肺。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
           "src": "./public/pathology-lobar-pneumonia.jpg",
-          "alt": "大叶性肺炎显微切片图",
-          "caption": "肺切片示教图：用于训练识别大叶性肺炎的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:Lung_biopsy_showing_lobar_pneumonia_10X.jpg",
           "credit": "Wikimedia Commons：Lobar pneumonia"
         }
       },
       {
-        "id": "path-0010",
+        "id": "path-organ-0009",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 26,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "肾",
+          "B": "肺",
+          "C": "脑",
+          "D": "阑尾"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：肺。该图对应诊断为大叶性肺炎；识别依据：病变均匀一致，肺泡腔内充满大量纤维素和嗜中性白细胞，纤维素互相结成网。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-lobar-pneumonia.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:Lung_biopsy_showing_lobar_pneumonia_10X.jpg",
+          "credit": "Wikimedia Commons：Lobar pneumonia"
+        }
+      },
+      {
+        "id": "path-dx-0010",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 10,
         "type": "single",
-        "stem": "观察图中肝切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "鳞状细胞癌",
           "B": "肝硬化",
@@ -25760,25 +26000,51 @@ window.PETE_SUBJECTS = {
           "D": "血栓"
         },
         "answer": "B",
-        "explanation": "答案为 B：肝硬化。镜下要点：肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。 考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
+        "explanation": "答案为 B：肝硬化。镜下要点：肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。 器官/组织：肝。考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
         "knowledge": [
           "肝胆与消化系统病变"
         ],
         "image": {
-          "src": "https://upload.wikimedia.org/wikipedia/commons/9/94/Cirrhosis_high_mag.jpg",
-          "alt": "肝硬化显微切片图",
-          "caption": "肝切片示教图：用于训练识别肝硬化的局部镜下特征",
-          "page": "https://commons.wikimedia.org/wiki/File:Cirrhosis_high_mag.jpg",
-          "credit": "Wikimedia Commons：Cirrhosis high magnification"
+          "src": "./public/pathology-cirrhosis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathology.or.jp/corepicturesEN/10/c01/08.html",
+          "credit": "Japanese Society of Pathology Core Pictures：Liver cirrhosis"
         }
       },
       {
-        "id": "path-0011",
+        "id": "path-organ-0010",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 27,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "脑",
+          "B": "阑尾",
+          "C": "肝",
+          "D": "肺"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：肝。该图对应诊断为肝硬化；识别依据：肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-cirrhosis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathology.or.jp/corepicturesEN/10/c01/08.html",
+          "credit": "Japanese Society of Pathology Core Pictures：Liver cirrhosis"
+        }
+      },
+      {
+        "id": "path-dx-0011",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 11,
         "type": "single",
-        "stem": "观察图中静脉切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "肝硬化",
           "B": "胃溃疡",
@@ -25786,25 +26052,51 @@ window.PETE_SUBJECTS = {
           "D": "肺结核"
         },
         "answer": "C",
-        "explanation": "答案为 C：血栓。镜下要点：静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "explanation": "答案为 C：血栓。镜下要点：静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。 器官/组织：静脉。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
-          "src": "https://upload.wikimedia.org/wikipedia/commons/7/79/Complete_organization_of_thromboembolus_with_recanalization.jpg",
-          "alt": "血栓显微切片图",
-          "caption": "静脉切片示教图：用于训练识别血栓的局部镜下特征",
+          "src": "./public/pathology-thrombus-recanalization.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:Complete_organization_of_thromboembolus_with_recanalization.jpg",
           "credit": "Wikimedia Commons：Organized thromboembolus with recanalization"
         }
       },
       {
-        "id": "path-0012",
+        "id": "path-organ-0011",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 28,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "阑尾",
+          "B": "肺",
+          "C": "结肠",
+          "D": "静脉"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：静脉。该图对应诊断为血栓；识别依据：静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-thrombus-recanalization.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:Complete_organization_of_thromboembolus_with_recanalization.jpg",
+          "credit": "Wikimedia Commons：Organized thromboembolus with recanalization"
+        }
+      },
+      {
+        "id": "path-dx-0012",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 12,
         "type": "single",
-        "stem": "观察图中动脉切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "胃溃疡",
           "B": "肺结核",
@@ -25812,25 +26104,51 @@ window.PETE_SUBJECTS = {
           "D": "动脉粥样硬化"
         },
         "answer": "D",
-        "explanation": "答案为 D：动脉粥样硬化。镜下要点：内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "explanation": "答案为 D：动脉粥样硬化。镜下要点：内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。 器官/组织：动脉。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
-          "src": "https://upload.wikimedia.org/wikipedia/commons/f/f2/RCA_atherosclerosis.jpg",
-          "alt": "动脉粥样硬化显微切片图",
-          "caption": "动脉切片示教图：用于训练识别动脉粥样硬化的局部镜下特征",
+          "src": "./public/pathology-atherosclerosis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg",
           "credit": "Wikimedia Commons：Coronary atherosclerosis"
         }
       },
       {
-        "id": "path-0013",
+        "id": "path-organ-0012",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 29,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "动脉",
+          "B": "肺",
+          "C": "结肠",
+          "D": "肝"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：动脉。该图对应诊断为动脉粥样硬化；识别依据：内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-atherosclerosis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg",
+          "credit": "Wikimedia Commons：Coronary atherosclerosis"
+        }
+      },
+      {
+        "id": "path-dx-0013",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 13,
         "type": "single",
-        "stem": "观察图中胃切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "胃溃疡",
           "B": "动脉粥样硬化",
@@ -25838,25 +26156,51 @@ window.PETE_SUBJECTS = {
           "D": "肾结核"
         },
         "answer": "A",
-        "explanation": "答案为 A：胃溃疡。镜下要点：可见渗出层、坏死层、肉芽组织层和瘢痕层；肉芽组织内有新生毛细血管、纤维母细胞及慢性炎细胞。 考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
+        "explanation": "答案为 A：胃溃疡。镜下要点：可见渗出层、坏死层、肉芽组织层和瘢痕层；肉芽组织内有新生毛细血管、纤维母细胞及慢性炎细胞。 器官/组织：胃。考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
         "knowledge": [
           "肝胆与消化系统病变"
         ],
         "image": {
           "src": "./public/pathology-gastric-ulcer.jpg",
-          "alt": "胃溃疡显微切片图",
-          "caption": "胃切片示教图：用于训练识别胃溃疡的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://pathorama.ch/pathopic/4977/show",
           "credit": "Pathorama：Gastric ulcer histology"
         }
       },
       {
-        "id": "path-0014",
+        "id": "path-organ-0013",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 30,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "结肠",
+          "B": "胃",
+          "C": "肝",
+          "D": "胎盘"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：胃。该图对应诊断为胃溃疡；识别依据：可见渗出层、坏死层、肉芽组织层和瘢痕层；肉芽组织内有新生毛细血管、纤维母细胞及慢性炎细胞。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-gastric-ulcer.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://pathorama.ch/pathopic/4977/show",
+          "credit": "Pathorama：Gastric ulcer histology"
+        }
+      },
+      {
+        "id": "path-dx-0014",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 14,
         "type": "single",
-        "stem": "观察图中肺切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "动脉粥样硬化",
           "B": "肺结核",
@@ -25864,25 +26208,51 @@ window.PETE_SUBJECTS = {
           "D": "肝脂肪变性"
         },
         "answer": "B",
-        "explanation": "答案为 B：肺结核。镜下要点：可见结核结节和干酪样坏死，周围有类上皮细胞、郎罕斯巨细胞及淋巴细胞浸润。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "explanation": "答案为 B：肺结核。镜下要点：可见结核结节和干酪样坏死，周围有类上皮细胞、郎罕斯巨细胞及淋巴细胞浸润。 器官/组织：肺。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
           "src": "./public/pathology-lung-tuberculosis.jpg",
-          "alt": "肺结核显微切片图",
-          "caption": "肺切片示教图：用于训练识别肺结核的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://eliph.klinikum.uni-heidelberg.de/allg/106/lungentuberkulose",
           "credit": "Heidelberg ELIPH：Lung tuberculosis"
         }
       },
       {
-        "id": "path-0015",
+        "id": "path-organ-0014",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 31,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "胎盘",
+          "B": "淋巴结",
+          "C": "肺",
+          "D": "皮肤"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：肺。该图对应诊断为肺结核；识别依据：可见结核结节和干酪样坏死，周围有类上皮细胞、郎罕斯巨细胞及淋巴细胞浸润。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-lung-tuberculosis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://eliph.klinikum.uni-heidelberg.de/allg/106/lungentuberkulose",
+          "credit": "Heidelberg ELIPH：Lung tuberculosis"
+        }
+      },
+      {
+        "id": "path-dx-0015",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 15,
         "type": "single",
-        "stem": "观察图中肾切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "胃溃疡",
           "B": "肝脂肪变性",
@@ -25890,25 +26260,51 @@ window.PETE_SUBJECTS = {
           "D": "急性蜂窝织性阑尾炎"
         },
         "answer": "C",
-        "explanation": "答案为 C：肾结核。镜下要点：肾组织内可见结核结节，中央常发生干酪样坏死，周围为上皮样细胞、多核巨细胞、淋巴细胞和纤维细胞。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "explanation": "答案为 C：肾结核。镜下要点：肾组织内可见结核结节，中央常发生干酪样坏死，周围为上皮样细胞、多核巨细胞、淋巴细胞和纤维细胞。 器官/组织：肾。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
           "src": "./public/pathology-kidney-tuberculosis.jpg",
-          "alt": "肾结核显微切片图",
-          "caption": "肾切片示教图：用于训练识别肾结核的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:Tuberculous_caseous_granuloma_(1)_TBLB.jpg",
           "credit": "Wikimedia Commons：Tuberculous caseous granuloma"
         }
       },
       {
-        "id": "path-0016",
+        "id": "path-organ-0015",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 32,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "胎盘",
+          "B": "淋巴结",
+          "C": "皮肤",
+          "D": "肾"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：肾。该图对应诊断为肾结核；识别依据：肾组织内可见结核结节，中央常发生干酪样坏死，周围为上皮样细胞、多核巨细胞、淋巴细胞和纤维细胞。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-kidney-tuberculosis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:Tuberculous_caseous_granuloma_(1)_TBLB.jpg",
+          "credit": "Wikimedia Commons：Tuberculous caseous granuloma"
+        }
+      },
+      {
+        "id": "path-dx-0016",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 16,
         "type": "single",
-        "stem": "观察图中脑切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "肝脂肪变性",
           "B": "急性蜂窝织性阑尾炎",
@@ -25916,25 +26312,51 @@ window.PETE_SUBJECTS = {
           "D": "化脓性脑膜炎"
         },
         "answer": "D",
-        "explanation": "答案为 D：化脓性脑膜炎。镜下要点：蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "explanation": "答案为 D：化脓性脑膜炎。镜下要点：蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。 器官/组织：脑。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
-          "src": "https://www.meddean.luc.edu/lumen/meded/mech/cases/case5/neuro05.jpg",
-          "alt": "化脓性脑膜炎显微切片图",
-          "caption": "脑切片示教图：用于训练识别化脓性脑膜炎的局部镜下特征",
-          "page": "https://www.meddean.luc.edu/lumen/meded/mech/cases/case5/list.htm",
-          "credit": "Loyola University Medical Education：Acute meningitis"
+          "src": "./public/pathology-purulent-meningitis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://peir.path.uab.edu/library/picture.php?/10775",
+          "credit": "PEIR Digital Library：Bacterial meningitis"
         }
       },
       {
-        "id": "path-0017",
+        "id": "path-organ-0016",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 33,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "脑",
+          "B": "淋巴结",
+          "C": "皮肤",
+          "D": "静脉"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：脑。该图对应诊断为化脓性脑膜炎；识别依据：蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-purulent-meningitis.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://peir.path.uab.edu/library/picture.php?/10775",
+          "credit": "PEIR Digital Library：Bacterial meningitis"
+        }
+      },
+      {
+        "id": "path-dx-0017",
         "source": "原题（老师配套习题）",
         "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
         "number": 17,
         "type": "single",
-        "stem": "观察图中肝切片的局部形态，最可能的病理诊断是？",
+        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
         "options": {
           "A": "肝脂肪变性",
           "B": "肝硬化",
@@ -25942,17 +26364,6352 @@ window.PETE_SUBJECTS = {
           "D": "急性蜂窝织性阑尾炎"
         },
         "answer": "A",
-        "explanation": "答案为 A：肝脂肪变性。镜下要点：肝小叶结构基本完好，小叶中央区肝细胞胞浆内有大小不等的脂肪空泡，严重者细胞核被挤向一边。 考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
+        "explanation": "答案为 A：肝脂肪变性。镜下要点：肝小叶结构基本完好，小叶中央区肝细胞胞浆内有大小不等的脂肪空泡，严重者细胞核被挤向一边。 器官/组织：肝。考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
         "knowledge": [
           "肝胆与消化系统病变"
         ],
         "image": {
           "src": "./public/pathology-fatty-liver.jpg",
-          "alt": "肝脂肪变性显微切片图",
-          "caption": "肝切片示教图：用于训练识别肝脂肪变性的局部镜下特征",
+          "alt": "病理显微切片图",
+          "caption": "",
           "page": "https://commons.wikimedia.org/wiki/File:Fatty_change_liver_-_Lipid_steatosis_10X.jpg",
           "credit": "Wikimedia Commons：Fatty change liver"
         }
+      },
+      {
+        "id": "path-organ-0017",
+        "source": "新编拓展题（AI深度改编）",
+        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "number": 34,
+        "type": "single",
+        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
+        "options": {
+          "A": "静脉",
+          "B": "肝",
+          "C": "动脉",
+          "D": "胃"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：肝。该图对应诊断为肝脂肪变性；识别依据：肝小叶结构基本完好，小叶中央区肝细胞胞浆内有大小不等的脂肪空泡，严重者细胞核被挤向一边。 先判断组织来源，再结合局部病变形态确定诊断。",
+        "knowledge": [
+          "器官/组织识别"
+        ],
+        "image": {
+          "src": "./public/pathology-fatty-liver.jpg",
+          "alt": "病理显微切片图",
+          "caption": "",
+          "page": "https://commons.wikimedia.org/wiki/File:Fatty_change_liver_-_Lipid_steatosis_10X.jpg",
+          "credit": "Wikimedia Commons：Fatty change liver"
+        }
+      }
+    ]
+  },
+  "medical-microbiology": {
+    "meta": {
+      "project": "皮特智学",
+      "subject": "医学微生物学",
+      "subjectId": "medical-microbiology",
+      "school": "扬州大学医学部",
+      "originalCount": 298,
+      "extendedCount": 0,
+      "missingAnswerCount": 0,
+      "source": "1_微生物300道题.pdf",
+      "parseAudit": {
+        "source": "microbiology-300.pdf",
+        "advertisedCount": 300,
+        "questionMarkers": 298,
+        "parsed": 298,
+        "ignored": 0,
+        "missingSourceNumbers": [
+          75,
+          174
+        ]
+      }
+    },
+    "topics": [
+      {
+        "name": "细菌学总论",
+        "note": "重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。"
+      },
+      {
+        "name": "常见细菌与致病机制",
+        "note": "重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。"
+      },
+      {
+        "name": "病毒学",
+        "note": "重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。"
+      },
+      {
+        "name": "真菌学",
+        "note": "重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。"
+      },
+      {
+        "name": "免疫与疫苗",
+        "note": "重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。"
+      },
+      {
+        "name": "微生物检验与防治",
+        "note": "重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。"
+      }
+    ],
+    "resources": [],
+    "questions": [
+      {
+        "id": "micro-0001",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 1,
+        "sourceNumber": 1,
+        "type": "single",
+        "stem": "有正常微生物群存在的部位是",
+        "options": {
+          "A": "胃、肠道、腹腔",
+          "B": "鼻咽腔、眼结膜、脑脊液",
+          "C": "胆囊、肝脏、十二指肠",
+          "D": "尿道、口腔、外耳道",
+          "E": "皮肤、黏膜、淋巴液"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：尿道、口腔、外耳道。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0002",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 2,
+        "sourceNumber": 2,
+        "type": "single",
+        "stem": "细菌的F质粒是",
+        "options": {
+          "A": "前噬菌体成分",
+          "B": "细菌的染色体成分",
+          "C": "带有毒性基因的可传递DNA",
+          "D": "赋予细菌性菌毛的可传递DNA",
+          "E": "赋予细菌耐药性的可传递DNA"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：赋予细菌性菌毛的可传递DNA。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0003",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 3,
+        "sourceNumber": 3,
+        "type": "single",
+        "stem": "下列关于病毒疫苗的描述中,不正确的是",
+        "options": {
+          "A": "减毒活疫苗具有回复毒力的可能",
+          "B": "某些疫苗需要加强免疫",
+          "C": "所有抗病毒疫苗只能在感染前接种",
+          "D": "灭活疫苗不能诱导sIgA",
+          "E": "灭活疫苗也可诱导CTL"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：灭活疫苗不能诱导sIgA。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0004",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 4,
+        "sourceNumber": 4,
+        "type": "single",
+        "stem": "病毒的复制周期中,除哪项外均正确",
+        "options": {
+          "A": "吸附",
+          "B": "穿入二",
+          "C": "脱壳生物成,",
+          "D": "二分裂X",
+          "E": "成熟和释放"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：二分裂X。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0005",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 5,
+        "sourceNumber": 5,
+        "type": "single",
+        "stem": "破伤风是破伤风梭菌所致的",
+        "options": {
+          "A": "菌血症菌不入息",
+          "B": "败血症。",
+          "C": "脓血症",
+          "D": "毒血症",
+          "E": "脓毒败血症"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：毒血症。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0006",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 6,
+        "sourceNumber": 6,
+        "type": "single",
+        "stem": "关于皮肤癣菌的致病特点,错误的是",
+        "options": {
+          "A": "一种皮肤癣菌可引起不同部位感染",
+          "B": "同一部位感染也可由不同皮肤癣菌引起",
+          "C": "是一种条件致病性真菌",
+          "D": "引起的真菌病最多",
+          "E": "常侵犯⻆质蛋白丰富的部位"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：是一种条件致病性真菌。考点：真菌学。重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+        "knowledge": [
+          "真菌学"
+        ]
+      },
+      {
+        "id": "micro-0007",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 7,
+        "sourceNumber": 7,
+        "type": "single",
+        "stem": "培养e支原体最必需的成分是",
+        "options": {
+          "A": "蛋白质",
+          "B": "胆固醇",
+          "C": "葡萄糖",
+          "D": "磷脂",
+          "E": "维生素B"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：胆固醇。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0008",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 8,
+        "sourceNumber": 8,
+        "type": "single",
+        "stem": "肠热症所引起的外周血血细胞变化是",
+        "options": {
+          "A": "嗜酸性粒细胞增多",
+          "B": "嗜碱性粒细胞降低",
+          "C": "血红蛋白降低",
+          "D": "外周白细胞上升",
+          "E": "外周白细胞下降"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：外周白细胞下降。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0009",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 9,
+        "sourceNumber": 9,
+        "type": "single",
+        "stem": "关于立克次体,下列叙述哪项不正确",
+        "options": {
+          "A": "大多是专性细胞内寄生",
+          "B": "对抗生素不敏感",
+          "C": "大多是人畜共患病原体",
+          "D": "节肢动物常为传播媒介",
+          "E": "含有DNA和RNA两类核酸"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：对抗生素不敏感。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0010",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 10,
+        "sourceNumber": 10,
+        "type": "single",
+        "stem": "人巨细胞病毒感染患者标本中可见",
+        "options": {
+          "A": "核内嗜碱性包涵体",
+          "B": "核内嗜酸性包涵体",
+          "C": "核内和胞质嗜碱性包涵体",
+          "D": "核内和胞质嗜酸性包涵体",
+          "E": "胞质嗜碱性包涵体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：核内和胞质嗜酸性包涵体。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0011",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 11,
+        "sourceNumber": 11,
+        "type": "single",
+        "stem": "伤寒沙菌Vi抗原",
+        "options": {
+          "A": "存在于菌毛蛋白",
+          "B": "存在于鞭毛蛋白",
+          "C": "可用于沙门菌分组",
+          "D": "可用于沙门菌分型",
+          "E": "刺激机体产生的抗体效价低"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：刺激机体产生的抗体效价低。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0012",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 12,
+        "sourceNumber": 12,
+        "type": "single",
+        "stem": "不能侵害指甲的皮肤癣菌是",
+        "options": {
+          "A": "红色毛癣菌",
+          "B": "须毛癣菌",
+          "C": "絮状表皮癣菌",
+          "D": "小孢子癣菌属",
+          "E": "紫色毛癣菌"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：小孢子癣菌属。考点：真菌学。重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+        "knowledge": [
+          "真菌学"
+        ]
+      },
+      {
+        "id": "micro-0013",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 13,
+        "sourceNumber": 13,
+        "type": "single",
+        "stem": "基因工程疫苗是",
+        "options": {
+          "A": "将编码保护性抗原的基因组到质粒表达载体上,导入宿主体内",
+          "B": "是提取病原体保护性抗原表位制成的疫苗",
+          "C": "是将编码某一蛋白抗原的基因转入减毒的病毒或细菌制成的疫苗将编码病原体保护性抗原表位的目的基",
+          "D": "因导入原核或真核表达系统中表达、纯化制成的疫苗",
+          "E": "通过毒力变异或者自然选择制成的疫苗"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：是将编码某一蛋白抗原的基因转入减毒的病毒或细菌制成的疫苗将编码病原体保护性抗原表位的目的基。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0014",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 14,
+        "sourceNumber": 14,
+        "type": "single",
+        "stem": "处于生长周期中对数生长期的细菌特点是",
+        "options": {
+          "A": "菌体增大并且代谢活跃",
+          "B": "向菌体外释放大毒素",
+          "C": "生物学性状不十分典型",
+          "D": "有芽孢的细菌开始形成芽孢",
+          "E": "对外界环境因素的作用敏感"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：对外界环境因素的作用敏感。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0015",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 15,
+        "sourceNumber": 15,
+        "type": "single",
+        "stem": "蝌蚪形噬菌体负责将头部的核酸注入宿主菌细胞内的器官是",
+        "options": {
+          "A": "尾髓",
+          "B": "尾鞘",
+          "C": "尾丝",
+          "D": "尾板",
+          "E": "尾刺"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：尾髓。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0016",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 16,
+        "sourceNumber": 16,
+        "type": "single",
+        "stem": "结核分枝杆菌引起的疾病中最常见的是",
+        "options": {
+          "A": "结核性胸膜炎",
+          "B": "肺结核",
+          "C": "结核性关节炎",
+          "D": "结核性脑膜炎",
+          "E": "肠结核"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：肺结核。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0017",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 17,
+        "sourceNumber": 17,
+        "type": "single",
+        "stem": "可以用于沙眼的辅助诊断是",
+        "options": {
+          "A": "墨汁负染色",
+          "B": "冷凝集试验",
+          "C": "包涵体检查",
+          "D": "显微镜凝集试验",
+          "E": "外斐反应"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：包涵体检查。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0018",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 18,
+        "sourceNumber": 18,
+        "type": "single",
+        "stem": "下列细菌毒素中毒性最强的是",
+        "options": {
+          "A": "破伤风痉挛毒素",
+          "B": "炭疽毒素",
+          "C": "白喉外毒素",
+          "D": "霍乱肠毒素一",
+          "E": "肉毒毒素"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：肉毒毒素。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0019",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 19,
+        "sourceNumber": 19,
+        "type": "single",
+        "stem": "在EBV血清学诊断中,异嗜性抗体主要用于诊断的疾病是",
+        "options": {
+          "A": "非洲儿童恶性淋巴瘤",
+          "B": "鼻咽癌",
+          "C": "舌毛状白斑病",
+          "D": "传染性单核细胞增多症",
+          "E": "霍奇金淋巴瘤"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：传染性单核细胞增多症。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0020",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 20,
+        "sourceNumber": 20,
+        "type": "single",
+        "stem": "将脊髓灰质炎病毒排出体外的主要排泄物是",
+        "options": {
+          "A": "飞沫",
+          "B": "鼻分泌物肠",
+          "C": "眼分泌物",
+          "D": "尿液",
+          "E": "粪便"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：粪便。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0021",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 21,
+        "sourceNumber": 21,
+        "type": "single",
+        "stem": "关于转座子,叙述错误的是",
+        "options": {
+          "A": "是一种转位因子",
+          "B": "长度一般超过2kb也大的",
+          "C": "不携带结构基因",
+          "D": "可能与细菌的多耐药性有关",
+          "E": "是染色体或质粒中能够转移位置的一段DNA序列"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：不携带结构基因。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0022",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 22,
+        "sourceNumber": 22,
+        "type": "single",
+        "stem": "预防脊髓灰质炎进行人工自动免疫的主要对象是",
+        "options": {
+          "A": "外工作者",
+          "B": "⻘壮年",
+          "C": "林区工人",
+          "D": "老年人",
+          "E": "5岁以内的儿童"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：5岁以内的儿童。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0023",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 23,
+        "sourceNumber": 23,
+        "type": "single",
+        "stem": "可迟缓发酵乳糖的细菌是",
+        "options": {
+          "A": "宋内志贺菌个别菌株",
+          "B": "福氏志贺菌个别菌株",
+          "C": "鲍氏志贺菌个别菌株",
+          "D": "痢疾志贺菌个别菌株",
+          "E": "伤寒沙门菌个别菌株"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：宋内志贺菌个别菌株。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0024",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 24,
+        "sourceNumber": 24,
+        "type": "single",
+        "stem": "儿童患流行性腮腺炎时常见的并发症是",
+        "options": {
+          "A": "睾丸炎或卵巢炎",
+          "B": "肝炎",
+          "C": "胃肠炎",
+          "D": "肾炎",
+          "E": "肺炎"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：睾丸炎或卵巢炎。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0025",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 25,
+        "sourceNumber": 25,
+        "type": "single",
+        "stem": "关于革兰阳性菌错误的叙述是",
+        "options": {
+          "A": "细胞壁主要成分为肽聚糖",
+          "B": "细胞壁主要成分为脂多糖阴",
+          "C": "与结晶紫牢固结合,",
+          "D": "不能形成内毒素",
+          "E": "对⻘霉素敏感"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：细胞壁主要成分为脂多糖阴。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0026",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 26,
+        "sourceNumber": 26,
+        "type": "single",
+        "stem": "鉴别甲型溶血性链球菌与肺炎链球菌最可靠的方法是",
+        "options": {
+          "A": "糖发酵试验",
+          "B": "革兰染色镜检",
+          "C": "菌落特征",
+          "D": "胆汁溶菌试验",
+          "E": "血琼脂平板.上溶血特征"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：胆汁溶菌试验。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0027",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 27,
+        "sourceNumber": 27,
+        "type": "single",
+        "stem": "普氏立克次体的主要传播途径是",
+        "options": {
+          "A": "消化道",
+          "B": "呼吸道",
+          "C": "生殖道感染e",
+          "D": "虱叮咬后经破损皮肤进入体内",
+          "E": "蚤叮咬后入血"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：虱叮咬后经破损皮肤进入体内。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0028",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 28,
+        "sourceNumber": 28,
+        "type": "single",
+        "stem": "内毒素的主要成分为",
+        "options": {
+          "A": "肽聚糖",
+          "B": "蛋白质",
+          "C": "糖蛋白",
+          "D": "LPS",
+          "E": "核酸"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：LPS。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0029",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 29,
+        "sourceNumber": 29,
+        "type": "single",
+        "stem": "对病毒体的错误叙述是",
+        "options": {
+          "A": "以复制方式繁殖",
+          "B": "测单位是μmxnm",
+          "C": "只含一种核酸",
+          "D": "是专性细胞内寄生物",
+          "E": "对抗生素不敏感"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：测单位是μmxnm。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0030",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 30,
+        "sourceNumber": 30,
+        "type": "single",
+        "stem": "细菌的染色体外遗传物质是指",
+        "options": {
+          "A": "质粒",
+          "B": "mRNA",
+          "C": "性菌毛",
+          "D": "异染颗粒",
+          "E": "核蛋白体"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：质粒。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0031",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 31,
+        "sourceNumber": 31,
+        "type": "single",
+        "stem": "VZV侵犯的主要细胞是",
+        "options": {
+          "A": "O上皮细胞小癌",
+          "B": "神经细胞",
+          "C": "中性粒细胞",
+          "D": "巨噬细胞",
+          "E": "B细胞"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：O上皮细胞小癌。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0032",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 32,
+        "sourceNumber": 32,
+        "type": "single",
+        "stem": "G-细胞壁特有成分是",
+        "options": {
+          "A": "磷壁酸",
+          "B": "肽聚糖",
+          "C": "多聚糖",
+          "D": "外膜",
+          "E": "中介体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：外膜。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0033",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 33,
+        "sourceNumber": 33,
+        "type": "single",
+        "stem": "关于病毒核酸,正确的是",
+        "options": {
+          "A": "可控制病毒的遗传和变异",
+          "B": "决定病毒包膜所有成分的形成",
+          "C": "RNA不能携带遗传信息",
+          "D": "不能决定病毒的感染性",
+          "E": "病毒有一种或两种类型核酸"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：可控制病毒的遗传和变异。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0034",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 34,
+        "sourceNumber": 34,
+        "type": "single",
+        "stem": "属于L型细菌的特性是",
+        "options": {
+          "A": "无致病性v",
+          "B": "常规培养形成油煎蛋菌落",
+          "C": "形成不可逆性变异",
+          "D": "细菌菌落为光滑型",
+          "E": "形态可改变"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：常规培养形成油煎蛋菌落。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0035",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 35,
+        "sourceNumber": 35,
+        "type": "single",
+        "stem": "关于二感染的叙述,下列哪项是错误的",
+        "options": {
+          "A": "是免疫功能缺陷的严后果~",
+          "B": "是微生态平衡失调的一种严后果v",
+          "C": "是菌群失调症的一种类型",
+          "D": "是抗生素治疗原感染性疾病过程中的一种新感染",
+          "E": "应新选用敏感抗生素治疗~"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：是免疫功能缺陷的严后果~。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0036",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 36,
+        "sourceNumber": 36,
+        "type": "single",
+        "stem": "乙型肝炎患者血清中通常不能检出的成分是",
+        "options": {
+          "A": "H一BsAg",
+          "B": "抗-HВS",
+          "C": "HBeAg",
+          "D": "抗-HВе",
+          "E": "HBcAge"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：HBcAge。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0037",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 37,
+        "sourceNumber": 37,
+        "type": "single",
+        "stem": "在液体培养基中菌膜生长的下列细菌是",
+        "options": {
+          "A": "肉毒梭菌",
+          "B": "变形杆菌",
+          "C": "产气荚膜梭菌",
+          "D": "布鲁菌",
+          "E": "结核分枝杆菌"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：结核分枝杆菌。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0038",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 38,
+        "sourceNumber": 38,
+        "type": "single",
+        "stem": "霍乱肠毒素相应的受体是",
+        "options": {
+          "A": "糖蛋白",
+          "B": "黏蛋白",
+          "C": "岩藻糖",
+          "D": "甘露糖",
+          "E": "GM1神经节苷脂VGIU1"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：GM1神经节苷脂VGIU1。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0039",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 39,
+        "sourceNumber": 39,
+        "type": "single",
+        "stem": "下列哪项与结核分枝杆菌的致病性无关",
+        "options": {
+          "A": "多糖",
+          "B": "蛋白质",
+          "C": "脂质成分",
+          "D": "内毒素",
+          "E": "免疫损伤e"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：内毒素。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0040",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 40,
+        "sourceNumber": 40,
+        "type": "single",
+        "stem": "可辅助HDV复制的病毒是",
+        "options": {
+          "A": "HAV",
+          "B": "HBV",
+          "C": "HCV",
+          "D": "HEV",
+          "E": "HSV"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：HBV。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0041",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 41,
+        "sourceNumber": 41,
+        "type": "single",
+        "stem": "感染宿主细胞能形成包涵体的原核细胞型微生物是",
+        "options": {
+          "A": "巴通体",
+          "B": "立克次体",
+          "C": "螺旋体",
+          "D": "支原体补服包",
+          "E": "衣原体"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：衣原体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0042",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 42,
+        "sourceNumber": 42,
+        "type": "single",
+        "stem": "对外毒素特性叙述不正确的是",
+        "options": {
+          "A": "由细一菌合成分泌",
+          "B": "主要成分是脂多糖",
+          "C": "毒性强",
+          "D": "抗原性强",
+          "E": "性质不稳定"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：主要成分是脂多糖。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0043",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 43,
+        "sourceNumber": 43,
+        "type": "single",
+        "stem": "新型隐球菌与白假丝酵母菌的主要区别在于后者",
+        "options": {
+          "A": "以出芽方式繁殖",
+          "B": "形成假菌丝",
+          "C": "只能在37°C生长",
+          "D": "菌体呈卵圆形",
+          "E": "对抗生素不敏感"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：形成假菌丝。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0044",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 44,
+        "sourceNumber": 44,
+        "type": "single",
+        "stem": "机体获得人工主动免疫的方式是",
+        "options": {
+          "A": "注射类毒素主类被一流",
+          "B": "注射抗毒素",
+          "C": "注射细胞因子",
+          "D": "注射胎盘球蛋白",
+          "E": "通过胎盘从母体获得"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：注射类毒素主类被一流。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0045",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 45,
+        "sourceNumber": 45,
+        "type": "single",
+        "stem": "哪种细菌可因手术不当引起腹膜炎",
+        "options": {
+          "A": "大肠埃希菌",
+          "B": "痢疾杆菌",
+          "C": "伤寒沙门菌",
+          "D": "肠炎沙门菌",
+          "E": "霍乱弧菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：大肠埃希菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0046",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 46,
+        "sourceNumber": 46,
+        "type": "single",
+        "stem": "溶菌酶杀灭细菌的作用机理是",
+        "options": {
+          "A": "裂解肽聚糖⻣架的β-1,4θ糖苷键",
+          "B": "竞争肽聚糖合成中所需的转肽酶",
+          "C": "抑制核蛋白体的小亚基结合作用",
+          "D": "竞争性抑制叶酸的合成代谢",
+          "E": "破坏细胞膜的呼吸作用"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：裂解肽聚糖⻣架的β-1,4θ糖苷键。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0047",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 47,
+        "sourceNumber": 47,
+        "type": "single",
+        "stem": "丙种球蛋白的优点是",
+        "options": {
+          "A": "来源广",
+          "B": "易制备",
+          "C": "免疫效果好",
+          "D": "含多种微生物抗体",
+          "E": "易保存"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：免疫效果好。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0048",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 48,
+        "sourceNumber": 48,
+        "type": "single",
+        "stem": "均不通过呼吸道感染的病毒组合是",
+        "options": {
+          "A": "流感一病毒、麻疹病毒、埃可病毒",
+          "B": "风疹病毒、腺病毒、腮腺炎病毒",
+          "C": "乙型脑炎病毒、丙型肝炎病毒",
+          "D": "脊髓灰质炎病毒、轮状一病毒",
+          "E": "冠状病一毒、柯萨奇病毒"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：乙型脑炎病毒、丙型肝炎病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0049",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 49,
+        "sourceNumber": 49,
+        "type": "single",
+        "stem": "下列微生物都能通过除菌滤器,例外的一种是",
+        "options": {
+          "A": "放线菌",
+          "B": "病毒",
+          "C": "衣原体",
+          "D": "支原体",
+          "E": "L型细菌"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：病毒。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0050",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 50,
+        "sourceNumber": 50,
+        "type": "single",
+        "stem": "下列各项对病毒感染性疾病的描述中正确的",
+        "options": {
+          "A": "一种病毒引起一种疾病",
+          "B": "很多病毒感染不能产生临床症状",
+          "C": "可以根据病毒的形态预测所致疾病的类型",
+          "D": "一种疾病由一种病毒引起",
+          "E": "病毒感染的临床表现完全与其他病原体不同"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：很多病毒感染不能产生临床症状。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0051",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 51,
+        "sourceNumber": 51,
+        "type": "single",
+        "stem": "机体对外毒素免疫作用是依靠抗毒素的",
+        "options": {
+          "A": "杀灭作用",
+          "B": "调理作用",
+          "C": "吞噬作用*",
+          "D": "中和作用",
+          "E": "清除作用"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：中和作用。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0052",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 52,
+        "sourceNumber": 52,
+        "type": "single",
+        "stem": "关于病毒隐性感染者免疫力的描述中不正确的是",
+        "options": {
+          "A": "部分患者可获得免疫力而终止感染",
+          "B": "非特异性免疫有助于病毒隐性感染终止",
+          "C": "患者可成为无症状携带者",
+          "D": "隐性病毒感染既可诱导体液免疫也可诱导细胞免疫反应",
+          "E": "干扰素对隐性感染病毒无抑制作用"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：干扰素对隐性感染病毒无抑制作用。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0053",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 53,
+        "sourceNumber": 53,
+        "type": "single",
+        "stem": "可用于检测病毒蛋白成分的方法是",
+        "options": {
+          "A": "PCR技术",
+          "B": "Southern印迹法",
+          "C": "Western印迹法,V",
+          "D": "Northern印迹法",
+          "E": "斑点分子杂交法"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：Western印迹法,V。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0054",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 54,
+        "sourceNumber": 54,
+        "type": "single",
+        "stem": "关于血清学诊断方法,下列哪项是错误的",
+        "options": {
+          "A": "伤寒-肥达试验",
+          "B": "风湿热-抗O试验",
+          "C": "斑疹伤寒-外斐反应XOTRRD",
+          "D": "结核-结核菌素试验",
+          "E": "梅毒-螺旋体制动试验"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：结核-结核菌素试验。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0055",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 55,
+        "sourceNumber": 55,
+        "type": "single",
+        "stem": "决定病毒体感染细胞的关键物质是",
+        "options": {
+          "A": "衣壳一",
+          "B": "包膜σ",
+          "C": "核酸",
+          "D": "刺突",
+          "E": "核蛋白e"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：核酸。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0056",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 56,
+        "sourceNumber": 56,
+        "type": "single",
+        "stem": "质粒在细菌间的转移方式主要是",
+        "options": {
+          "A": "转化",
+          "B": "接合.一",
+          "C": "转导",
+          "D": "溶原性转换",
+          "E": "原生质融合"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：接合.一。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0057",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 57,
+        "sourceNumber": 57,
+        "type": "single",
+        "stem": "伤寒沙门菌致病特点是",
+        "options": {
+          "A": "不引起持续高热",
+          "B": "可在肠道淋巴组织内繁殖",
+          "C": "没有第二次菌血症",
+          "D": "不侵犯肝、脾、肾等器官",
+          "E": "可引起内脏化脓性感染"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：可在肠道淋巴组织内繁殖。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0058",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 58,
+        "sourceNumber": 58,
+        "type": "single",
+        "stem": "下列关于隐球菌的描述中正确的是",
+        "options": {
+          "A": "为多细胞真菌",
+          "B": "可形成丝状形菌落",
+          "C": "是致病性真菌",
+          "D": "多引起外源性感染",
+          "E": "可形成关节孢子"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：多引起外源性感染。考点：真菌学。重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+        "knowledge": [
+          "真菌学"
+        ]
+      },
+      {
+        "id": "micro-0059",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 59,
+        "sourceNumber": 59,
+        "type": "single",
+        "stem": "可用皮肤变态反应帮助诊断的是",
+        "options": {
+          "A": "金黄色葡萄球菌感染",
+          "B": "霍乱弧菌感染",
+          "C": "志贺菌感染",
+          "D": "淋病奈瑟菌感染",
+          "E": "布鲁菌感染"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：布鲁菌感染。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0060",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 60,
+        "sourceNumber": 60,
+        "type": "single",
+        "stem": "做抗生素敏感试验时,应选择",
+        "options": {
+          "A": "迟缓期",
+          "B": "稳定期",
+          "C": "衰亡期",
+          "D": "对数生长期",
+          "E": "衰亡期前期"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：对数生长期。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0061",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 61,
+        "sourceNumber": 61,
+        "type": "single",
+        "stem": "以下不属于狂犬病的临床表现的是",
+        "options": {
+          "A": "恐水症",
+          "B": "⻆弓反张c",
+          "C": "吞咽或饮水困难",
+          "D": "循环衰竭",
+          "E": "昏迷、呼吸衰竭"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：⻆弓反张c。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0062",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 62,
+        "sourceNumber": 62,
+        "type": "single",
+        "stem": "性病淋巴肉芽肿的病原体是",
+        "options": {
+          "A": "肺炎衣原体",
+          "B": "鹦鹉热衣原体",
+          "C": "脲原体",
+          "D": "沙眼衣原体",
+          "E": "兽类衣原体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：沙眼衣原体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0063",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 63,
+        "sourceNumber": 63,
+        "type": "single",
+        "stem": "编码抗菌药物耐药性的是",
+        "options": {
+          "A": "F质粒",
+          "B": "R质粒",
+          "C": "Col质粒",
+          "D": "Vi质粒",
+          "E": "代谢质粒"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：R质粒。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0064",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 64,
+        "sourceNumber": 64,
+        "type": "single",
+        "stem": "可引起亚急性硬化性全脑炎(SSPE)的病原体是",
+        "options": {
+          "A": "埃可病毒",
+          "B": "轮状病毒",
+          "C": "麻疹病毒",
+          "D": "流感病毒",
+          "E": "风疹病毒"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：麻疹病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0065",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 65,
+        "sourceNumber": 65,
+        "type": "single",
+        "stem": "诊断流感病毒最常用的血清学方法是",
+        "options": {
+          "A": "血凝抑制试验",
+          "B": "中和试验",
+          "C": "补体结合试验",
+          "D": "荧光抗体法",
+          "E": "冷凝集试验"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：血凝抑制试验。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0066",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 66,
+        "sourceNumber": 66,
+        "type": "single",
+        "stem": "能够增强细菌毒力的质粒是",
+        "options": {
+          "A": "F质粒",
+          "B": "R质粒",
+          "C": "Col质粒",
+          "D": "Vi质粒",
+          "E": "代谢质粒"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：Vi质粒。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0067",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 67,
+        "sourceNumber": 67,
+        "type": "single",
+        "stem": "下列型别最多的病毒是",
+        "options": {
+          "A": "腺病毒",
+          "B": "麻疹病毒",
+          "C": "冠状病毒一",
+          "D": "鼻病毒",
+          "E": "风疹病毒"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：鼻病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0068",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 68,
+        "sourceNumber": 68,
+        "type": "single",
+        "stem": "有包膜的病毒侵入细胞的方式是",
+        "options": {
+          "A": "胞饮",
+          "B": "直接穿入",
+          "C": "吞噬",
+          "D": "膜融合",
+          "E": "裂解细胞膜"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：膜融合。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0069",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 69,
+        "sourceNumber": 69,
+        "type": "single",
+        "stem": "肠热症患者并发症肠出血和肠穿的机理是",
+        "options": {
+          "A": "第二次菌血症",
+          "B": "细菌再次侵入肠壁淋巴组织,使组织发生超敏反应,导致局部的坏死和溃疡",
+          "C": "沙门菌释放的内毒素",
+          "D": "沙门菌释出的肠毒素",
+          "E": "沙门菌具有的侵袭力"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：细菌再次侵入肠壁淋巴组织,使组织发生超敏反应,导致局部的坏死和溃疡。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0070",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 70,
+        "sourceNumber": 70,
+        "type": "single",
+        "stem": "根据产气荚膜梭菌的毒素产生情况,可将其分为5个毒素型,对人致病的主要为",
+        "options": {
+          "A": "A型",
+          "B": "B型",
+          "C": "C型",
+          "D": "D型",
+          "E": "E型"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：A型。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0071",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 71,
+        "sourceNumber": 71,
+        "type": "single",
+        "stem": "金刚烷胺抗病毒作用主要机制",
+        "options": {
+          "A": "抑制病毒蛋白质合成日金",
+          "B": "抑制病毒脱衣壳",
+          "C": "促进感染细胞溶酶体释放",
+          "D": "干扰病毒核酸的合成",
+          "E": "抑制病毒组装、成熟和释放"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：抑制病毒蛋白质合成日金。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0072",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 72,
+        "sourceNumber": 72,
+        "type": "single",
+        "stem": "结构最简单的病毒体为",
+        "options": {
+          "A": "核酸",
+          "B": "衣壳",
+          "C": "核衣壳",
+          "D": "核衣壳和包膜",
+          "E": "原生小体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：核衣壳。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0073",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 73,
+        "sourceNumber": 73,
+        "type": "single",
+        "stem": "关于汉坦病毒生物学性状,错误的是",
+        "options": {
+          "A": "基因组分三个片段",
+          "B": "包膜表面有两种糖蛋白",
+          "C": "可凝集鹅红细胞",
+          "D": "能在体外多种细胞中增殖",
+          "E": "敏感动物是家兔Xoqr"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：敏感动物是家兔Xoqr。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0074",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 74,
+        "sourceNumber": 74,
+        "type": "single",
+        "stem": "巨细胞病毒常引起",
+        "options": {
+          "A": "唇疱疹",
+          "B": "带状疱疹",
+          "C": "病毒性脑炎",
+          "D": "先天性畸形",
+          "E": "传染性单核细胞增多症"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：先天性畸形。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0075",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 75,
+        "sourceNumber": 76,
+        "type": "single",
+        "stem": "对铜绿假单胞菌致病性的描述,错误的是",
+        "options": {
+          "A": "可发生于烧伤感染",
+          "B": "可发生于医院内感染",
+          "C": "可发生于免疫功能低下患者的继发感染",
+          "D": "可引起婴儿严的7流行性腹泻B啊?",
+          "E": "对多种抗生素敏感"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：对多种抗生素敏感。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0076",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 76,
+        "sourceNumber": 77,
+        "type": "single",
+        "stem": "具有Vi抗原的沙门菌是",
+        "options": {
+          "A": "伤寒沙门菌",
+          "B": "肠炎沙门菌",
+          "C": "鼠伤寒沙门菌",
+          "D": "甲型副伤寒沙门菌",
+          "E": "肖氏沙门菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：伤寒沙门菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0077",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 77,
+        "sourceNumber": 78,
+        "type": "single",
+        "stem": "下列物质中,具有感染性的是",
+        "options": {
+          "A": "Dane颗粒",
+          "B": "小球形颗粒",
+          "C": "管形颗粒",
+          "D": "HBeAg",
+          "E": "HBcAg"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：Dane颗粒。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0078",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 78,
+        "sourceNumber": 79,
+        "type": "single",
+        "stem": "轮状病毒的核酸类型是",
+        "options": {
+          "A": "分节段的双链RNA",
+          "B": "分节段的单负链RNA",
+          "C": "单正链RNA",
+          "D": "单链DNA",
+          "E": "双链DNA"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：分节段的双链RNA。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0079",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 79,
+        "sourceNumber": 80,
+        "type": "single",
+        "stem": "分离培养后,对细菌具有初步鉴别诊断意义的细菌代谢产物是",
+        "options": {
+          "A": "vitamin",
+          "B": "antibiotics",
+          "C": "exotoxin",
+          "D": "pigment",
+          "E": "endotoxin"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：pigment。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0080",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 80,
+        "sourceNumber": 81,
+        "type": "single",
+        "stem": "不属于衣原体引起的疾病的是",
+        "options": {
+          "A": "回归热",
+          "B": "性病淋巴肉芽肿U",
+          "C": "沙眼",
+          "D": "包涵体结膜炎」",
+          "E": "婴幼儿肺炎"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：回归热。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0081",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 81,
+        "sourceNumber": 82,
+        "type": "single",
+        "stem": "常用减毒活一疫苗预防的疾病是",
+        "options": {
+          "A": "狂犬病、麻疹",
+          "B": "破伤风、百日咳",
+          "C": "白喉、乙型肝炎",
+          "D": "脊髓灰质炎、结核病",
+          "E": "流行性乙型脑炎、腮腺炎"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：脊髓灰质炎、结核病。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0082",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 82,
+        "sourceNumber": 83,
+        "type": "single",
+        "stem": "白假丝酵母菌在玉米培养基.上可形成",
+        "options": {
+          "A": "厚膜孢子",
+          "B": "关节孢子",
+          "C": "分生孢子",
+          "D": "有性孢子",
+          "E": "孢子囊孢子"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：厚膜孢子。考点：真菌学。重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+        "knowledge": [
+          "真菌学"
+        ]
+      },
+      {
+        "id": "micro-0083",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 83,
+        "sourceNumber": 84,
+        "type": "single",
+        "stem": "使形成原生质体的细菌发生融合,获得多种类型组融合体,称为",
+        "options": {
+          "A": "转化",
+          "B": "接合",
+          "C": "转导",
+          "D": "溶原性转换",
+          "E": "原生质融合"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：原生质融合。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0084",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 84,
+        "sourceNumber": 85,
+        "type": "single",
+        "stem": "下列分子生物学实验中,检测病毒蛋白的方法是",
+        "options": {
+          "A": "原位杂交",
+          "B": "点杂交",
+          "C": "Southernblot",
+          "D": "Westernblot",
+          "E": "Northernblot"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：Westernblot。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0085",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 85,
+        "sourceNumber": 86,
+        "type": "single",
+        "stem": "下列关于白假丝酵母菌的描述,正确的是",
+        "options": {
+          "A": "革兰染色阴性",
+          "B": "可产生关节孢子",
+          "C": "可用⻘霉素进行治疗",
+          "D": "一般不引起皮肤及黏膜感染",
+          "E": "可引起全身脏器感染"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：可用⻘霉素进行治疗。考点：真菌学。重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+        "knowledge": [
+          "真菌学"
+        ]
+      },
+      {
+        "id": "micro-0086",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 86,
+        "sourceNumber": 87,
+        "type": "single",
+        "stem": "下列哪种微生物与龋⻮的发病关系密切",
+        "options": {
+          "A": "放线菌",
+          "B": "人型支原体",
+          "C": "奋森螺旋体",
+          "D": "巴⻄诺卡菌",
+          "E": "星型诺卡菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：放线菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0087",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 87,
+        "sourceNumber": 88,
+        "type": "single",
+        "stem": "引起牙周脓肿最常见的病原菌是",
+        "options": {
+          "A": "甲型溶血性链球菌",
+          "B": "类白喉杆菌",
+          "C": "无芽孢厌氧菌",
+          "D": "铜绿假单胞菌",
+          "E": "白念珠菌(白假丝酵母菌)"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：甲型溶血性链球菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0088",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 88,
+        "sourceNumber": 89,
+        "type": "single",
+        "stem": "不是克里米亚-刚果出血热主要表现的是",
+        "options": {
+          "A": "肾功能损害丶背纱独然",
+          "B": "高热",
+          "C": "脏器出血,",
+          "D": "低血压或休克",
+          "E": "皮下出血"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：肾功能损害丶背纱独然。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0089",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 89,
+        "sourceNumber": 90,
+        "type": "single",
+        "stem": "非致病性着色真菌与致病性着色真菌的主要区别是",
+        "options": {
+          "A": "腐生性",
+          "B": "37°C生长性一",
+          "C": "自然界分布性",
+          "D": "菌体形态",
+          "E": "菌落形态"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：自然界分布性。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0090",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 90,
+        "sourceNumber": 91,
+        "type": "single",
+        "stem": "引起烫伤样皮肤综合征最常见的致病菌是",
+        "options": {
+          "A": "表皮葡萄球菌",
+          "B": "凝固酶阴性葡萄球菌",
+          "C": "金黄色葡萄球菌",
+          "D": "腐生性葡萄球菌",
+          "E": "人葡萄球菌"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：金黄色葡萄球菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0091",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 91,
+        "sourceNumber": 92,
+        "type": "single",
+        "stem": "逆转录病毒增殖的突出特点",
+        "options": {
+          "A": "需要RNA酶",
+          "B": "需逆转录酶",
+          "C": "病毒RNA复制时要通过DNA复制中间型",
+          "D": "病毒核酸整合到细胞基因组中",
+          "E": "以出芽方式释放到细胞外"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：病毒RNA复制时要通过DNA复制中间型。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0092",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 92,
+        "sourceNumber": 93,
+        "type": "single",
+        "stem": "对结核菌素试验的叙述,错误的是",
+        "options": {
+          "A": "属于皮肤迟发型超敏反应",
+          "B": "可检测机体对结核分枝杆菌的免疫状况",
+          "C": "皮肤反应程度以局部红肿,硬结的直径为标准",
+          "D": "可检测肿瘤患者的细胞免疫功能状况",
+          "E": "12~18小时观察结\\果4-48."
+        },
+        "answer": "E",
+        "explanation": "答案为 E：12~18小时观察结\\果4-48.。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0093",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 93,
+        "sourceNumber": 94,
+        "type": "single",
+        "stem": "关于噬斑形成单位的叙述,正确的是",
+        "options": {
+          "A": "可用于任何类型噬菌体的定检测",
+          "B": "只可用于毒性噬菌体的定检测",
+          "C": "只可用于温和噬菌体的定检测",
+          "D": "只可用于丝状噬菌体的定检测",
+          "E": "只可用于溶原性噬菌体的定检测"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：只可用于毒性噬菌体的定检测。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0094",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 94,
+        "sourceNumber": 95,
+        "type": "single",
+        "stem": "新生隐球菌的主要传播方式是",
+        "options": {
+          "A": "病人-咳痰-飞沫传播∝",
+          "B": "鸽子-粪便-呼吸道传播「",
+          "C": "病人-粪便-消化道传播",
+          "D": "病人-粪便-呼吸道传播",
+          "E": "人虱-粪便-破损皮肤传播"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：鸽子-粪便-呼吸道传播「。考点：真菌学。重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+        "knowledge": [
+          "真菌学"
+        ]
+      },
+      {
+        "id": "micro-0095",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 95,
+        "sourceNumber": 96,
+        "type": "single",
+        "stem": "疱疹病毒的共同特点不包括",
+        "options": {
+          "A": "中等大小包膜的病毒",
+          "B": "核酸为双链DNA",
+          "C": "衣壳呈二十面体立体对称",
+          "D": "除EBV外均可在感染细胞核内形成包涵体",
+          "E": "病毒感染的控制主要依赖体液免疫"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：病毒感染的控制主要依赖体液免疫。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0096",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 96,
+        "sourceNumber": 97,
+        "type": "single",
+        "stem": "HSV-1感染引起的疾病一般不包括",
+        "options": {
+          "A": "龈口炎",
+          "B": "唇疱疹D",
+          "C": "⻆膜结膜炎",
+          "D": "生殖器疱疹",
+          "E": "脑炎"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：生殖器疱疹。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0097",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 97,
+        "sourceNumber": 98,
+        "type": "single",
+        "stem": "S-R变异属于",
+        "options": {
+          "A": "形态结构变异",
+          "B": "抗原性变异",
+          "C": "菌落变异",
+          "D": "毒力变异",
+          "E": "耐药性变异"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：菌落变异。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0098",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 98,
+        "sourceNumber": 99,
+        "type": "single",
+        "stem": "金黄色葡萄球菌特殊的表面结构蛋白是",
+        "options": {
+          "A": "SPA",
+          "B": "荚膜",
+          "C": "黏附素",
+          "D": "胞壁肽聚糖",
+          "E": "脂多糖"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：SPA。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0099",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 99,
+        "sourceNumber": 100,
+        "type": "single",
+        "stem": "患病后可获得终身牢固免疫力的病毒是",
+        "options": {
+          "A": "冠状病毒",
+          "B": "鼻病毒",
+          "C": "流感病毒",
+          "D": "腮腺炎病毒",
+          "E": "呼吸道合胞病毒"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：腮腺炎病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0100",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 100,
+        "sourceNumber": 101,
+        "type": "single",
+        "stem": "细胞受病毒感染后可在胞浆或/和核内形成一种具有诊断意义的物质",
+        "options": {
+          "A": "质粒",
+          "B": "溶酶体",
+          "C": "核糖体",
+          "D": "中介体",
+          "E": "包涵体"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：包涵体。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0101",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 101,
+        "sourceNumber": 102,
+        "type": "single",
+        "stem": "下列哪项不属于机体正常组织和体液中的抗菌物质",
+        "options": {
+          "A": "补体",
+          "B": "溶菌酶",
+          "C": "防御素",
+          "D": "抗毒素",
+          "E": "乙型溶素"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：抗毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0102",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 102,
+        "sourceNumber": 103,
+        "type": "single",
+        "stem": "伤寒病人发病第一周内,分离病原菌应采取的标本是",
+        "options": {
+          "A": "血液",
+          "B": "尿液",
+          "C": "粪便",
+          "D": "脑脊液",
+          "E": "呕吐物"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：血液。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0103",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 103,
+        "sourceNumber": 104,
+        "type": "single",
+        "stem": "ETEC产生的不耐热肠毒素的致病机制是",
+        "options": {
+          "A": "吸附",
+          "B": "A亚单位穿越细胞膜与腺苷酸环化酶作用",
+          "C": "聚集性黏附",
+          "D": "引起核糖体功能障碍",
+          "E": "激活⻦苷酸环化酶"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：A亚单位穿越细胞膜与腺苷酸环化酶作用。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0104",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 104,
+        "sourceNumber": 105,
+        "type": "single",
+        "stem": "下列选项中,不属于慢发病毒感染特征的是",
+        "options": {
+          "A": "潜伏期长",
+          "B": "发病后症状持续性加",
+          "C": "潜伏期不能检测到病毒或病毒抗原",
+          "D": "可在隐性感染后进入长潜伏期",
+          "E": "可在显性感染后进入长潜伏期"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：潜伏期不能检测到病毒或病毒抗原。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0105",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 105,
+        "sourceNumber": 106,
+        "type": "single",
+        "stem": "以下属于活疫苗制剂的是",
+        "options": {
+          "A": "亚单位疫苗",
+          "B": "化学疫苗",
+          "C": "DNA组疫苗",
+          "D": "核酸疫苗",
+          "E": "减毒疫苗"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：减毒疫苗。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0106",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 106,
+        "sourceNumber": 107,
+        "type": "single",
+        "stem": "对脂溶剂不敏感的病毒是",
+        "options": {
+          "A": "HAV",
+          "B": "HBV",
+          "C": "HCV",
+          "D": "HDV",
+          "E": "HSV"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：HAV。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0107",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 107,
+        "sourceNumber": 108,
+        "type": "single",
+        "stem": "葡萄球菌噬菌体分型的意义是",
+        "options": {
+          "A": "确定其致病性",
+          "B": "确定其耐药性",
+          "C": "确定葡萄球菌抵抗力",
+          "D": "流行病学调查追踪传染源",
+          "E": "测定细菌对药物的敏感性"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：流行病学调查追踪传染源。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0108",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 108,
+        "sourceNumber": 109,
+        "type": "single",
+        "stem": "β-棒状杆菌噬菌体感染了不产生白喉外毒素的白喉杆菌便可使其产生白喉外毒素,发生这种变异的原因是",
+        "options": {
+          "A": "转化",
+          "B": "接合",
+          "C": "转导",
+          "D": "溶原性转换",
+          "E": "原生质融合"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：溶原性转换。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0109",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 109,
+        "sourceNumber": 110,
+        "type": "single",
+        "stem": "在全球广泛引起AIDS的病原体是",
+        "options": {
+          "A": "HPV",
+          "B": "HTLV-1",
+          "C": "HIV-1",
+          "D": "HTLV-2",
+          "E": "HIV-2"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：HIV-1。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0110",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 110,
+        "sourceNumber": 111,
+        "type": "single",
+        "stem": "可能引发超敏反应的免疫制剂是",
+        "options": {
+          "A": "丙种球蛋白",
+          "B": "白细胞介素e",
+          "C": "抗毒素",
+          "D": "干扰素",
+          "E": "类毒素"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：抗毒素。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0111",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 111,
+        "sourceNumber": 112,
+        "type": "single",
+        "stem": "细菌内毒素的成分是",
+        "options": {
+          "A": "肽聚糖",
+          "B": "H抗原",
+          "C": "O抗原",
+          "D": "菌毛",
+          "E": "脂多糖"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：脂多糖。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0112",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 112,
+        "sourceNumber": 113,
+        "type": "single",
+        "stem": "观察白喉棒状杆菌异染颗粒常用的染色方",
+        "options": {
+          "A": "革兰染色",
+          "B": "抗酸染色",
+          "C": "Albert染色",
+          "D": "稀复红染色",
+          "E": "镀银染色"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：Albert染色。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0113",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 113,
+        "sourceNumber": 114,
+        "type": "single",
+        "stem": "可引起自然疫源性疾病的病毒是",
+        "options": {
+          "A": "登革病毒",
+          "B": "单纯疱疹病毒",
+          "C": "戊型肝炎病毒",
+          "D": "脊髓灰质炎病毒",
+          "E": "轮状病毒"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：登革病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0114",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 114,
+        "sourceNumber": 115,
+        "type": "single",
+        "stem": "志贺菌感染防治原则不包括",
+        "options": {
+          "A": "隔离病人",
+          "B": "消毒排泄物",
+          "C": "主要防御机制是肠黏膜表面的sIgA",
+          "D": "容易出现多耐药",
+          "E": "应用灭活疫苗进行预防"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：应用灭活疫苗进行预防。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0115",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 115,
+        "sourceNumber": 116,
+        "type": "single",
+        "stem": "整合有前噬菌体的细菌,获得新的遗传性状的过程,称为",
+        "options": {
+          "A": "转化",
+          "B": "接合",
+          "C": "转导",
+          "D": "溶原性转换",
+          "E": "原生质融合"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：溶原性转换。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0116",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 116,
+        "sourceNumber": 117,
+        "type": "single",
+        "stem": "不能在无生命培养基中生长的螺旋体是",
+        "options": {
+          "A": "奋森螺旋体",
+          "B": "回归热螺旋体",
+          "C": "伯氏疏螺旋体",
+          "D": "梅毒螺旋体",
+          "E": "钩端螺旋体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：梅毒螺旋体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0117",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 117,
+        "sourceNumber": 118,
+        "type": "single",
+        "stem": "下列哪种毒素抑制乙酰胆碱的释放",
+        "options": {
+          "A": "破伤风溶血素",
+          "B": "破伤风痉挛毒素",
+          "C": "产气荚膜梭菌β毒素",
+          "D": "肉毒毒素",
+          "E": "链球菌溶血素"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：肉毒毒素。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0118",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 118,
+        "sourceNumber": 119,
+        "type": "single",
+        "stem": "下列哪种毒素分解细胞膜卵磷脂",
+        "options": {
+          "A": "产气荚膜梭菌a毒素",
+          "B": "产气荚膜梭菌β毒素",
+          "C": "破伤风痉挛毒素",
+          "D": "破伤风溶血素",
+          "E": "肉毒毒素"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：产气荚膜梭菌a毒素。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0119",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 119,
+        "sourceNumber": 120,
+        "type": "single",
+        "stem": "甲型流感病毒易发生变异的原因是",
+        "options": {
+          "A": "HA、NA和相应抗体结合导致灭活",
+          "B": "脂溶剂裂解脂质包膜发生L型变异",
+          "C": "RNA分节段而易于发生基因组",
+          "D": "基质蛋白受干扰素影响合成受阻",
+          "E": "基质蛋白易受理化因素影响而变构"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：RNA分节段而易于发生基因组。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0120",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 120,
+        "sourceNumber": 121,
+        "type": "single",
+        "stem": "下列病毒的基因组可直接作为mRNA的一组病毒是",
+        "options": {
+          "A": "脊髓灰质炎病毒、柯萨奇病毒、流感病毒",
+          "B": "脊髓灰质炎病毒、HIV、麻疹病毒",
+          "C": "脊髓灰质炎病毒、甲型肝炎病毒、埃可(ECHO)病毒",
+          "D": "脊髓灰质炎病毒、乙、型肝炎病毒、轮状病毒",
+          "E": "脊髓灰质炎病毒、麻疹病毒、甲型肝炎病毒"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：脊髓灰质炎病毒、甲型肝炎病毒、埃可(ECHO)病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0121",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 121,
+        "sourceNumber": 122,
+        "type": "single",
+        "stem": "难以分离出HIV的艾滋病患者标本是",
+        "options": {
+          "A": "精液",
+          "B": "外周血",
+          "C": "唾液",
+          "D": "粪便",
+          "E": "脑脊液"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：粪便。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0122",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 122,
+        "sourceNumber": 123,
+        "type": "single",
+        "stem": "对于腺病毒的描述错误的是",
+        "options": {
+          "A": "感染后可获得牢固免疫力而避免再感染",
+          "B": "血清型别多",
+          "C": "基因组为双链DNA",
+          "D": "无包膜,对脂溶剂不敏感",
+          "E": "可侵犯人体多种组织和器官"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：感染后可获得牢固免疫力而避免再感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0123",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 123,
+        "sourceNumber": 124,
+        "type": "single",
+        "stem": "关于机会致病菌感染,下列叙述哪项是不正确的",
+        "options": {
+          "A": "为内源性感染",
+          "B": "多发生医院感染",
+          "C": "发生于免疫功能低下者",
+          "D": "常发生二感染",
+          "E": "近年来感染率呈下降趋势"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：近年来感染率呈下降趋势。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0124",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 124,
+        "sourceNumber": 125,
+        "type": "single",
+        "stem": "测病毒大小通常是用",
+        "options": {
+          "A": "m",
+          "B": "cm",
+          "C": "mm",
+          "D": "um",
+          "E": "nm"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：nm。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0125",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 125,
+        "sourceNumber": 126,
+        "type": "single",
+        "stem": "口服脊髓灰质炎病毒疫苗的疫苗性质是",
+        "options": {
+          "A": "减毒活疫苗",
+          "B": "灭活疫苗",
+          "C": "亚单位疫苗",
+          "D": "基因工程疫苗",
+          "E": "温度敏感株疫苗"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：减毒活疫苗。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0126",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 126,
+        "sourceNumber": 127,
+        "type": "single",
+        "stem": "引起人类梅毒的病原体是",
+        "options": {
+          "A": "雅司螺旋体",
+          "B": "回归热疏螺旋体",
+          "C": "伯氏疏螺旋体",
+          "D": "苍白密螺旋体",
+          "E": "钩端螺旋体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：苍白密螺旋体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0127",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 127,
+        "sourceNumber": 128,
+        "type": "single",
+        "stem": "可经垂直感染导致畸胎的病毒是",
+        "options": {
+          "A": "麻疹病毒",
+          "B": "风疹病毒",
+          "C": "流感病毒",
+          "D": "乙型脑炎病毒",
+          "E": "脊髓灰质炎病毒"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：风疹病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0128",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 128,
+        "sourceNumber": 129,
+        "type": "single",
+        "stem": "噬菌体在分类.上属于",
+        "options": {
+          "A": "细菌",
+          "B": "病毒",
+          "C": "真菌",
+          "D": "支原体",
+          "E": "衣原体"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：病毒。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0129",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 129,
+        "sourceNumber": 130,
+        "type": "single",
+        "stem": "某患者大面积烧伤,伤口坏死组织多,首先应采取以下哪种方法给予处理",
+        "options": {
+          "A": "清创,扩创,注射TAT",
+          "B": "清创,扩创,注射DPT",
+          "C": "清创,扩创,注射OT",
+          "D": "简单处理伤口以便减少患者的疼痛",
+          "E": "立即注射大剂链霉素"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：清创,扩创,注射TAT。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0130",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 130,
+        "sourceNumber": 131,
+        "type": "single",
+        "stem": "脊髓灰质炎病毒感染的最常见的临床表现是",
+        "options": {
+          "A": "无菌性脑膜炎",
+          "B": "隐性感染",
+          "C": "非麻痹型脊髓灰质炎",
+          "D": "延髓麻痹",
+          "E": "永久性迟缓性肢体麻痹"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：隐性感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0131",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 131,
+        "sourceNumber": 132,
+        "type": "single",
+        "stem": "急性病毒感染引起的炎症反应中,炎性细胞主要是",
+        "options": {
+          "A": "中性粒细胞",
+          "B": "单核细胞",
+          "C": "嗜酸性粒细胞",
+          "D": "嗜碱性粒细胞",
+          "E": "NK细胞"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：单核细胞。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0132",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 132,
+        "sourceNumber": 133,
+        "type": "single",
+        "stem": "不属于毒性噬菌体复制周期的阶段是",
+        "options": {
+          "A": "吸附",
+          "B": "脱壳",
+          "C": "穿入",
+          "D": "生物合成",
+          "E": "成熟与释放"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：脱壳。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0133",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 133,
+        "sourceNumber": 134,
+        "type": "single",
+        "stem": "“流产转导”是指噬菌体携带的外源DNA",
+        "options": {
+          "A": "未能进入受体菌",
+          "B": "进入受体菌后未能增殖",
+          "C": "进入受体菌与染色体组后未能表达其特性",
+          "D": "进入受体菌后游离存在而未能与染色体DNA整合在一起",
+          "E": "进入受体菌后自身复制"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：进入受体菌后游离存在而未能与染色体DNA整合在一起。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0134",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 134,
+        "sourceNumber": 135,
+        "type": "single",
+        "stem": "弧菌具有下列哪种结构",
+        "options": {
+          "A": "鞭毛",
+          "B": "芽孢",
+          "C": "Vi抗原",
+          "D": "M蛋白",
+          "E": "异染颗粒"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：鞭毛。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0135",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 135,
+        "sourceNumber": 136,
+        "type": "single",
+        "stem": "关于血清学诊断,错误的是",
+        "options": {
+          "A": "是一种用已知抗原检测抗体的免疫学检查方法",
+          "B": "常用于抗原性较强的病原菌感染性疾病的诊断",
+          "C": "是一种以效价为测单位的半定试验",
+          "D": "适用于病程短的传染病的诊断",
+          "E": "可用于人群免疫水平的调查"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：是一种以效价为测单位的半定试验。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0136",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 136,
+        "sourceNumber": 137,
+        "type": "single",
+        "stem": "有关衣原体的描述正确的是",
+        "options": {
+          "A": "原体是发育周期中的繁殖型",
+          "B": "细胞质包围原体形成空泡",
+          "C": "原体在细胞外不稳定",
+          "D": "在空泡内始体增大而发育成原体",
+          "E": "原体以吞饮方式进入细胞"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：原体以吞饮方式进入细胞。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0137",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 137,
+        "sourceNumber": 138,
+        "type": "single",
+        "stem": "HCV最主要的传播途径",
+        "options": {
+          "A": "消化道传播",
+          "B": "血液和血制品",
+          "C": "日常生活接触",
+          "D": "母婴传播",
+          "E": "性接触传播"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：血液和血制品。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0138",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 138,
+        "sourceNumber": 139,
+        "type": "single",
+        "stem": "不属于人工被动免疫方式的是",
+        "options": {
+          "A": "注射胸腺素",
+          "B": "注射免疫核糖核酸",
+          "C": "注射胎盘丙种球蛋白",
+          "D": "注射人血清丙种球蛋白",
+          "E": "通过胎盘从母体获得抗体"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：注射免疫核糖核酸。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0139",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 139,
+        "sourceNumber": 140,
+        "type": "single",
+        "stem": "下列细菌中除哪一种外均能引起败血症",
+        "options": {
+          "A": "链球菌",
+          "B": "大肠杆菌",
+          "C": "脑膜炎球菌一",
+          "D": "破伤风梭败菌",
+          "E": "肠炎沙门菌,"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：破伤风梭败菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0140",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 140,
+        "sourceNumber": 141,
+        "type": "single",
+        "stem": "不构成细菌侵袭力的组分是",
+        "options": {
+          "A": "荚膜",
+          "B": "菌毛",
+          "C": "芽孢",
+          "D": "膜磷壁酸",
+          "E": "血浆凝固酶"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：芽孢。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0141",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 141,
+        "sourceNumber": 142,
+        "type": "single",
+        "stem": "下列物质不属于侵袭力的是",
+        "options": {
+          "A": "Vi抗原",
+          "B": "M蛋白",
+          "C": "荚膜σ",
+          "D": "肠毒素",
+          "E": "普通菌毛"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：肠毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0142",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 142,
+        "sourceNumber": 143,
+        "type": "single",
+        "stem": "以内毒素作为主要致病物质的细菌是",
+        "options": {
+          "A": "布鲁菌",
+          "B": "破伤风梭菌",
+          "C": "结核分枝杆菌",
+          "D": "金黄色葡萄球菌",
+          "E": "肺炎链球菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：布鲁菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0143",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 143,
+        "sourceNumber": 144,
+        "type": "single",
+        "stem": "下列疾病出现皮肤慢性移行性红斑的是",
+        "options": {
+          "A": "莱姆病",
+          "B": "梅毒",
+          "C": "品他病",
+          "D": "雅司",
+          "E": "足菌肿"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：莱姆病。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0144",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 144,
+        "sourceNumber": 145,
+        "type": "single",
+        "stem": "风湿热辅助诊断试验是",
+        "options": {
+          "A": "协同凝集试验",
+          "B": "肥达反应",
+          "C": "外斐反应",
+          "D": "溶菌试验",
+          "E": "ASO试验"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：ASO试验。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0145",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 145,
+        "sourceNumber": 146,
+        "type": "single",
+        "stem": "外毒素的化学性质是",
+        "options": {
+          "A": "脂类",
+          "B": "多糖",
+          "C": "蛋白质",
+          "D": "氨基酸",
+          "E": "脂多糖"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：蛋白质。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0146",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 146,
+        "sourceNumber": 147,
+        "type": "single",
+        "stem": "可使感染细胞发生融合的病毒是",
+        "options": {
+          "A": "流感病毒",
+          "B": "腺病毒",
+          "C": "麻疹病毒",
+          "D": "鼻病毒",
+          "E": "埃可病毒"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：麻疹病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0147",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 147,
+        "sourceNumber": 148,
+        "type": "single",
+        "stem": "符合逆转录病毒复制特点的描述是",
+        "options": {
+          "A": "以RNA为模板,先转录互补DNA",
+          "B": "以RNA为模板,先转录早期mRNA",
+          "C": "以RNA直接作为mRNA",
+          "D": "以亲代DNA为模板,产生复制中间型",
+          "E": "以DNA为模板直接转录子代DNA"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：以RNA为模板,先转录互补DNA。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0148",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 148,
+        "sourceNumber": 149,
+        "type": "single",
+        "stem": "脑脊液离心涂片染色,镜检发现白细胞内外均有革兰阴性双球菌,该患者可诊断为",
+        "options": {
+          "A": "结核性脑膜炎",
+          "B": "脱髓鞘脑脊髓膜炎",
+          "C": "流行性脑脊髓膜炎",
+          "D": "流行性乙型脑炎",
+          "E": "新型隐球菌性脑膜炎"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：流行性脑脊髓膜炎。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0149",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 149,
+        "sourceNumber": 150,
+        "type": "single",
+        "stem": "属于真核细胞型微生物的是",
+        "options": {
+          "A": "螺旋体",
+          "B": "放线菌",
+          "C": "真菌",
+          "D": "细菌",
+          "E": "病毒"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：真菌。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0150",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 150,
+        "sourceNumber": 151,
+        "type": "single",
+        "stem": "紧急预防病毒感染最有效的方法是",
+        "options": {
+          "A": "用化学药物",
+          "B": "用免疫血清",
+          "C": "用减毒活疫苗",
+          "D": "用干扰素",
+          "E": "用灭活疫苗Δ"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：用免疫血清。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0151",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 151,
+        "sourceNumber": 152,
+        "type": "single",
+        "stem": "调查人群对白喉棒状杆菌的免疫力可用",
+        "options": {
+          "A": "结核菌素(OT)试验",
+          "B": "锡克试验",
+          "C": "肥达试验",
+          "D": "外斐反应一主",
+          "E": "狄克试验"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：锡克试验。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0152",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 152,
+        "sourceNumber": 153,
+        "type": "single",
+        "stem": "下列哪种微生物无细胞壁",
+        "options": {
+          "A": "螺旋体",
+          "B": "结核分枝杆菌",
+          "C": "肺炎链球菌e",
+          "D": "肺炎支原体",
+          "E": "白喉棒状杆菌"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：肺炎支原体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0153",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 153,
+        "sourceNumber": 154,
+        "type": "single",
+        "stem": "细胞壁缺陷的微生物是",
+        "options": {
+          "A": "金黄色葡萄球菌",
+          "B": "肺炎支原体",
+          "C": "普氏立克次体",
+          "D": "沙眼衣原体",
+          "E": "L型细菌"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：L型细菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0154",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 154,
+        "sourceNumber": 155,
+        "type": "single",
+        "stem": "对病毒干扰现象叙述错误的是",
+        "options": {
+          "A": "只发生在活病毒之间",
+          "B": "可使感染自然终止",
+          "C": "与干扰素产生有关",
+          "D": "与病毒竞争细胞受体有关",
+          "E": "与缺损干扰颗粒有关"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：只发生在活病毒之间。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0155",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 155,
+        "sourceNumber": 156,
+        "type": "single",
+        "stem": "以噬菌体为媒介把供体菌的DNA片段转移到受体菌,使受体菌获得新的遗传性状称为",
+        "options": {
+          "A": "转化",
+          "B": "转导",
+          "C": "接合",
+          "D": "溶原性转换",
+          "E": "原生质体融合"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：转导。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0156",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 156,
+        "sourceNumber": 157,
+        "type": "single",
+        "stem": "由螺旋体所致的人畜共患的疾病是",
+        "options": {
+          "A": "梅毒",
+          "B": "樊尚咽峡炎",
+          "C": "钩端螺旋体病",
+          "D": "雅司病",
+          "E": "回归热"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：钩端螺旋体病。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0157",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 157,
+        "sourceNumber": 158,
+        "type": "single",
+        "stem": "目前尚不能在常规组织细胞中进行培养的",
+        "options": {
+          "A": "HIV",
+          "B": "CMV",
+          "C": "HPV",
+          "D": "HSV",
+          "E": "EBV"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：EBV。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0158",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 158,
+        "sourceNumber": 159,
+        "type": "single",
+        "stem": "属于呼肠病毒科的胃肠炎病毒是",
+        "options": {
+          "A": "星状病毒",
+          "B": "诺如病毒",
+          "C": "肠道腺病毒",
+          "D": "沙波病毒",
+          "E": "轮状病毒"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：轮状病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0159",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 159,
+        "sourceNumber": 160,
+        "type": "single",
+        "stem": "与裸露病毒比较,包膜病毒对下列哪种因素敏感",
+        "options": {
+          "A": "干燥",
+          "B": "热",
+          "C": "酸",
+          "D": "氧",
+          "E": "脂溶剂"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：脂溶剂。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0160",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 160,
+        "sourceNumber": 161,
+        "type": "single",
+        "stem": "可以作为mRNA翻译蛋白质的病毒核酸类型是",
+        "options": {
+          "A": "dsDNA",
+          "B": "dsRNA",
+          "C": "ss(-)RNA",
+          "D": "ss(+)RNA",
+          "E": "ss(+)DNA"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：ss(+)RNA。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0161",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 161,
+        "sourceNumber": 162,
+        "type": "single",
+        "stem": "以下哪种疾病属有菌免疫",
+        "options": {
+          "A": "风湿热",
+          "B": "急性肾小球肾炎",
+          "C": "白喉θ",
+          "D": "肺结核",
+          "E": "肠热症"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：肺结核。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0162",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 162,
+        "sourceNumber": 163,
+        "type": "single",
+        "stem": "下列不产生外毒素的细菌是",
+        "options": {
+          "A": "霍乱弧菌",
+          "B": "伤寒沙门菌",
+          "C": "痢疾志贺菌",
+          "D": "白喉棒状杆菌",
+          "E": "肠产毒性大肠埃希菌"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：伤寒沙门菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0163",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 163,
+        "sourceNumber": 164,
+        "type": "single",
+        "stem": "与立克次体有共同抗原的细菌",
+        "options": {
+          "A": "变形杆菌",
+          "B": "大肠埃希菌",
+          "C": "伤寒沙门菌",
+          "D": "布氏杆菌",
+          "E": "绿脓杆菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：变形杆菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0164",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 164,
+        "sourceNumber": 165,
+        "type": "single",
+        "stem": "下列关于干扰素的叙述中,不正确的是",
+        "options": {
+          "A": "是一组具有高活性的多功能糖蛋白",
+          "B": "可由病毒及其他干扰素诱生剂诱生",
+          "C": "产生后可直接杀伤病毒",
+          "D": "产生后对邻近的细胞可发生作用",
+          "E": "起作用发生早于抗体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：产生后可直接杀伤病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0165",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 165,
+        "sourceNumber": 166,
+        "type": "single",
+        "stem": "EB病毒的原发感染中,约半数表现的疾病是",
+        "options": {
+          "A": "传染性单核细胞增多症",
+          "B": "恶性淋巴瘤",
+          "C": "鼻咽癌",
+          "D": "唇疱疹",
+          "E": "生殖器疱疹"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：传染性单核细胞增多症。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0166",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 166,
+        "sourceNumber": 167,
+        "type": "single",
+        "stem": "无须接受HBIg被动免疫的人群是",
+        "options": {
+          "A": "HBsAg阳性母亲所生的新生儿",
+          "B": "输入了HBsAg阳性血液者",
+          "C": "接受了HBsAg阳性器官的移植者",
+          "D": "体表破损处沾染了HBsAg阳性血清者",
+          "E": "无症状HBsAg携带者"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：无症状HBsAg携带者。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0167",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 167,
+        "sourceNumber": 168,
+        "type": "single",
+        "stem": "HIV疫苗研究,目前遇到的最大问题是",
+        "options": {
+          "A": "病毒型别多",
+          "B": "无可用的动物模型",
+          "C": "HIV的敏感细胞特殊",
+          "D": "病毒突变引起抗原性改变",
+          "E": "病毒不易培养"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：病毒突变引起抗原性改变。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0168",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 168,
+        "sourceNumber": 169,
+        "type": "single",
+        "stem": "细菌革兰氏染色性的不同是由于细菌的",
+        "options": {
+          "A": "细胞核结构的不同",
+          "B": "细胞壁结构的不同",
+          "C": "细胞膜结构的不同",
+          "D": "中介体的有无",
+          "E": "胞质颗粒的有无或不同"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：细胞壁结构的不同。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0169",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 169,
+        "sourceNumber": 170,
+        "type": "single",
+        "stem": "某患者,肌肉酸痛,高热,剧烈头痛,入院。体格检查、外斐反应结果诊断为立克次体感染。试问预防立克次体病最要的是",
+        "options": {
+          "A": "注射疫苗",
+          "B": "服用抗生素",
+          "C": "控制和消灭传播媒介和储存宿主",
+          "D": "灭蚊、灭蝇,防止蚊蝇叮咬",
+          "E": "避免与病人接触"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：控制和消灭传播媒介和储存宿主。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0170",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 170,
+        "sourceNumber": 171,
+        "type": "single",
+        "stem": "患者一个月前感到疲劳、食欲减少、体减轻、发热、咳嗽、痰带血丝。欲取痰标本涂片染色镜检,对该菌应采用的染色方法应该首选",
+        "options": {
+          "A": "革兰氏染色",
+          "B": "抗酸染色",
+          "C": "棉兰染色",
+          "D": "复红染色",
+          "E": "墨汁染色"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：抗酸染色。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0171",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 171,
+        "sourceNumber": 172,
+        "type": "single",
+        "stem": "患儿,男,10岁。右足底被铁锈钉刺伤10天。突然出现张嘴困难,继之出现苦笑面容,⻆弓反张,声响及触碰患儿可诱发上述症状。患儿神志清楚,不发热。患儿所患疾病的致病菌属于",
+        "options": {
+          "A": "革兰染色阴性大肠杆菌",
+          "B": "革兰染色阴性变形杆菌",
+          "C": "革兰染色阴性厌氧拟杆菌",
+          "D": "革兰染色阳性无芽孢厌氧菌",
+          "E": "革兰染色阳性厌氧芽孢杆菌"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：革兰染色阳性厌氧芽孢杆菌。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0172",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 172,
+        "sourceNumber": 173,
+        "type": "single",
+        "stem": "患者,女,38岁,寒战高热,右侧胸痛3天。查体:T39.4°C,意识模糊,右下肺呼吸音减弱。血常规14.3x109/,胸片示右下肺大片浸润阴影。该患者最可能诊断是",
+        "options": {
+          "A": "克雷白杆菌肺炎",
+          "B": "肺炎链球菌肺炎",
+          "C": "肺炎支原体肺炎",
+          "D": "干酪性肺炎",
+          "E": "病毒性肺炎"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：肺炎链球菌肺炎。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0173",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 173,
+        "sourceNumber": 175,
+        "type": "single",
+        "stem": "一位24岁男⻘年近日出现恶心、呕吐和腹泻症状,且吐泻次数逐日多,每日达10~20次。大便呈米泔水样,有一定程度的脱水。血压降低(收缩压为9.31~12kPa)(90~70mmHg),脉搏细速,血浆比为1.031~1.040,24小时尿在500mI以下。经问诊,该⻘年一周前从洪水疫区归来,曾饮用过生水。请问该男⻘年最可能感染哪种病原体",
+        "options": {
+          "A": "产气荚膜梭菌",
+          "B": "霍乱弧菌",
+          "C": "金黄色葡萄球菌",
+          "D": "伤寒沙门菌",
+          "E": "变形杆菌"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：霍乱弧菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0174",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 174,
+        "sourceNumber": 176,
+        "type": "single",
+        "stem": "患儿5岁,近来活动减少,乏力、食欲减退、盗汗。胸透见右肺上叶下部片状阴影,右肺门淋巴结肿大,应考虑诊断为",
+        "options": {
+          "A": "小叶性肺炎",
+          "B": "原发性肺结核病",
+          "C": "支原体肺炎",
+          "D": "病毒性肺炎",
+          "E": "干酪样肺炎"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：原发性肺结核病。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0175",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 175,
+        "sourceNumber": 177,
+        "type": "single",
+        "stem": "某患者剧烈咳嗽入院,怀疑病原菌感染,经鲍-金培养基培养后形成细小、光滑、表面隆起、灰白色、不透明的珍珠样菌落,最可能是哪种病原体感染",
+        "options": {
+          "A": "破伤风梭菌",
+          "B": "白喉棒状杆菌",
+          "C": "百日咳鲍特菌",
+          "D": "结核分枝杆菌",
+          "E": "流感嗜血杆菌"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：结核分枝杆菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0176",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 176,
+        "sourceNumber": 178,
+        "type": "single",
+        "stem": "患者,女,38岁。因发热、黄疸、腹胀、乏力入院,诊断为急性甲型肝炎”。引起该病的病原体的主要传播途径是",
+        "options": {
+          "A": "血液传播",
+          "B": "消化道传播",
+          "C": "呼吸道传播",
+          "D": "密切接触传播",
+          "E": "性接触传播"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：消化道传播。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0177",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 177,
+        "sourceNumber": 179,
+        "type": "single",
+        "stem": "患者,男,26岁,军官,参加抗洪抢险,天气酷暑炎热,口渴难忍,喝了老百姓送来的矿泉水,2小时后剧烈腹部绞痛,水样便腹泻伴呕吐4次,继之出现米泔水样便。查体:疲倦面容,皮肤、唇舌干燥,眼窝深陷。血压53/37mmHg。取呕吐物和米泔水样便悬滴法镜检,见⻥群样细菌穿梭样运动。病原体可能为",
+        "options": {
+          "A": "螺旋体",
+          "B": "病毒",
+          "C": "真菌",
+          "D": "细菌",
+          "E": "立克次体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：细菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0178",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 178,
+        "sourceNumber": 180,
+        "type": "single",
+        "stem": "高校男性大学生,与男性伴侣有不洁性生活史6个月有余。为排除HIV感染,首选的病原学检测是",
+        "options": {
+          "A": "HIV分离培养",
+          "B": "Westernblot检测HIV抗体",
+          "C": "ELISA检测HIV抗体",
+          "D": "ELISA检测HIVp24抗原",
+          "E": "QRT-PCR检测HIV核酸"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：ELISA检测HIV抗体。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0179",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 179,
+        "sourceNumber": 181,
+        "type": "single",
+        "stem": "某女⻘年因咳嗽发热就诊,胸片发现右肺有片状阴影,结核菌素试验红肿直径大于2.0cm,该患者可能是",
+        "options": {
+          "A": "机体对结核无免疫能力",
+          "B": "结核病恢复期",
+          "C": "结核病活动期",
+          "D": "注射过卡介苗",
+          "E": "感染过结核"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：结核病活动期。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0180",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 180,
+        "sourceNumber": 182,
+        "type": "single",
+        "stem": "患者,男,15岁,学生。3天前突然高热达39C,伴发冷和寒战,同时出现剧烈头痛,频繁呕吐,呈喷射性,吐出食物和胆汁,无上腹部不适,进食少,二便正常。查体见皮肤散在少出血点和脑膜刺激征。既往体健,无胃病和结核病史,无药物过敏史,所在学校有类似患者发生。取淤斑涂片镜检可见G双球菌。临床诊断为流行性脑脊髓膜炎。建议首选的治疗药物是",
+        "options": {
+          "A": "⻘霉素G",
+          "B": "磺胺药物",
+          "C": "红霉素",
+          "D": "核苷类似物",
+          "E": "阿德福⻙"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：⻘霉素G。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0181",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 181,
+        "sourceNumber": 183,
+        "type": "single",
+        "stem": "患儿,男,3个月。口服脊髓灰质炎减毒活疫苗11天后,开始出现发热伴轻度咳嗽,无寒战、抽搐。退热后发生下运动神经元不对称性麻痹,脑脊液示蛋白细胞分离,肌电图示神经源性受损,脊髓、头部MRI未见异常。该患儿最可能的诊断是",
+        "options": {
+          "A": "海绵状脑病",
+          "B": "流行性乙型脑炎",
+          "C": "肉毒毒素中毒",
+          "D": "疫苗相关麻痹型脊髓灰质炎",
+          "E": "无菌性脑膜炎"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：疫苗相关麻痹型脊髓灰质炎。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0182",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 182,
+        "sourceNumber": 184,
+        "type": "single",
+        "stem": "患者,28岁,因足底外伤,继而发热、惊厥、牙关紧闭呈苦笑面容入院,诊断为破伤风。引起上述症状的破伤风梭菌具有诊断意义的特殊结构是",
+        "options": {
+          "A": "芽孢",
+          "B": "菌毛",
+          "C": "鞭毛",
+          "D": "荚膜",
+          "E": "性菌毛"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：芽孢。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0183",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 183,
+        "sourceNumber": 185,
+        "type": "single",
+        "stem": "患者,女,22岁。入院前2周持续性发热,体温高达39~40°C,发热期间伴食欲缺乏。体检肝、脾略大,腹部见玫瑰疹。血白细胞3.5x109/L。肝功正常,血培养阴性,肥达试验结果:TO1:320,TH1:320,PA1:40,PB1:40。该患者最可能的诊断是",
+        "options": {
+          "A": "病毒性肠胃炎",
+          "B": "上呼吸道感染",
+          "C": "细菌性痢疾",
+          "D": "淋巴结炎",
+          "E": "伤寒"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：伤寒。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0184",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 184,
+        "sourceNumber": 186,
+        "type": "single",
+        "stem": "患者,男,35岁,一周前从东南亚入境,3天前因突然剧烈呕吐、腹泻而入院。腹泻物呈米泔样,便检发现穿梭状运动的细菌。请问致病菌可能是",
+        "options": {
+          "A": "肠侵袭性大肠埃希菌",
+          "B": "伤寒沙门菌",
+          "C": "变形杆菌",
+          "D": "猪霍乱沙门菌",
+          "E": "霍乱弧菌"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：霍乱弧菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0185",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 185,
+        "sourceNumber": 187,
+        "type": "single",
+        "stem": "自然灾害过后,当地农村断水断电,生活陷入困境。居⺠在饮用河水后,许多人出现恶心、呕吐和腹泻症状,排泄物呈“米泔水”样。经当地医疗机构检测后发现,该疾病是由一种可激活腺苷酸环化酶系统、导致cAMP水平增加的毒素引起的。可产生这种毒素的细菌是",
+        "options": {
+          "A": "布鲁氏菌",
+          "B": "伤寒沙门菌",
+          "C": "志贺菌",
+          "D": "大肠埃希菌",
+          "E": "霍乱弧菌"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：霍乱弧菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0186",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 186,
+        "sourceNumber": 188,
+        "type": "single",
+        "stem": "患儿,女,6岁。突起高热、头痛、呕吐伴有意识障碍,经血清学检查及脑脊液RT-PCR检查,诊断为“乙型脑炎”。引起该病的病原体的主要传播途径是",
+        "options": {
+          "A": "消化道传播",
+          "B": "输血传播",
+          "C": "虫媒传播",
+          "D": "呼吸道传播",
+          "E": "直接接触传播"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：虫媒传播。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0187",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 187,
+        "sourceNumber": 189,
+        "type": "single",
+        "stem": "患儿,男,6岁,未接种过DPT疫苗,春季末因咳嗽于呼吸科就诊。2周前,患儿出现咳嗽和鼻塞,症状持续,无发热和寒战。3天前,患儿出现夜间咳醒,咳嗽剧烈,咳嗽后出现呕吐和呼吸困难,扁桃体无肿大,无脓性分泌物。次日,患儿咳嗽依然存在,再次因剧烈咳嗽而咳醒,咳嗽持续约10分钟,吸气出现吼声。该患儿最可能感染何种病原体",
+        "options": {
+          "A": "百日咳鲍特菌",
+          "B": "肺炎支原体",
+          "C": "白喉棒状杆菌",
+          "D": "肺炎链球菌",
+          "E": "结核分枝杆菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：百日咳鲍特菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0188",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 188,
+        "sourceNumber": 190,
+        "type": "single",
+        "stem": "20岁⻘年摘除扁桃体后,发热,出现心力衰竭。采血培养细菌,血平板有草绿色溶血环小菌落形成。涂片染色为G十链状排列球菌,诊断为甲型溶血性链球菌心内膜炎。下列还有哪种菌能形成草绿色溶血环菌落",
+        "options": {
+          "A": "金黄色葡萄球菌",
+          "B": "乙型溶血链球菌",
+          "C": "表皮葡萄球菌",
+          "D": "丙型链球菌肺",
+          "E": "炎链球菌"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：炎链球菌。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0189",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 189,
+        "sourceNumber": 191,
+        "type": "single",
+        "stem": "患者,女,24岁,药物流产10日后再次就诊,诉近几日白带增多,带血丝,有异味。妇检:子宫附件正常,扩阴器暴露阴道,见后穹隆部有豆腐渣样块状分泌物,宫颈口有少血性黏液。分泌物涂片镜检发现如图所示病原体该病原体最可能为",
+        "options": {
+          "A": "单细胞真菌",
+          "B": "多细胞真菌",
+          "C": "丝状真菌",
+          "D": "支原体",
+          "E": "沙眼衣原体"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：沙眼衣原体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0190",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 190,
+        "sourceNumber": 192,
+        "type": "single",
+        "stem": "某肝炎患者,血清学检查结果为:抗HAVIgM(-),抗HBsAb(+),抗HCV-IgG(+),抗HDV-IgM(-),抗HEV-IgM(-)。最可能感染的病原体是",
+        "options": {
+          "A": "甲型肝炎病毒",
+          "B": "乙型肝炎病毒",
+          "C": "丙型肝炎病毒",
+          "D": "J型肝炎病毒",
+          "E": "戊型肝炎病毒"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：丙型肝炎病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0191",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 191,
+        "sourceNumber": 193,
+        "type": "single",
+        "stem": "某患者,突然出现高热,乏力,伴有腓肠肌疼痛、眼结膜出血以及淋巴结肿大。印象诊断是钩体病。该病原体的主要传染源和储存宿主是",
+        "options": {
+          "A": "猪和犬",
+          "B": "羊和牛",
+          "C": "鼠和犬",
+          "D": "牛和马",
+          "E": "鼠和猪"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：鼠和猪。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0192",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 192,
+        "sourceNumber": 194,
+        "type": "single",
+        "stem": "患儿,男,1个月,因多发皮疹入院。皮疹呈圆形,外周有丘疹,带有鳞屑,掌拓部有大疱。患儿母亲吸毒,母血RPR阳性。该患儿最有可能的诊断是",
+        "options": {
+          "A": "梅毒",
+          "B": "HIV垂直感染",
+          "C": "风疹病毒感染",
+          "D": "淋病",
+          "E": "疱疹病毒"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：梅毒。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0193",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 193,
+        "sourceNumber": 195,
+        "type": "single",
+        "stem": "2岁男孩,突然发热、呕吐及腹泻1天,排出大水样便,其所在幼儿园也有数名幼儿出现类似症状,但教师中无类似病例。初步判断最可能的感染病原体是",
+        "options": {
+          "A": "A组轮状病毒",
+          "B": "肠侵袭性大肠埃希菌",
+          "C": "痢疾志贺菌",
+          "D": "柯萨奇病毒",
+          "E": "诺如病毒"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：A组轮状病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0194",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 194,
+        "sourceNumber": 196,
+        "type": "single",
+        "stem": "患者,女,25岁,已婚。最近发现阴道分泌物增多,呈淡黄色,污秽裤裆。白带镜检发现白细胞较多,淋球菌培养阴性。沙眼衣原体PCR检测阴性。取尿沉渣做支原体培养,能分解精氨酸,但不能分解尿素,在固体培养基上能长出“荷包蛋”样菌落。请问该患者最可能感染了以下哪种微生物",
+        "options": {
+          "A": "解脲脲原体",
+          "B": "生殖支原体",
+          "C": "人型支原体",
+          "D": "肺炎嗜衣原体",
+          "E": "肺炎支原体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：人型支原体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0195",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 195,
+        "sourceNumber": 197,
+        "type": "single",
+        "stem": "一位65岁退休的女士,去墨⻄哥度假并食用当地食物。36小时后,她出现了大的水样腹泻伴腹痛。她被诊断为大肠埃希菌相关性腹泻。下列哪种大肠埃希菌产生耐热和不耐热肠毒素",
+        "options": {
+          "A": "EIEC",
+          "B": "ETEC",
+          "C": "EHEC",
+          "D": "EPEC",
+          "E": "EAEC"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：ETEC。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0196",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 196,
+        "sourceNumber": 198,
+        "type": "single",
+        "stem": "某大学同宿舍4名同学外出在一家路边小餐馆聚餐后,晚自习时,3名同学出现剧烈呕吐、腹泻,同时伴有中上腹部疼痛。急诊入院,初步诊断为金黄色葡萄球菌引起的“食物中毒”。此菌能够合成的代谢产物是",
+        "options": {
+          "A": "维生素",
+          "B": "抗生素",
+          "C": "内毒素",
+          "D": "外毒素",
+          "E": "水溶性色素"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：外毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0197",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 197,
+        "sourceNumber": 199,
+        "type": "single",
+        "stem": "患者,男,27岁,教师。3年前戒毒,近1年来双下肢麻木、乏力,进行性加,近1个月不能行走,便秘,排尿不畅。当地颅脑及胸腰椎CT(-)。检查:双下肢肌力4°,胸10以下痛觉减退,关节位置及音叉觉正常,下肢腱反射亢进,Babinski(+)。腰穿CSF压力160mmH,O,细胞35x10%/L,蛋白1275mg/L,按脊髓炎治疗无效。查血RPR1:32,TPHA1:2560;腰穿CSF细胞25x106/L,蛋白1344mg/L,RPR1:2,TPHA1:1280。该患者最有可能是什么疾病",
+        "options": {
+          "A": "化脓性脊髓炎",
+          "B": "脊髓钩端螺旋体病",
+          "C": "脊髓血管梅毒",
+          "D": "病毒性脊髓炎",
+          "E": "结核性脊髓炎"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：脊髓血管梅毒。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0198",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 198,
+        "sourceNumber": 200,
+        "type": "single",
+        "stem": "某校多名学生在食堂进餐后数小时出现恶心、呕吐症状。取剩余食物作细菌培养,革兰染色并在显微镜下观察到革兰阳性的球菌,培养物可分解甘露醇,检测血浆凝固酶和耐热核酸酶试验阳性。该致病菌还有何其他特点",
+        "options": {
+          "A": "SPA是要的抗原和致病物质",
+          "B": "不耐低温和干燥",
+          "C": "属于条件致病菌",
+          "D": "可形成双层溶血环",
+          "E": "有鞭毛,有芽孢"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：SPA是要的抗原和致病物质。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0199",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 199,
+        "sourceNumber": 201,
+        "type": "single",
+        "stem": "患者,男,35岁。发热5天,最高体温40C,急性病容,酒醉貌,少尿,初步诊断为流行性出血热。以下有助于诊σ断的实验室检查不包括",
+        "options": {
+          "A": "白细胞计数增高",
+          "B": "血小板减少",
+          "C": "血液浓缩",
+          "D": "蛋白尿",
+          "E": "小三阳"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：白细胞计数增高。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0200",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 200,
+        "sourceNumber": 202,
+        "type": "single",
+        "stem": "患者,女,65岁。每日口服泼尼松15~30mg治疗膝关节肿痛,5个月后于颈部及腹股沟见1cmx2cm左右红斑各一块,其上散在丘疹;1年后皮损增多并融合,红斑上覆有鳞屑,取鳞屑及结痂经棉蓝染色可见大有隔菌丝,棍棒状大分子孢子及散在小分生孢子,沙保培养基上生长出产生红色色素的丝状菌落。该患者最可能感染的真菌是",
+        "options": {
+          "A": "石膏样小孢子菌",
+          "B": "絮状表皮癣菌",
+          "C": "红色毛癣菌",
+          "D": "铁锈色小孢子菌",
+          "E": "石膏样毛癣菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：石膏样小孢子菌。考点：真菌学。重点识别皮肤癣菌、条件致病性真菌、深部真菌感染及真菌病的诊断和致病特点。",
+        "knowledge": [
+          "真菌学"
+        ]
+      },
+      {
+        "id": "micro-0201",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 201,
+        "sourceNumber": 203,
+        "type": "single",
+        "stem": "患者,女,40岁,体检中发现其宫颈细胸有高度上皮间瘤样病变。有多个性伴侣和衣原体感染,已有5年未做过阴道细胞涂片检查。与该病例最有可能存在关联性的病毒是",
+        "options": {
+          "A": "副黏病毒",
+          "B": "黄病毒",
+          "C": "人乳头瘤病毒",
+          "D": "细小DNA病毒",
+          "E": "风疹病毒"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：人乳头瘤病毒。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0202",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 202,
+        "sourceNumber": 204,
+        "type": "single",
+        "stem": "患者,女,26岁,在剖宫产的术前例行检查中检出HIV抗体阳性。经询问,其丈夫为吸毒人员。对于该病例说法错误的是",
+        "options": {
+          "A": "该患者的丈夫极有可能也是HIV感染者",
+          "B": "患者的胎儿极有可能感染HIV",
+          "C": "该患者可以正常母乳喂养婴儿",
+          "D": "该患者的手术器械应严格的消毒灭菌",
+          "E": "该患者的胎盘等组织块应彻底销毁"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：该患者可以正常母乳喂养婴儿。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0203",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 203,
+        "sourceNumber": 205,
+        "type": "single",
+        "stem": "患者,男,24岁,有不洁性接触史,因近2日尿急、尿频、排尿刺痛而来院就诊。查体见尿道口有白色脓性分泌物。分泌物涂片染色,镜下见到G-成双排列的球菌。该患感染可能是由哪种细菌引起",
+        "options": {
+          "A": "肺炎链球菌",
+          "B": "淋病奈瑟菌",
+          "C": "葡萄球菌",
+          "D": "链球菌",
+          "E": "脑膜炎奈瑟菌"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：淋病奈瑟菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0204",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 204,
+        "sourceNumber": 206,
+        "type": "single",
+        "stem": "某患者血液标本“二对半”的检测结果为:HBsAg(+),抗-HBs(-),HBeAg(+),抗-HBe(-),抗-HBc(+)。最有可能的诊断是",
+        "options": {
+          "A": "乙型肝炎潜伏期",
+          "B": "乙型肝炎急性期",
+          "C": "乙型肝炎恢复期",
+          "D": "HBV病毒既往感染",
+          "E": "接种过乙肝疫苗"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：乙型肝炎急性期。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0205",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 205,
+        "sourceNumber": 207,
+        "type": "single",
+        "stem": "某地区发生数百人食物中毒的公共卫生事件,从患者的呕吐物中分离出革兰阳性、凝固酶阳性的球菌,可疑的病原菌最可能是",
+        "options": {
+          "A": "希氏沙门菌",
+          "B": "大肠埃希菌",
+          "C": "C群链球菌",
+          "D": "金黄色葡萄球菌",
+          "E": "副溶血性弧菌"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：金黄色葡萄球菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0206",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 206,
+        "sourceNumber": 208,
+        "type": "single",
+        "stem": "患者,男,35岁。间歇性发热12天,高热和低热交替出现,高热时伴有头痛、乏力,最高体温39.5°C,无咳嗽。患者于两周前到牧区旅游,曾饮用未消毒的鲜牛奶,无蚊虫叮咬史。X光检查肺部未见异常。该病例的可能诊断是",
+        "options": {
+          "A": "钩端螺旋体病",
+          "B": "斑疹伤寒",
+          "C": "布鲁菌病",
+          "D": "肺结核",
+          "E": "恙虫病"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：布鲁菌病。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0207",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 207,
+        "sourceNumber": 209,
+        "type": "single",
+        "stem": "一年轻女性,近3天出现排尿困难和排尿次数增加。无发热、无皮疹。尿检发现每高倍镜下10~15个白细胞和大细菌,细菌经染色为革兰阴性杆菌。可能为哪种细菌感染",
+        "options": {
+          "A": "大肠埃希菌",
+          "B": "志贺菌",
+          "C": "伤寒沙门菌",
+          "D": "解脲脲原体",
+          "E": "淋病奈瑟菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：大肠埃希菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0208",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 208,
+        "sourceNumber": 210,
+        "type": "single",
+        "stem": "患者,男,23岁。乏力,食欲缺乏,尿黄4天。双侧颈部淋巴结肿大,肝略大,脾肋下6cm。⻣髓穿刺提示异型淋巴细胞>50%,VCA-IgG(+)。最可能的诊断是",
+        "options": {
+          "A": "淋巴组织增生性疾病",
+          "B": "急性感染性淋巴细胞增多症",
+          "C": "急性淋巴细胞性白血病",
+          "D": "病毒性肝炎",
+          "E": "传染性单核细胞增多症"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：传染性单核细胞增多症。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0209",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 209,
+        "sourceNumber": 211,
+        "type": "single",
+        "stem": "患者,男,28岁,因持续高热入院2周,诊断为急性粒细胞性白血病,化疗1周后,患者口腔黏膜.上出现白色膜状物,该患者最可能感染的病原体是",
+        "options": {
+          "A": "奋森螺旋体",
+          "B": "白喉棒状杆菌",
+          "C": "白假丝酵母菌",
+          "D": "厌氧菌",
+          "E": "变异链球菌"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：白假丝酵母菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0210",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 210,
+        "sourceNumber": 212,
+        "type": "single",
+        "stem": "患儿,女,5岁,因高热、意识模糊而入院。查体发现该患儿面色苍白,昏迷,时有惊厥,呼吸微弱。粪便:白细胞4个/HP。血常规:白细胞数16x10%/L。脑脊液正常。粪便取材培养,革兰染色为阴性杆菌,动力试验阴性。诊断患儿感染",
+        "options": {
+          "A": "鼠伤寒沙门菌",
+          "B": "肠产毒型大肠埃细菌",
+          "C": "肠致病型大肠埃细菌",
+          "D": "轮状病毒",
+          "E": "痢疾志贺菌"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：痢疾志贺菌。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0211",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 211,
+        "sourceNumber": 213,
+        "type": "single",
+        "stem": "患儿,女,4岁,因发烧、游走性关节炎和心肌炎而入院。其父母陈述大约两周前,该患儿出现严的喉痛,伴发烧和胃痛,但病情几天后自然地消退。入院前两天,患儿开始出现面部、颈部和四肢奇怪的运动,这些在检查中发现是无意识、无目的、不适当的运动。实验室检查显示白细胞增多,蛋白水平升高,血沉速度升高,常规血培养结果阴性,但患儿血清中发现高滴度抗链球菌溶血素O抗体。该患儿最可能患的是",
+        "options": {
+          "A": "急性风湿热",
+          "B": "链球菌性的心内膜炎",
+          "C": "破伤风",
+          "D": "白喉",
+          "E": "小儿麻痹症"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：急性风湿热。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0212",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 212,
+        "sourceNumber": 214,
+        "type": "single",
+        "stem": "患儿,女,10岁。咽痛、咳嗽、发热后15天出现全身水肿,尿减少,血压157/98mmHg。血常规:血红蛋白125g/L,白细胞5.7x109/L。尿常规:尿蛋白(+),红细胞(++++),白细胞0个/HP,管型0个/HP。此病症由何种病原体感染所致",
+        "options": {
+          "A": "金黄色葡萄球菌",
+          "B": "A群链球菌",
+          "C": "14型肺炎链球菌",
+          "D": "脑膜炎奈瑟菌",
+          "E": "淋球菌"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：A群链球菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0213",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 213,
+        "sourceNumber": 215,
+        "type": "single",
+        "stem": "患者,男,腿部皮肤被叮咬,突发高热,局部出现溃疡。入院体格检查、实验室检查诊断为斑疹伤寒立克次体感染。斑疹伤寒立克次体的传染源与储存宿主是",
+        "options": {
+          "A": "人虱",
+          "B": "鼠蚤",
+          "C": "鼠",
+          "D": "蜱",
+          "E": "恙螨"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：鼠。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0214",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 214,
+        "sourceNumber": 216,
+        "type": "single",
+        "stem": "患者,女,22岁。受凉后出现寒战、发热,咳嗽,咳少许黏痰3天,自服感冒药后热退,查体:T39.5\"C,急性病容,右肺呼吸音减弱,语音震颤增强,下肺大片状模糊音影。该患者抗感染治疗不宜使用的是",
+        "options": {
+          "A": "⻘霉素",
+          "B": "左氧氟沙星",
+          "C": "阿莫⻄林",
+          "D": "头孢曲松",
+          "E": "阿米卡星"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：⻘霉素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0215",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 215,
+        "sourceNumber": 217,
+        "type": "single",
+        "stem": "患者3天前开始感觉前额痛,入院当天上午高热、寒战,下午起开始出现神志不清、晕厥,随即送入医院。查体:T41°C,BP70/30mmHg,P140次/分,R24次/分,患者间断清醒,躯干有几处淤斑,鼻腔、口腔有出血,颈部柔软,无脑膜刺激征,心脏未闻及杂音,腹部除见左.上四分之一象限脾切除手术瘢痕外无异常发现。胸部X光:心、肺无异常。实验室检查:血培养可见革兰染色阳性、柳叶刀状双球菌。血琼脂再次培养可见细小、半透明的、呈a-溶血环的菌落,该菌可被胆汁溶解,并可被奥普托辛(optochin)抑制。用含有抗83型肺炎链球菌的抗体的全血清做荚膜肿胀试验阳性。最有可能引起该患者败血症的病原菌是",
+        "options": {
+          "A": "脑膜炎球菌",
+          "B": "肺炎链球菌",
+          "C": "流感嗜血杆菌",
+          "D": "A群链球菌"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：肺炎链球菌。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0216",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 216,
+        "sourceNumber": 218,
+        "type": "single",
+        "stem": "某老年男性患者,肺部感染入院。常规治疗后,疗效不佳。考虑到可能出现了耐药性菌株感染。此时,做抗生素敏感试验时,应选择细菌增殖的",
+        "options": {
+          "A": "迟缓期早期",
+          "B": "对数生长期",
+          "C": "稳定期后期",
+          "D": "稳定期中期",
+          "E": "衰亡期早期"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：对数生长期。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0217",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 217,
+        "sourceNumber": 219,
+        "type": "single",
+        "stem": "患儿,男,10岁,发热出疹3天。红疹始于面部,后向肢体扩散。A族链球菌抗原检测阴性,诊断为传染性红班。最可能导致该病的病原体是",
+        "options": {
+          "A": "风疹病毒",
+          "B": "痘病毒",
+          "C": "人乳头瘤病毒",
+          "D": "单纯疱疹病毒",
+          "E": "细小DNA病毒"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：细小DNA病毒。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0218",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 218,
+        "sourceNumber": 220,
+        "type": "single",
+        "stem": "患者,女,35岁,患肺结核已3年,治疗不规则。2天前受凉后发热,体温38°C,体检无明显异常。胸片示两上肺斑片状阴影,伴不规则透亮区。为判断肺结核是否活动,可采取下列哪种方法",
+        "options": {
+          "A": "痰结核杆菌检查",
+          "B": "革兰染色",
+          "C": "Elek平板毒力实验",
+          "D": "糖发酵试验",
+          "E": "胆汁溶解试验"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：痰结核杆菌检查。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0219",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 219,
+        "sourceNumber": 221,
+        "type": "single",
+        "stem": "患儿,男,1岁,因抽搐入院。上呼吸道感染2天,昨夜发热嗜睡。查体:颈强,体温40C。WBC17x109/L,腰穿脑脊液细胞数4x109/L,中性粒细胞占88%。诊断为细菌性脑膜炎。细菌培养时发现在预加的金葡菌菌落周围生长旺盛,出现卫星现象,G染色为G杆菌。试问所感染的细菌可能是",
+        "options": {
+          "A": "肺炎克雷伯菌",
+          "B": "A群链球菌",
+          "C": "脑膜炎奈瑟菌",
+          "D": "流感嗜血杆菌",
+          "E": "铜绿假单胞菌"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：流感嗜血杆菌。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0220",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 220,
+        "sourceNumber": 222,
+        "type": "single",
+        "stem": "患者持续发热12天到医院就诊,精神菱靡,反应淡漠,持续高热。体温39.5\"C,心率80次/分,肝肋下1.5cm,脾肋下2cm。白细胞3.4x109/儿,肥达反应结果显示01:80、H1:160,HBsAg阴性。为确定诊断,应进行检查的项目是",
+        "options": {
+          "A": "乙型肝炎病毒抗体",
+          "B": "甲型肝炎病毒抗体",
+          "C": "取外周血分离培养",
+          "D": "丙型肝炎病毒抗体",
+          "E": "标本取⻣髓液,分离培养"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：标本取⻣髓液,分离培养。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0221",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 221,
+        "sourceNumber": 223,
+        "type": "single",
+        "stem": "患者,男,35岁,因腹痛、脓血便2个月入院。患者2个多月前出差回来后突然发热达38C,无寒战,同时有腹痛、腹泻,大便每日10余次,为少脓血便,伴里急后;曾到附近医院,化验大便有多数白细胞,口服几次庆大霉素和黄连素好转。以后虽间断服用黄连素,但仍有黏液性便,左下腹不适,自觉日渐乏力,遂来诊。化验:大便常规为黏液脓性便,白细胞20~30个/HP,偶见成堆脓球,尿常规(-)。初步诊断:慢性菌痢。引起该病的病原菌能够合成的代谢产物是",
+        "options": {
+          "A": "硫化氢",
+          "B": "凝固酶",
+          "C": "溶血素",
+          "D": "几丁质",
+          "E": "热原质"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：热原质。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0222",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 222,
+        "sourceNumber": 224,
+        "type": "single",
+        "stem": "患儿,男,9岁。急性发热,体温持续39°C以.上,咳嗽无痰,全身酸痛,稍气促,无发绀,双肺呼吸音粗,可闻及少细湿哕音。血常规检查显示白细胞总数降低。血生化检查肌酸激酶、乳酸脱氢酶、天门冬氨酸氨基转移酶、丙氨酸氨基转移酶均升高。该患儿近期有病死禽密切接触史,捡到1只麻雀并饲养但是几天后死亡。该患儿最可能的诊断是",
+        "options": {
+          "A": "普通感冒",
+          "B": "大叶性肺炎",
+          "C": "人感染高致病性禽流感",
+          "D": "肺结核",
+          "E": "严急性呼吸综合征(SARS)"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：人感染高致病性禽流感。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0223",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 223,
+        "sourceNumber": 225,
+        "type": "single",
+        "stem": "一新生儿室暴发脓毒血症,脓汁标本经涂片、革兰染色镜检发现大葡萄球菌。为确定该菌是否有致病力,应检查",
+        "options": {
+          "A": "血浆凝固酶",
+          "B": "触酶",
+          "C": "DNA聚合酶",
+          "D": "尿素酶",
+          "E": "磷酸酯酶"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：血浆凝固酶。考点：微生物检验与防治。重点掌握标本采集、培养、染色、包涵体检查、血清学试验、抗菌药物、耐药性和感染控制。",
+        "knowledge": [
+          "微生物检验与防治"
+        ]
+      },
+      {
+        "id": "micro-0224",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 224,
+        "sourceNumber": 226,
+        "type": "single",
+        "stem": "某幼儿园3岁小朋友,以发热、咽痛、呼吸困难入院。查体:体温38.5\"C,口腔黏膜上散在白色斑点,咽部及扁桃体有一层灰白色膜。试问感染细菌经奈瑟染色后,观察到哪一结构有助于白喉的进一步诊断",
+        "options": {
+          "A": "质粒",
+          "B": "异染颗粒",
+          "C": "荚膜",
+          "D": "芽孢",
+          "E": "鞭毛"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：异染颗粒。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0225",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 225,
+        "sourceNumber": 227,
+        "type": "single",
+        "stem": "7岁儿童,近日因皮肤不适到医院皮肤科门诊就诊。患儿家长诉患病初期皮肤表面出现红斑,并且在1~2天时皮肤表面出现褶皱,随后出现清亮的水泡。触碰患儿皮肤表面时,患儿哭闹不止,并有皮屑脱落。取皮肤样本进行微生物学检测,培养物能发酵甘露醇,在血琼脂平板.上形成的菌落周围有完全透明的溶血环,此病原体最有可能是",
+        "options": {
+          "A": "鼠疫耶尔森菌",
+          "B": "霍乱弧菌",
+          "C": "金黄色葡萄球菌",
+          "D": "解脲脲原体",
+          "E": "梅毒螺旋体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：金黄色葡萄球菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0226",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 226,
+        "sourceNumber": 228,
+        "type": "single",
+        "stem": "某5个月婴儿,便秘、头颈部肌肉软弱、吮乳无力、吞咽困难入院。查:眼睑下垂,全身肌张力减退。入院后多项检查提示“婴儿肉毒病”。引起此病的病原菌",
+        "options": {
+          "A": "在有氧和无氧环境中都能生长",
+          "B": "菌体内缺少过氧化物酶",
+          "C": "属于自养菌范畴",
+          "D": "通过光合作用获得能",
+          "E": "最适生长温度为10~20°C"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：菌体内缺少过氧化物酶。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0227",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 227,
+        "sourceNumber": 229,
+        "type": "single",
+        "stem": "属于人类朊粒病的是",
+        "options": {
+          "A": "CJD",
+          "B": "TSE",
+          "C": "DHF",
+          "D": "SSPE",
+          "E": "BSE"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：CJD。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0228",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 228,
+        "sourceNumber": 230,
+        "type": "single",
+        "stem": "属于人和动物的朊粒病是",
+        "options": {
+          "A": "CJD",
+          "B": "TSE",
+          "C": "DHF",
+          "D": "SSPE",
+          "E": "BSE"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：BSE。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0229",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 229,
+        "sourceNumber": 231,
+        "type": "single",
+        "stem": "烫伤样皮肤综合征相关的致病物质是",
+        "options": {
+          "A": "TSST-1",
+          "B": "肠毒素",
+          "C": "内毒素",
+          "D": "凝固酶",
+          "E": "表皮剥脱毒素"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：表皮剥脱毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0230",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 230,
+        "sourceNumber": 232,
+        "type": "single",
+        "stem": "中毒性休克综合征相关的致病物质是",
+        "options": {
+          "A": "TSST-1",
+          "B": "肠毒素",
+          "C": "内毒素",
+          "D": "凝固酶",
+          "E": "表皮剥脱毒素"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：内毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0231",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 231,
+        "sourceNumber": 233,
+        "type": "single",
+        "stem": "食物中毒相关的致病物质是",
+        "options": {
+          "A": "TSST-1",
+          "B": "肠毒素",
+          "C": "内毒素",
+          "D": "凝固酶",
+          "E": "表皮剥脱毒素"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：肠毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0232",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 232,
+        "sourceNumber": 234,
+        "type": "single",
+        "stem": "病灶局限相关的致病物质是",
+        "options": {
+          "A": "TSST-1",
+          "B": "肠毒素",
+          "C": "内毒素",
+          "D": "凝固酶",
+          "E": "表皮剥脱毒素"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：凝固酶。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0233",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 233,
+        "sourceNumber": 235,
+        "type": "single",
+        "stem": "新生儿期接种的疫苗应是",
+        "options": {
+          "A": "乙肝疫苗",
+          "B": "流感疫苗",
+          "C": "麻疹疫苗",
+          "D": "白、百、破疫苗",
+          "E": "脊髓灰质炎疫苗"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：乙肝疫苗。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0234",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 234,
+        "sourceNumber": 236,
+        "type": "single",
+        "stem": "生后2个月时应接种的疫苗是",
+        "options": {
+          "A": "乙肝疫苗",
+          "B": "流感疫苗",
+          "C": "麻疹疫苗",
+          "D": "白、百、破疫苗",
+          "E": "脊髓灰质炎疫苗"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：脊髓灰质炎疫苗。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0235",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 235,
+        "sourceNumber": 237,
+        "type": "single",
+        "stem": "Q热的病原体是",
+        "options": {
+          "A": "莫氏立克次体",
+          "B": "恙虫病立克次体",
+          "C": "斑疹伤寒立克次体",
+          "D": "森林脑炎病毒",
+          "E": "贝纳柯克斯体"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：贝纳柯克斯体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0236",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 236,
+        "sourceNumber": 238,
+        "type": "single",
+        "stem": "鼠型斑疹伤寒病原体是",
+        "options": {
+          "A": "莫氏立克次体",
+          "B": "恙虫病立克次体",
+          "C": "斑疹伤寒立克次体",
+          "D": "森林脑炎病毒",
+          "E": "贝纳柯克斯体"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：莫氏立克次体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0237",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 237,
+        "sourceNumber": 239,
+        "type": "single",
+        "stem": "地方性斑疹伤寒病原体是",
+        "options": {
+          "A": "莫氏立克次体",
+          "B": "恙虫病立克次体",
+          "C": "斑疹伤寒立克次体",
+          "D": "森林脑炎病毒",
+          "E": "贝纳柯克斯体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：斑疹伤寒立克次体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0238",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 238,
+        "sourceNumber": 240,
+        "type": "single",
+        "stem": "不能采用真空干燥法保存的菌种是",
+        "options": {
+          "A": "脑膜炎奈瑟菌",
+          "B": "肠炎沙门氏菌",
+          "C": "副溶血性弧菌",
+          "D": "结核分枝杆菌",
+          "E": "金黄色葡萄球菌"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：脑膜炎奈瑟菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0239",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 239,
+        "sourceNumber": 241,
+        "type": "single",
+        "stem": "能够耐受干燥环境达数月的细菌是",
+        "options": {
+          "A": "脑膜炎奈瑟菌",
+          "B": "肠炎沙门氏菌",
+          "C": "副溶血性弧菌",
+          "D": "结核分枝杆菌",
+          "E": "金黄色葡萄球菌"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：结核分枝杆菌。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0240",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 240,
+        "sourceNumber": 242,
+        "type": "single",
+        "stem": "艾滋病",
+        "options": {
+          "A": "急性病毒感染",
+          "B": "持续性病毒感染",
+          "C": "慢性病毒感染",
+          "D": "潜伏病毒感染",
+          "E": "慢发病毒感染"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：持续性病毒感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0241",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 241,
+        "sourceNumber": 243,
+        "type": "single",
+        "stem": "单纯疱疹",
+        "options": {
+          "A": "急性病毒感染",
+          "B": "持续性病毒感染",
+          "C": "慢性病毒感染",
+          "D": "潜伏病毒感染",
+          "E": "慢发病毒感染"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：潜伏病毒感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0242",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 242,
+        "sourceNumber": 244,
+        "type": "single",
+        "stem": "甲型肝炎",
+        "options": {
+          "A": "急性病毒感染",
+          "B": "持续性病毒感染",
+          "C": "慢性病毒感染",
+          "D": "潜伏病毒感染",
+          "E": "慢发病毒感染"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：急性病毒感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0243",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 243,
+        "sourceNumber": 245,
+        "type": "single",
+        "stem": "慢性活动性乙型肝炎",
+        "options": {
+          "A": "急性病毒感染",
+          "B": "持续性病毒感染",
+          "C": "慢性病毒感染",
+          "D": "潜伏病毒感染",
+          "E": "慢发病毒感染"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：慢性病毒感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0244",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 244,
+        "sourceNumber": 246,
+        "type": "single",
+        "stem": "乙型肝炎无症状携带者",
+        "options": {
+          "A": "急性病毒感染",
+          "B": "持续性病毒感染",
+          "C": "慢性病毒感染",
+          "D": "潜伏病毒感染",
+          "E": "慢发病毒感染"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：潜伏病毒感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0245",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 245,
+        "sourceNumber": 247,
+        "type": "single",
+        "stem": "分离狂犬病病毒应取",
+        "options": {
+          "A": "咽漱液",
+          "B": "粪便",
+          "C": "尿",
+          "D": "脑组织",
+          "E": "血液"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：脑组织。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0246",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 246,
+        "sourceNumber": 248,
+        "type": "single",
+        "stem": "分离脊髓灰质炎病毒最好取",
+        "options": {
+          "A": "咽漱液",
+          "B": "粪便",
+          "C": "尿",
+          "D": "脑组织",
+          "E": "血液"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：粪便。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0247",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 247,
+        "sourceNumber": 249,
+        "type": "single",
+        "stem": "自病人体内分离流行性出血热病毒最好取",
+        "options": {
+          "A": "咽漱液",
+          "B": "粪便",
+          "C": "尿",
+          "D": "脑组织",
+          "E": "血液"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：血液。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0248",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 248,
+        "sourceNumber": 250,
+        "type": "single",
+        "stem": "与宫颈癌有关的病原体是",
+        "options": {
+          "A": "HHV-1",
+          "B": "HHV-2",
+          "C": "HHV-3",
+          "D": "HHV-4",
+          "E": "HHV-5"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：HHV-2。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0249",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 249,
+        "sourceNumber": 251,
+        "type": "single",
+        "stem": "与水痘-带状疱疹有关的病原体是",
+        "options": {
+          "A": "HHV-1",
+          "B": "HHV-2",
+          "C": "HHV-3",
+          "D": "HHV-4",
+          "E": "HHV-5"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：HHV-3。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0250",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 250,
+        "sourceNumber": 252,
+        "type": "single",
+        "stem": "与传染性单核细胞增多症有关的病原体是",
+        "options": {
+          "A": "HHV-1",
+          "B": "HHV-2",
+          "C": "HHV-3",
+          "D": "HHV-4",
+          "E": "HHV-5"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：HHV-4。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0251",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 251,
+        "sourceNumber": 253,
+        "type": "single",
+        "stem": "与输血后单核细胞增多症有关的病原体是",
+        "options": {
+          "A": "HHV-1",
+          "B": "HHV-2",
+          "C": "HHV-3",
+          "D": "HHV-4",
+          "E": "HHV-5"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：HHV-5。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0252",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 252,
+        "sourceNumber": 254,
+        "type": "single",
+        "stem": "汉坦病毒的主要宿主动物是",
+        "options": {
+          "A": "鼠",
+          "B": "猪",
+          "C": "猴",
+          "D": "牛",
+          "E": "羊"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：鼠。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0253",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 253,
+        "sourceNumber": 255,
+        "type": "single",
+        "stem": "埃博拉病毒的主要传染源是",
+        "options": {
+          "A": "鼠",
+          "B": "猪",
+          "C": "猴",
+          "D": "牛",
+          "E": "羊"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：猴。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0254",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 254,
+        "sourceNumber": 256,
+        "type": "single",
+        "stem": "破伤风细菌的主要致病物质是",
+        "options": {
+          "A": "内毒素",
+          "B": "外毒素",
+          "C": "侵袭力",
+          "D": "侵袭性酶",
+          "E": "菌体脂质"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：外毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0255",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 255,
+        "sourceNumber": 257,
+        "type": "single",
+        "stem": "结核分枝杆菌的主要致病物质是",
+        "options": {
+          "A": "内毒素",
+          "B": "外毒素",
+          "C": "侵袭力",
+          "D": "侵袭性酶",
+          "E": "菌体脂质"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：菌体脂质。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0256",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 256,
+        "sourceNumber": 258,
+        "type": "single",
+        "stem": "分离流感病毒应采集",
+        "options": {
+          "A": "咽漱液",
+          "B": "脑组织",
+          "C": "粪便",
+          "D": "血液",
+          "E": "脑脊液"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：咽漱液。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0257",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 257,
+        "sourceNumber": 259,
+        "type": "single",
+        "stem": "分离轮状病毒应采集",
+        "options": {
+          "A": "咽漱液",
+          "B": "脑组织",
+          "C": "粪便",
+          "D": "血液",
+          "E": "脑脊液"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：粪便。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0258",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 258,
+        "sourceNumber": 260,
+        "type": "single",
+        "stem": "分离狂犬病毒应采集",
+        "options": {
+          "A": "咽漱液",
+          "B": "脑组织",
+          "C": "粪便",
+          "D": "血液",
+          "E": "脑脊液"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：脑组织。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0259",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 259,
+        "sourceNumber": 261,
+        "type": "single",
+        "stem": "分离汉坦病毒应采集",
+        "options": {
+          "A": "咽漱液",
+          "B": "脑组织",
+          "C": "粪便",
+          "D": "血液",
+          "E": "脑脊液"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：血液。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0260",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 260,
+        "sourceNumber": 262,
+        "type": "single",
+        "stem": "引起婴幼儿腹泻最常见的病原体是",
+        "options": {
+          "A": "柯萨奇病毒",
+          "B": "诺如病毒",
+          "C": "肠道腺病毒",
+          "D": "轮状病毒",
+          "E": "星状病毒"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：轮状病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0261",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 261,
+        "sourceNumber": 263,
+        "type": "single",
+        "stem": "引起成人急性胃肠炎爆发流行的主要病原体是",
+        "options": {
+          "A": "柯萨奇病毒",
+          "B": "诺如病毒",
+          "C": "肠道腺病毒",
+          "D": "轮状病毒",
+          "E": "星状病毒"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：诺如病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0262",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 262,
+        "sourceNumber": 264,
+        "type": "single",
+        "stem": "感染后不引起急性胃肠炎的病毒是",
+        "options": {
+          "A": "柯萨奇病毒",
+          "B": "诺如病毒",
+          "C": "肠道腺病毒",
+          "D": "轮状病毒",
+          "E": "星状病毒"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：柯萨奇病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0263",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 263,
+        "sourceNumber": 265,
+        "type": "single",
+        "stem": "感染除引起腹泻外,还可伴有咽炎等呼吸道症状的病毒是",
+        "options": {
+          "A": "柯萨奇病毒",
+          "B": "诺如病毒",
+          "C": "肠道腺病毒",
+          "D": "轮状病毒",
+          "E": "星状病毒"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：柯萨奇病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0264",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 264,
+        "sourceNumber": 266,
+        "type": "single",
+        "stem": "可用于治疗或紧急预的是",
+        "options": {
+          "A": "外毒素",
+          "B": "内毒素",
+          "C": "抗毒素",
+          "D": "类毒素",
+          "E": "肠毒素"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：抗毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0265",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 265,
+        "sourceNumber": 267,
+        "type": "single",
+        "stem": "能中和外毒素的是",
+        "options": {
+          "A": "外毒素",
+          "B": "内毒素",
+          "C": "抗毒素",
+          "D": "类毒素",
+          "E": "肠毒素"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：抗毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0266",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 266,
+        "sourceNumber": 268,
+        "type": "single",
+        "stem": "主要用于预防的是",
+        "options": {
+          "A": "外毒素",
+          "B": "内毒素",
+          "C": "抗毒素",
+          "D": "类毒素",
+          "E": "肠毒素"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：类毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0267",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 267,
+        "sourceNumber": 269,
+        "type": "single",
+        "stem": "性质属于免疫球蛋白的是",
+        "options": {
+          "A": "外毒素",
+          "B": "内毒素",
+          "C": "抗毒素",
+          "D": "类毒素",
+          "E": "肠毒素"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：类毒素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0268",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 268,
+        "sourceNumber": 270,
+        "type": "single",
+        "stem": "莫氏立克次体的储存宿主是",
+        "options": {
+          "A": "啮⻮动物",
+          "B": "家畜",
+          "C": "幼猫",
+          "D": "兔",
+          "E": "患者"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：啮⻮动物。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0269",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 269,
+        "sourceNumber": 271,
+        "type": "single",
+        "stem": "普氏立克次体的储存宿主是",
+        "options": {
+          "A": "啮⻮动物",
+          "B": "家畜",
+          "C": "幼猫",
+          "D": "兔",
+          "E": "患者"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：患者。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0270",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 270,
+        "sourceNumber": 272,
+        "type": "single",
+        "stem": "汉塞巴通体的储抒宿主是",
+        "options": {
+          "A": "啮⻮动物",
+          "B": "家畜",
+          "C": "幼猫",
+          "D": "兔",
+          "E": "患者"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：幼猫。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0271",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 271,
+        "sourceNumber": 273,
+        "type": "single",
+        "stem": "衣氏放线菌的特点是",
+        "options": {
+          "A": "泛存在于土壤中,以芽孢侵入伤口",
+          "B": "致病广泛存在于土壤中,引起抵抗力低下者的外源性感染",
+          "C": "为人体正常菌群,可以引起内源性感染",
+          "D": "机体抵抗力降低时,通过伤口感染",
+          "E": "通过接触引起医源性感染的主要病原体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：为人体正常菌群,可以引起内源性感染。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0272",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 272,
+        "sourceNumber": 274,
+        "type": "single",
+        "stem": "破伤风细菌的特点是",
+        "options": {
+          "A": "泛存在于土壤中,以芽孢侵入伤口",
+          "B": "致病广泛存在于土壤中,引起抵抗力低下者的外源性感染",
+          "C": "为人体正常菌群,可以引起内源性感染",
+          "D": "机体抵抗力降低时,通过伤口感染",
+          "E": "通过接触引起医源性感染的主要病原体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：机体抵抗力降低时,通过伤口感染。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0273",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 273,
+        "sourceNumber": 275,
+        "type": "single",
+        "stem": "诺卡菌的特点是",
+        "options": {
+          "A": "泛存在于土壤中,以芽孢侵入伤口",
+          "B": "致病广泛存在于土壤中,引起抵抗力低下者的外源性感染",
+          "C": "为人体正常菌群,可以引起内源性感染",
+          "D": "机体抵抗力降低时,通过伤口感染",
+          "E": "通过接触引起医源性感染的主要病原体"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：致病广泛存在于土壤中,引起抵抗力低下者的外源性感染。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0274",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 274,
+        "sourceNumber": 276,
+        "type": "single",
+        "stem": "胎儿通过胎盘接受来自母体的抗体称为",
+        "options": {
+          "A": "人工主动免疫",
+          "B": "人工被动免疫",
+          "C": "自然主动免疫",
+          "D": "自然被动免疫",
+          "E": "被动-主动免疫"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：自然被动免疫。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0275",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 275,
+        "sourceNumber": 277,
+        "type": "single",
+        "stem": "隐性感染或患传染病或获得免疫力称为",
+        "options": {
+          "A": "人工主动免疫",
+          "B": "人工被动免疫",
+          "C": "自然主动免疫",
+          "D": "自然被动免疫",
+          "E": "被动-主动免疫"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：自然主动免疫。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0276",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 276,
+        "sourceNumber": 278,
+        "type": "single",
+        "stem": "接种疫苗和类毒素后获得免疫力称为",
+        "options": {
+          "A": "人工主动免疫",
+          "B": "人工被动免疫",
+          "C": "自然主动免疫",
+          "D": "自然被动免疫",
+          "E": "被动-主动免疫"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：人工主动免疫。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0277",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 277,
+        "sourceNumber": 279,
+        "type": "single",
+        "stem": "由人白细胞产生",
+        "options": {
+          "A": "α-干扰素",
+          "B": "β-干扰素",
+          "C": "γ-干扰素",
+          "D": "I型干扰素",
+          "E": "II型干扰素"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：α-干扰素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0278",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 278,
+        "sourceNumber": 280,
+        "type": "single",
+        "stem": "由人成纤维细胞产生",
+        "options": {
+          "A": "α-干扰素",
+          "B": "β-干扰素",
+          "C": "γ-干扰素",
+          "D": "I型干扰素",
+          "E": "II型干扰素"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：β-干扰素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0279",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 279,
+        "sourceNumber": 281,
+        "type": "single",
+        "stem": "由T细胞产生",
+        "options": {
+          "A": "α-干扰素",
+          "B": "β-干扰素",
+          "C": "γ-干扰素",
+          "D": "I型干扰素",
+          "E": "II型干扰素"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：II型干扰素。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0280",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 280,
+        "sourceNumber": 282,
+        "type": "single",
+        "stem": "抗病毒作用较强",
+        "options": {
+          "A": "α-干扰素",
+          "B": "β-干扰素",
+          "C": "γ-干扰素",
+          "D": "I型干扰素",
+          "E": "II型干扰素"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：I型干扰素。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0281",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 281,
+        "sourceNumber": 283,
+        "type": "single",
+        "stem": "免疫调节作用较强",
+        "options": {
+          "A": "α-干扰素",
+          "B": "β-干扰素",
+          "C": "γ-干扰素",
+          "D": "I型干扰素",
+          "E": "II型干扰素"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：II型干扰素。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0282",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 282,
+        "sourceNumber": 284,
+        "type": "single",
+        "stem": "人工主动免疫输入的制剂性质是",
+        "options": {
+          "A": "抗原",
+          "B": "抗体",
+          "C": "毒素",
+          "D": "内毒素",
+          "E": "外毒素"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：抗原。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0283",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 283,
+        "sourceNumber": 285,
+        "type": "single",
+        "stem": "人工被动免疫输入的制剂性质多是",
+        "options": {
+          "A": "抗原",
+          "B": "抗体",
+          "C": "毒素",
+          "D": "内毒素",
+          "E": "外毒素"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：抗体。考点：免疫与疫苗。重点掌握抗原抗体反应、疫苗类型、免疫预防、血清学诊断和病原体免疫逃逸相关考点。",
+        "knowledge": [
+          "免疫与疫苗"
+        ]
+      },
+      {
+        "id": "micro-0284",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 284,
+        "sourceNumber": 286,
+        "type": "single",
+        "stem": "以猪作为主要传染源的病毒是",
+        "options": {
+          "A": "登革病毒",
+          "B": "汉坦病毒",
+          "C": "发热伴血小板减少综合征病毒",
+          "D": "流行性乙型脑炎病毒",
+          "E": "新疆出血热病毒"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：登革病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0285",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 285,
+        "sourceNumber": 287,
+        "type": "single",
+        "stem": "以鼠作为主要传染源的病毒是",
+        "options": {
+          "A": "登革病毒",
+          "B": "汉坦病毒",
+          "C": "发热伴血小板减少综合征病毒",
+          "D": "流行性乙型脑炎病毒",
+          "E": "新疆出血热病毒"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：汉坦病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0286",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 286,
+        "sourceNumber": 288,
+        "type": "single",
+        "stem": "以三帯喙库蚊为最主要传播媒介的是",
+        "options": {
+          "A": "登革病毒",
+          "B": "汉坦病毒",
+          "C": "发热伴血小板减少综合征病毒",
+          "D": "流行性乙型脑炎病毒",
+          "E": "新疆出血热病毒"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：流行性乙型脑炎病毒。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0287",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 287,
+        "sourceNumber": 289,
+        "type": "single",
+        "stem": "USR试验和RPR试验可检测的螺旋体",
+        "options": {
+          "A": "梅毒螺旋体",
+          "B": "钩端螺旋体",
+          "C": "伯氏疏螺旋体",
+          "D": "雅司螺旋体",
+          "E": "回归热疏螺旋体"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：梅毒螺旋体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0288",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 288,
+        "sourceNumber": 290,
+        "type": "single",
+        "stem": "引起菜姆病的主要病原体是",
+        "options": {
+          "A": "梅毒螺旋体",
+          "B": "钩端螺旋体",
+          "C": "伯氏疏螺旋体",
+          "D": "雅司螺旋体",
+          "E": "回归热疏螺旋体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：伯氏疏螺旋体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0289",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 289,
+        "sourceNumber": 291,
+        "type": "single",
+        "stem": "不能在无生命培养基中生长的螺旋体是",
+        "options": {
+          "A": "梅毒螺旋体",
+          "B": "钩端螺旋体",
+          "C": "伯氏疏螺旋体",
+          "D": "雅司螺旋体",
+          "E": "回归热疏螺旋体"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：梅毒螺旋体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0290",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 290,
+        "sourceNumber": 292,
+        "type": "single",
+        "stem": "病毒诱导成纤维细胞产生的主要物质是",
+        "options": {
+          "A": "α-干扰素",
+          "B": "β-干扰素",
+          "C": "γ-干扰素",
+          "D": "IL-1",
+          "E": "IL-2"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：β-干扰素。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0291",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 291,
+        "sourceNumber": 293,
+        "type": "single",
+        "stem": "病毒诱导成T细胞产生的主要物质是",
+        "options": {
+          "A": "α-干扰素",
+          "B": "β-干扰素",
+          "C": "γ-干扰素",
+          "D": "IL-1",
+          "E": "IL-2"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：γ-干扰素。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0292",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 292,
+        "sourceNumber": 294,
+        "type": "single",
+        "stem": "革兰阳性菌细胞壁特殊的组分是",
+        "options": {
+          "A": "细胞膜",
+          "B": "磷壁酸",
+          "C": "外膜",
+          "D": "中介体",
+          "E": "核糖体"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：磷壁酸。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0293",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 293,
+        "sourceNumber": 295,
+        "type": "single",
+        "stem": "革兰阴性菌细胞壁特殊的组分是",
+        "options": {
+          "A": "细胞膜",
+          "B": "磷壁酸",
+          "C": "外膜",
+          "D": "中介体",
+          "E": "核糖体"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：外膜。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0294",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 294,
+        "sourceNumber": 296,
+        "type": "single",
+        "stem": "其功能类似真核组胞线粒体的细菌结构是",
+        "options": {
+          "A": "细胞膜",
+          "B": "磷壁酸",
+          "C": "外膜",
+          "D": "中介体",
+          "E": "核糖体"
+        },
+        "answer": "D",
+        "explanation": "答案为 D：中介体。考点：细菌学总论。重点掌握细菌结构、遗传变异、质粒、转座子、生长繁殖、毒力、正常菌群、消毒灭菌和细菌感染类型。",
+        "knowledge": [
+          "细菌学总论"
+        ]
+      },
+      {
+        "id": "micro-0295",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 295,
+        "sourceNumber": 297,
+        "type": "single",
+        "stem": "期3个月内感染HCMV可引起胎儿",
+        "options": {
+          "A": "先天性畸形",
+          "B": "围生期感染",
+          "C": "潜伏感染",
+          "D": "继发感染",
+          "E": "机会感染"
+        },
+        "answer": "A",
+        "explanation": "答案为 A：先天性畸形。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0296",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 296,
+        "sourceNumber": 298,
+        "type": "single",
+        "stem": "成人原发感染HCMV后多数可长期带毒表现为",
+        "options": {
+          "A": "先天性畸形",
+          "B": "围生期感染",
+          "C": "潜伏感染",
+          "D": "继发感染",
+          "E": "机会感染"
+        },
+        "answer": "C",
+        "explanation": "答案为 C：潜伏感染。考点：病毒学。重点掌握病毒复制周期、疫苗、呼吸道病毒、肝炎病毒、疱疹病毒、逆转录病毒和常见病毒感染的诊断要点。",
+        "knowledge": [
+          "病毒学"
+        ]
+      },
+      {
+        "id": "micro-0297",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 297,
+        "sourceNumber": 299,
+        "type": "single",
+        "stem": "可以通过性接触传播的病原体是",
+        "options": {
+          "A": "钩端螺旋体",
+          "B": "立克次体",
+          "C": "肺炎嗜衣原体",
+          "D": "鹦鹉热嗜衣原体",
+          "E": "沙眼衣原体"
+        },
+        "answer": "E",
+        "explanation": "答案为 E：沙眼衣原体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
+      },
+      {
+        "id": "micro-0298",
+        "source": "原题（老师配套习题）",
+        "sourceFile": "1_微生物300道题.pdf",
+        "number": 298,
+        "sourceNumber": 300,
+        "type": "single",
+        "stem": "可以通过节肢动物传播的病原体是",
+        "options": {
+          "A": "钩端螺旋体",
+          "B": "立克次体",
+          "C": "肺炎嗜衣原体",
+          "D": "鹦鹉热嗜衣原体",
+          "E": "沙眼衣原体"
+        },
+        "answer": "B",
+        "explanation": "答案为 B：立克次体。考点：常见细菌与致病机制。重点区分葡萄球菌、链球菌、肠杆菌、沙门菌、分枝杆菌、厌氧菌、螺旋体、支原体、衣原体和立克次体的致病特点。",
+        "knowledge": [
+          "常见细菌与致病机制"
+        ]
       }
     ]
   }
