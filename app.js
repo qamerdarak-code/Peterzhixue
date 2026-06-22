@@ -303,13 +303,13 @@ function renderQuestion() {
   if (els.media && q.image?.src) {
     const href = q.image.page || q.image.src;
     const alt = escapeHtml(q.image.alt || q.stem);
-    const caption = escapeHtml(q.image.caption || q.image.credit || "显微图");
+    const caption = q.image.caption ? `<small>${escapeHtml(q.image.caption)}</small>` : "";
     els.media.hidden = false;
     els.media.innerHTML = `
       <a href="${href}" target="_blank" rel="noreferrer">
         <img src="${q.image.src}" alt="${alt}" loading="lazy" />
       </a>
-      <small>${caption}</small>
+      ${caption}
     `;
   }
 
