@@ -25374,21 +25374,21 @@ window.PETE_SUBJECTS = {
       "subjectId": "pathology-slides",
       "school": "扬州大学医学部",
       "originalCount": 17,
-      "extendedCount": 17,
+      "extendedCount": 0,
       "missingAnswerCount": 0,
-      "source": "病理切片整理137937885386235187.1ea17c5a4335782.doc",
+      "source": "病理切片复习2023Ver1.0(1).pdf",
       "parseAudit": {
-        "source": "pathology-slides.doc",
-        "parsed": 34,
+        "source": "pathology-slides-2023.pdf",
+        "parsed": 17,
         "diagnoses": [
-          "急性蜂窝织性阑尾炎",
+          "急性蜂窝织阑尾炎",
           "肺水肿",
-          "肺脂肪栓塞",
+          "肺组织脂肪栓塞",
           "肠腺癌",
-          "血吸虫肝",
-          "水泡状胎块",
-          "转移性印戒细胞癌",
-          "鳞状细胞癌",
+          "肝血吸虫病",
+          "葡萄胎",
+          "淋巴结转移印戒细胞癌",
+          "鳞癌",
           "大叶性肺炎",
           "肝硬化",
           "血栓",
@@ -25396,12 +25396,12 @@ window.PETE_SUBJECTS = {
           "胃溃疡",
           "肺结核",
           "肾结核",
-          "化脓性脑膜炎",
-          "肝脂肪变性"
+          "化脓性脑膜炎（流行性脑脊髓膜炎）",
+          "肝脂肪变"
         ],
         "localImages": 17,
-        "diagnosisQuestions": 17,
-        "organQuestions": 17
+        "fillQuestions": 17,
+        "organQuestions": 0
       }
     },
     "topics": [
@@ -25424,982 +25424,529 @@ window.PETE_SUBJECTS = {
       {
         "name": "妊娠滋养细胞与胎盘病变",
         "note": "重点识别绒毛水肿、间质血管消失和滋养层细胞增生。"
-      },
-      {
-        "name": "器官/组织识别",
-        "note": "先从上皮、腺体、肺泡、肝小叶、血管壁、脑膜、胎盘绒毛等结构判断来源，再进入病变诊断。"
       }
     ],
     "resources": [
       {
-        "title": "急性蜂窝织性阑尾炎",
-        "type": "阑尾",
-        "src": "./public/pathology-appendicitis.jpg"
+        "title": "急性蜂窝织阑尾炎",
+        "type": "切片图",
+        "src": "./public/pathology-2023-01.jpg"
       },
       {
         "title": "肺水肿",
-        "type": "肺",
-        "src": "./public/pathology-pulmonary-edema.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-02.jpg"
       },
       {
-        "title": "肺脂肪栓塞",
-        "type": "肺",
-        "src": "./public/pathology-fat-embolism.jpg"
+        "title": "肺组织脂肪栓塞",
+        "type": "切片图",
+        "src": "./public/pathology-2023-03.jpg"
       },
       {
         "title": "肠腺癌",
-        "type": "结肠",
-        "src": "./public/pathology-colon-adenocarcinoma.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-04.jpg"
       },
       {
-        "title": "血吸虫肝",
-        "type": "肝",
-        "src": "./public/pathology-schistosomiasis-liver.jpg"
+        "title": "肝血吸虫病",
+        "type": "切片图",
+        "src": "./public/pathology-2023-05.jpg"
       },
       {
-        "title": "水泡状胎块",
-        "type": "胎盘",
-        "src": "./public/pathology-hydatidiform-mole.jpg"
+        "title": "葡萄胎",
+        "type": "切片图",
+        "src": "./public/pathology-2023-06.jpg"
       },
       {
-        "title": "转移性印戒细胞癌",
-        "type": "淋巴结",
-        "src": "./public/pathology-signet-ring-node.jpg"
+        "title": "淋巴结转移印戒细胞癌",
+        "type": "切片图",
+        "src": "./public/pathology-2023-07.jpg"
       },
       {
-        "title": "鳞状细胞癌",
-        "type": "皮肤",
-        "src": "./public/pathology-squamous-cell-carcinoma.jpg"
+        "title": "鳞癌",
+        "type": "切片图",
+        "src": "./public/pathology-2023-08.jpg"
       },
       {
         "title": "大叶性肺炎",
-        "type": "肺",
-        "src": "./public/pathology-lobar-pneumonia.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-09.jpg"
       },
       {
         "title": "肝硬化",
-        "type": "肝",
-        "src": "./public/pathology-cirrhosis.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-10.jpg"
       },
       {
         "title": "血栓",
-        "type": "静脉",
-        "src": "./public/pathology-thrombus-recanalization.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-11.jpg"
       },
       {
         "title": "动脉粥样硬化",
-        "type": "动脉",
-        "src": "./public/pathology-atherosclerosis.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-12.jpg"
       },
       {
         "title": "胃溃疡",
-        "type": "胃",
-        "src": "./public/pathology-gastric-ulcer.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-13.jpg"
       },
       {
         "title": "肺结核",
-        "type": "肺",
-        "src": "./public/pathology-lung-tuberculosis.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-14.jpg"
       },
       {
         "title": "肾结核",
-        "type": "肾",
-        "src": "./public/pathology-kidney-tuberculosis.jpg"
+        "type": "切片图",
+        "src": "./public/pathology-2023-15.jpg"
       },
       {
-        "title": "化脓性脑膜炎",
-        "type": "脑",
-        "src": "./public/pathology-purulent-meningitis.jpg"
+        "title": "化脓性脑膜炎（流行性脑脊髓膜炎）",
+        "type": "切片图",
+        "src": "./public/pathology-2023-16.jpg"
       },
       {
-        "title": "肝脂肪变性",
-        "type": "肝",
-        "src": "./public/pathology-fatty-liver.jpg"
+        "title": "肝脂肪变",
+        "type": "切片图",
+        "src": "./public/pathology-2023-17.jpg"
       }
     ],
     "questions": [
       {
         "id": "path-dx-0001",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 1,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "急性蜂窝织性阑尾炎",
-          "B": "血吸虫肝",
-          "C": "大叶性肺炎",
-          "D": "肺结核"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：急性蜂窝织性阑尾炎。镜下要点：粘膜层、粘膜下层、肌层及浆膜层均充血水肿，组织内大量中性粒细胞弥漫性浸润，可见渗出物。 器官/组织：阑尾。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "急性蜂窝织阑尾炎",
+        "acceptedAnswers": [
+          "急性蜂窝织阑尾炎",
+          "急性蜂窝织性阑尾炎",
+          "蜂窝织性阑尾炎",
+          "急性阑尾炎"
+        ],
+        "explanation": "参考诊断：急性蜂窝织阑尾炎。镜下要点：阑尾全层充血水肿，大量中性粒细胞浸润，管腔内有脓性渗出物，部分区域黏膜上皮坏死脱落。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
-          "src": "./public/pathology-appendicitis.jpg",
+          "src": "./public/pathology-2023-01.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Acute_Appendicitis,_HE_1.jpg",
-          "credit": "Wikimedia Commons：Acute Appendicitis, HE"
-        }
-      },
-      {
-        "id": "path-organ-0001",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 18,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "结肠",
-          "B": "阑尾",
-          "C": "肝",
-          "D": "胎盘"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：阑尾。该图对应诊断为急性蜂窝织性阑尾炎；识别依据：粘膜层、粘膜下层、肌层及浆膜层均充血水肿，组织内大量中性粒细胞弥漫性浸润，可见渗出物。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-appendicitis.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Acute_Appendicitis,_HE_1.jpg",
-          "credit": "Wikimedia Commons：Acute Appendicitis, HE"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第2页"
         }
       },
       {
         "id": "path-dx-0002",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 2,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "血栓",
-          "B": "肺水肿",
-          "C": "动脉粥样硬化",
-          "D": "急性蜂窝织性阑尾炎"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：肺水肿。镜下要点：肺泡壁毛细血管扩张，充满红细胞；肺泡腔内有大量均匀红染的水肿液。 器官/组织：肺。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肺水肿",
+        "acceptedAnswers": [
+          "肺水肿"
+        ],
+        "explanation": "参考诊断：肺水肿。镜下要点：肺泡腔内可见大量均质红染的浆液性渗出液。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
-          "src": "./public/pathology-pulmonary-edema.jpg",
+          "src": "./public/pathology-2023-02.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/05/c01/04.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Pulmonary edema"
-        }
-      },
-      {
-        "id": "path-organ-0002",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 19,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "肝",
-          "B": "胎盘",
-          "C": "肺",
-          "D": "淋巴结"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：肺。该图对应诊断为肺水肿；识别依据：肺泡壁毛细血管扩张，充满红细胞；肺泡腔内有大量均匀红染的水肿液。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-pulmonary-edema.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/05/c01/04.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Pulmonary edema"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第3页"
         }
       },
       {
         "id": "path-dx-0003",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 3,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "动脉粥样硬化",
-          "B": "急性蜂窝织性阑尾炎",
-          "C": "肺脂肪栓塞",
-          "D": "肠腺癌"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：肺脂肪栓塞。镜下要点：肺间质血管和肺泡壁毛细血管内可见大小不一的圆形或不规则形脂肪栓塞物。 器官/组织：肺。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肺组织脂肪栓塞",
+        "acceptedAnswers": [
+          "肺组织脂肪栓塞",
+          "肺脂肪栓塞",
+          "脂肪栓塞",
+          "肺脂肪栓子"
+        ],
+        "explanation": "参考诊断：肺组织脂肪栓塞。镜下要点：肺间质血管和肺泡壁毛细血管内可见大小不一、圆形或不规则形的脂肪栓塞物。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
-          "src": "./public/pathology-fat-embolism.jpg",
+          "src": "./public/pathology-2023-03.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Histopathology_of_a_pulmonary_artery_with_fat_embolism_and_a_bone_marrow_fragment.jpg",
-          "credit": "Wikimedia Commons：Pulmonary artery fat embolism"
-        }
-      },
-      {
-        "id": "path-organ-0003",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 20,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "胎盘",
-          "B": "淋巴结",
-          "C": "皮肤",
-          "D": "肺"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：肺。该图对应诊断为肺脂肪栓塞；识别依据：肺间质血管和肺泡壁毛细血管内可见大小不一的圆形或不规则形脂肪栓塞物。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-fat-embolism.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Histopathology_of_a_pulmonary_artery_with_fat_embolism_and_a_bone_marrow_fragment.jpg",
-          "credit": "Wikimedia Commons：Pulmonary artery fat embolism"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第4页"
         }
       },
       {
         "id": "path-dx-0004",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 4,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "肺水肿",
-          "B": "肺脂肪栓塞",
-          "C": "血吸虫肝",
-          "D": "肠腺癌"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：肠腺癌。镜下要点：癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。 器官/组织：结肠。考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肠腺癌",
+        "acceptedAnswers": [
+          "肠腺癌",
+          "结肠腺癌",
+          "肠癌"
+        ],
+        "explanation": "参考诊断：肠腺癌。镜下要点：部分恶变肠腺排列紊乱，失去正常组织结构；高倍镜下细胞异型性明显，核质比例失调，可见异型核、巨核及病理性核分裂象。 考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
         "knowledge": [
           "肿瘤病理"
         ],
         "image": {
-          "src": "./public/pathology-colon-adenocarcinoma.jpg",
+          "src": "./public/pathology-2023-04.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/09/c09/02.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Colon adenocarcinoma"
-        }
-      },
-      {
-        "id": "path-organ-0004",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 21,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "结肠",
-          "B": "淋巴结",
-          "C": "皮肤",
-          "D": "静脉"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：结肠。该图对应诊断为肠腺癌；识别依据：癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-colon-adenocarcinoma.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/09/c09/02.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Colon adenocarcinoma"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第5页"
         }
       },
       {
         "id": "path-dx-0005",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 5,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "血吸虫肝",
-          "B": "化脓性脑膜炎",
-          "C": "肺水肿",
-          "D": "肺脂肪栓塞"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：血吸虫肝。镜下要点：慢性虫卵结节内可见异物巨细胞、淋巴细胞浸润和肉芽组织增生，可见钙化死卵。 器官/组织：肝。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肝血吸虫病",
+        "acceptedAnswers": [
+          "肝血吸虫病",
+          "血吸虫肝",
+          "血吸虫病肝",
+          "血吸虫病"
+        ],
+        "explanation": "参考诊断：肝血吸虫病。镜下要点：肝组织内有嗜酸性肉芽肿，中心为失活的血吸虫卵，周围可见放射状排列的嗜酸性管型及大量嗜酸性粒细胞浸润。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
-          "src": "./public/pathology-schistosomiasis-liver.jpg",
+          "src": "./public/pathology-2023-05.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/10/c06/02.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Schistosomiasis"
-        }
-      },
-      {
-        "id": "path-organ-0005",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 22,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "皮肤",
-          "B": "肝",
-          "C": "静脉",
-          "D": "动脉"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：肝。该图对应诊断为血吸虫肝；识别依据：慢性虫卵结节内可见异物巨细胞、淋巴细胞浸润和肉芽组织增生，可见钙化死卵。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-schistosomiasis-liver.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/10/c06/02.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Schistosomiasis"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第6页"
         }
       },
       {
         "id": "path-dx-0006",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 6,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "转移性印戒细胞癌",
-          "B": "水泡状胎块",
-          "C": "鳞状细胞癌",
-          "D": "大叶性肺炎"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：水泡状胎块。镜下要点：胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。 器官/组织：胎盘。考点：妊娠滋养细胞与胎盘病变。重点识别绒毛水肿、间质血管消失和滋养层细胞增生。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "葡萄胎",
+        "acceptedAnswers": [
+          "葡萄胎",
+          "水泡状胎块"
+        ],
+        "explanation": "参考诊断：葡萄胎。镜下要点：胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。 考点：妊娠滋养细胞与胎盘病变。重点识别绒毛水肿、间质血管消失和滋养层细胞增生。",
         "knowledge": [
           "妊娠滋养细胞与胎盘病变"
         ],
         "image": {
-          "src": "./public/pathology-hydatidiform-mole.jpg",
+          "src": "./public/pathology-2023-06.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Hydatidiform_mole_(1)_complete_type.jpg",
-          "credit": "Wikimedia Commons：Hydatidiform mole"
-        }
-      },
-      {
-        "id": "path-organ-0006",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 23,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "静脉",
-          "B": "动脉",
-          "C": "胎盘",
-          "D": "胃"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：胎盘。该图对应诊断为水泡状胎块；识别依据：胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-hydatidiform-mole.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Hydatidiform_mole_(1)_complete_type.jpg",
-          "credit": "Wikimedia Commons：Hydatidiform mole"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第7页"
         }
       },
       {
         "id": "path-dx-0007",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 7,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "水泡状胎块",
-          "B": "大叶性肺炎",
-          "C": "转移性印戒细胞癌",
-          "D": "肝硬化"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：转移性印戒细胞癌。镜下要点：淋巴结边缘窦处可见大量印戒细胞，胞浆内黏液将细胞核挤向一侧。 器官/组织：淋巴结。考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "淋巴结转移印戒细胞癌",
+        "acceptedAnswers": [
+          "淋巴结转移印戒细胞癌",
+          "转移性印戒细胞癌",
+          "印戒细胞癌淋巴结转移",
+          "淋巴结转移性印戒细胞癌"
+        ],
+        "explanation": "参考诊断：淋巴结转移印戒细胞癌。镜下要点：淋巴结边缘窦内见大量异型细胞，胞质丰富，细胞核被挤压偏向一侧，呈印戒状。 考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
         "knowledge": [
           "肿瘤病理"
         ],
         "image": {
-          "src": "./public/pathology-signet-ring-node.jpg",
+          "src": "./public/pathology-2023-07.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://patologia.cm.umk.pl/atlas/lymphatics/signet/",
-          "credit": "Patologia CM UMK：Metastatic signet-ring cell carcinoma"
-        }
-      },
-      {
-        "id": "path-organ-0007",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 24,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "动脉",
-          "B": "胃",
-          "C": "肾",
-          "D": "淋巴结"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：淋巴结。该图对应诊断为转移性印戒细胞癌；识别依据：淋巴结边缘窦处可见大量印戒细胞，胞浆内黏液将细胞核挤向一侧。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-signet-ring-node.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://patologia.cm.umk.pl/atlas/lymphatics/signet/",
-          "credit": "Patologia CM UMK：Metastatic signet-ring cell carcinoma"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第8页"
         }
       },
       {
         "id": "path-dx-0008",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 8,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "大叶性肺炎",
-          "B": "肝硬化",
-          "C": "血栓",
-          "D": "鳞状细胞癌"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：鳞状细胞癌。镜下要点：癌细胞呈片状或巢状排列，细胞多边形、胞浆丰富、核异型明显；癌巢中心角化形成癌珠。 器官/组织：皮肤。考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "鳞癌",
+        "acceptedAnswers": [
+          "鳞癌",
+          "鳞状细胞癌",
+          "高分化鳞癌"
+        ],
+        "explanation": "参考诊断：鳞癌。镜下要点：癌细胞异型性明显，呈巢状排列，中央可见角化珠；高倍镜下可见细胞间桥。 考点：肿瘤病理。重点区分腺癌、鳞状细胞癌和印戒细胞癌转移，抓住异型性、浸润性生长、癌珠和印戒细胞。",
         "knowledge": [
           "肿瘤病理"
         ],
         "image": {
-          "src": "./public/pathology-squamous-cell-carcinoma.jpg",
+          "src": "./public/pathology-2023-08.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://pathology.or.jp/corepictures2010/20/c09/04.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Squamous cell carcinoma"
-        }
-      },
-      {
-        "id": "path-organ-0008",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 25,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "皮肤",
-          "B": "胃",
-          "C": "肾",
-          "D": "脑"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：皮肤。该图对应诊断为鳞状细胞癌；识别依据：癌细胞呈片状或巢状排列，细胞多边形、胞浆丰富、核异型明显；癌巢中心角化形成癌珠。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-squamous-cell-carcinoma.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://pathology.or.jp/corepictures2010/20/c09/04.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Squamous cell carcinoma"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第9页"
         }
       },
       {
         "id": "path-dx-0009",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 9,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "大叶性肺炎",
-          "B": "水泡状胎块",
-          "C": "转移性印戒细胞癌",
-          "D": "鳞状细胞癌"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：大叶性肺炎。镜下要点：病变均匀一致，肺泡腔内充满大量纤维素和嗜中性白细胞，纤维素互相结成网。 器官/组织：肺。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "大叶性肺炎",
+        "acceptedAnswers": [
+          "大叶性肺炎"
+        ],
+        "explanation": "参考诊断：大叶性肺炎。镜下要点：肺泡间隔高度充血，肺泡腔内大量渗出液，充满纤维素和中性粒细胞，纤维素相互连接成网，部分纤维网经肺泡孔相连。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
-          "src": "./public/pathology-lobar-pneumonia.jpg",
+          "src": "./public/pathology-2023-09.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Lung_biopsy_showing_lobar_pneumonia_10X.jpg",
-          "credit": "Wikimedia Commons：Lobar pneumonia"
-        }
-      },
-      {
-        "id": "path-organ-0009",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 26,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "肾",
-          "B": "肺",
-          "C": "脑",
-          "D": "阑尾"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：肺。该图对应诊断为大叶性肺炎；识别依据：病变均匀一致，肺泡腔内充满大量纤维素和嗜中性白细胞，纤维素互相结成网。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-lobar-pneumonia.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Lung_biopsy_showing_lobar_pneumonia_10X.jpg",
-          "credit": "Wikimedia Commons：Lobar pneumonia"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第10页"
         }
       },
       {
         "id": "path-dx-0010",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 10,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "鳞状细胞癌",
-          "B": "肝硬化",
-          "C": "大叶性肺炎",
-          "D": "血栓"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：肝硬化。镜下要点：肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。 器官/组织：肝。考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肝硬化",
+        "acceptedAnswers": [
+          "肝硬化"
+        ],
+        "explanation": "参考诊断：肝硬化。镜下要点：肝小叶被纤维结缔组织分割为大小不等的肝细胞结节，假小叶内肝细胞排列紊乱，可见偏位中央静脉或中央静脉缺如，周围结缔组织有炎细胞浸润。 考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
         "knowledge": [
           "肝胆与消化系统病变"
         ],
         "image": {
-          "src": "./public/pathology-cirrhosis.jpg",
+          "src": "./public/pathology-2023-10.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/10/c01/08.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Liver cirrhosis"
-        }
-      },
-      {
-        "id": "path-organ-0010",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 27,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "脑",
-          "B": "阑尾",
-          "C": "肝",
-          "D": "肺"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：肝。该图对应诊断为肝硬化；识别依据：肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-cirrhosis.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://pathology.or.jp/corepicturesEN/10/c01/08.html",
-          "credit": "Japanese Society of Pathology Core Pictures：Liver cirrhosis"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第11页"
         }
       },
       {
         "id": "path-dx-0011",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 11,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "肝硬化",
-          "B": "胃溃疡",
-          "C": "血栓",
-          "D": "肺结核"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：血栓。镜下要点：静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。 器官/组织：静脉。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "血栓",
+        "acceptedAnswers": [
+          "血栓",
+          "血栓形成"
+        ],
+        "explanation": "参考诊断：血栓。镜下要点：纤维蛋白网眼中大片红细胞凝结成块。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
-          "src": "./public/pathology-thrombus-recanalization.jpg",
+          "src": "./public/pathology-2023-11.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Complete_organization_of_thromboembolus_with_recanalization.jpg",
-          "credit": "Wikimedia Commons：Organized thromboembolus with recanalization"
-        }
-      },
-      {
-        "id": "path-organ-0011",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 28,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "阑尾",
-          "B": "肺",
-          "C": "结肠",
-          "D": "静脉"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：静脉。该图对应诊断为血栓；识别依据：静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-thrombus-recanalization.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Complete_organization_of_thromboembolus_with_recanalization.jpg",
-          "credit": "Wikimedia Commons：Organized thromboembolus with recanalization"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第12页"
         }
       },
       {
         "id": "path-dx-0012",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 12,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "胃溃疡",
-          "B": "肺结核",
-          "C": "肾结核",
-          "D": "动脉粥样硬化"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：动脉粥样硬化。镜下要点：内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。 器官/组织：动脉。考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "动脉粥样硬化",
+        "acceptedAnswers": [
+          "动脉粥样硬化",
+          "动脉粥样硬化症"
+        ],
+        "explanation": "参考诊断：动脉粥样硬化。镜下要点：动脉纤维帽下可见大量不定形坏死崩解产物和胆固醇结晶；斑块底部与边缘可见肉芽组织，伴少量淋巴细胞和泡沫细胞。 考点：循环障碍与血管病变。重点识别水肿液、脂肪栓塞、血栓机化再通、动脉粥样斑块和胆固醇结晶裂隙。",
         "knowledge": [
           "循环障碍与血管病变"
         ],
         "image": {
-          "src": "./public/pathology-atherosclerosis.jpg",
+          "src": "./public/pathology-2023-12.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg",
-          "credit": "Wikimedia Commons：Coronary atherosclerosis"
-        }
-      },
-      {
-        "id": "path-organ-0012",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 29,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "动脉",
-          "B": "肺",
-          "C": "结肠",
-          "D": "肝"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：动脉。该图对应诊断为动脉粥样硬化；识别依据：内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-atherosclerosis.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg",
-          "credit": "Wikimedia Commons：Coronary atherosclerosis"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第13页"
         }
       },
       {
         "id": "path-dx-0013",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 13,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "胃溃疡",
-          "B": "动脉粥样硬化",
-          "C": "肺结核",
-          "D": "肾结核"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：胃溃疡。镜下要点：可见渗出层、坏死层、肉芽组织层和瘢痕层；肉芽组织内有新生毛细血管、纤维母细胞及慢性炎细胞。 器官/组织：胃。考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "胃溃疡",
+        "acceptedAnswers": [
+          "胃溃疡",
+          "慢性胃溃疡"
+        ],
+        "explanation": "参考诊断：胃溃疡。镜下要点：黏膜层损伤破溃，溃疡由表及里分为炎性渗出层、坏死组织层、肉芽组织层和陈旧瘢痕层。 考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
         "knowledge": [
           "肝胆与消化系统病变"
         ],
         "image": {
-          "src": "./public/pathology-gastric-ulcer.jpg",
+          "src": "./public/pathology-2023-13.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://pathorama.ch/pathopic/4977/show",
-          "credit": "Pathorama：Gastric ulcer histology"
-        }
-      },
-      {
-        "id": "path-organ-0013",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 30,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "结肠",
-          "B": "胃",
-          "C": "肝",
-          "D": "胎盘"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：胃。该图对应诊断为胃溃疡；识别依据：可见渗出层、坏死层、肉芽组织层和瘢痕层；肉芽组织内有新生毛细血管、纤维母细胞及慢性炎细胞。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-gastric-ulcer.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://pathorama.ch/pathopic/4977/show",
-          "credit": "Pathorama：Gastric ulcer histology"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第14页"
         }
       },
       {
         "id": "path-dx-0014",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 14,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "动脉粥样硬化",
-          "B": "肺结核",
-          "C": "胃溃疡",
-          "D": "肝脂肪变性"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：肺结核。镜下要点：可见结核结节和干酪样坏死，周围有类上皮细胞、郎罕斯巨细胞及淋巴细胞浸润。 器官/组织：肺。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肺结核",
+        "acceptedAnswers": [
+          "肺结核",
+          "肺结核病"
+        ],
+        "explanation": "参考诊断：肺结核。镜下要点：可见特征性结核结节，中心为均质红染无结构的干酪样坏死，周围环绕上皮样细胞，其间有朗罕氏巨细胞，外围有慢性炎细胞浸润及纤维组织增生。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
-          "src": "./public/pathology-lung-tuberculosis.jpg",
+          "src": "./public/pathology-2023-14.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://eliph.klinikum.uni-heidelberg.de/allg/106/lungentuberkulose",
-          "credit": "Heidelberg ELIPH：Lung tuberculosis"
-        }
-      },
-      {
-        "id": "path-organ-0014",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 31,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "胎盘",
-          "B": "淋巴结",
-          "C": "肺",
-          "D": "皮肤"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：肺。该图对应诊断为肺结核；识别依据：可见结核结节和干酪样坏死，周围有类上皮细胞、郎罕斯巨细胞及淋巴细胞浸润。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-lung-tuberculosis.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://eliph.klinikum.uni-heidelberg.de/allg/106/lungentuberkulose",
-          "credit": "Heidelberg ELIPH：Lung tuberculosis"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第15页"
         }
       },
       {
         "id": "path-dx-0015",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 15,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "胃溃疡",
-          "B": "肝脂肪变性",
-          "C": "肾结核",
-          "D": "急性蜂窝织性阑尾炎"
-        },
-        "answer": "C",
-        "explanation": "答案为 C：肾结核。镜下要点：肾组织内可见结核结节，中央常发生干酪样坏死，周围为上皮样细胞、多核巨细胞、淋巴细胞和纤维细胞。 器官/组织：肾。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肾结核",
+        "acceptedAnswers": [
+          "肾结核",
+          "肾结核病"
+        ],
+        "explanation": "参考诊断：肾结核。镜下要点：可见肾小球、肾小管结构；间质出现结核结节，中心为均质红染无结构物质，周围有上皮样细胞、散在朗罕氏巨细胞及结缔组织增生。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
-          "src": "./public/pathology-kidney-tuberculosis.jpg",
+          "src": "./public/pathology-2023-15.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Tuberculous_caseous_granuloma_(1)_TBLB.jpg",
-          "credit": "Wikimedia Commons：Tuberculous caseous granuloma"
-        }
-      },
-      {
-        "id": "path-organ-0015",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 32,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "胎盘",
-          "B": "淋巴结",
-          "C": "皮肤",
-          "D": "肾"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：肾。该图对应诊断为肾结核；识别依据：肾组织内可见结核结节，中央常发生干酪样坏死，周围为上皮样细胞、多核巨细胞、淋巴细胞和纤维细胞。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-kidney-tuberculosis.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Tuberculous_caseous_granuloma_(1)_TBLB.jpg",
-          "credit": "Wikimedia Commons：Tuberculous caseous granuloma"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第16页"
         }
       },
       {
         "id": "path-dx-0016",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 16,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "肝脂肪变性",
-          "B": "急性蜂窝织性阑尾炎",
-          "C": "血吸虫肝",
-          "D": "化脓性脑膜炎"
-        },
-        "answer": "D",
-        "explanation": "答案为 D：化脓性脑膜炎。镜下要点：蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。 器官/组织：脑。考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "化脓性脑膜炎（流行性脑脊髓膜炎）",
+        "acceptedAnswers": [
+          "化脓性脑膜炎（流行性脑脊髓膜炎）",
+          "化脓性脑膜炎",
+          "流行性脑脊髓膜炎",
+          "流脑"
+        ],
+        "explanation": "参考诊断：化脓性脑膜炎（流行性脑脊髓膜炎）。镜下要点：蛛网膜高度充血、浑浊，脑沟中可见大量炎细胞浸润。 考点：急性炎症与感染。重点识别中性粒细胞弥漫浸润、渗出物、化脓性炎、结核性肉芽肿和虫卵肉芽肿等形态。",
         "knowledge": [
           "急性炎症与感染"
         ],
         "image": {
-          "src": "./public/pathology-purulent-meningitis.jpg",
+          "src": "./public/pathology-2023-16.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://peir.path.uab.edu/library/picture.php?/10775",
-          "credit": "PEIR Digital Library：Bacterial meningitis"
-        }
-      },
-      {
-        "id": "path-organ-0016",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 33,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "脑",
-          "B": "淋巴结",
-          "C": "皮肤",
-          "D": "静脉"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：脑。该图对应诊断为化脓性脑膜炎；识别依据：蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-purulent-meningitis.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://peir.path.uab.edu/library/picture.php?/10775",
-          "credit": "PEIR Digital Library：Bacterial meningitis"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第17页"
         }
       },
       {
         "id": "path-dx-0017",
         "source": "原题（老师配套习题）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
+        "sourceFile": "病理切片复习2023Ver1.0(1).pdf",
         "number": 17,
-        "type": "single",
-        "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-        "options": {
-          "A": "肝脂肪变性",
-          "B": "肝硬化",
-          "C": "胃溃疡",
-          "D": "急性蜂窝织性阑尾炎"
-        },
-        "answer": "A",
-        "explanation": "答案为 A：肝脂肪变性。镜下要点：肝小叶结构基本完好，小叶中央区肝细胞胞浆内有大小不等的脂肪空泡，严重者细胞核被挤向一边。 器官/组织：肝。考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
+        "type": "fill",
+        "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+        "options": {},
+        "answer": "肝脂肪变",
+        "acceptedAnswers": [
+          "肝脂肪变",
+          "肝脂肪变性",
+          "脂肪肝"
+        ],
+        "explanation": "参考诊断：肝脂肪变。镜下要点：部分肝细胞胞质内出现透明脂肪空泡，肝细胞肿胀，细胞核被挤向一侧。 考点：肝胆与消化系统病变。重点识别假小叶、脂肪空泡、胃溃疡四层结构以及慢性炎和纤维化改变。",
         "knowledge": [
           "肝胆与消化系统病变"
         ],
         "image": {
-          "src": "./public/pathology-fatty-liver.jpg",
+          "src": "./public/pathology-2023-17.jpg",
           "alt": "病理显微切片图",
           "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Fatty_change_liver_-_Lipid_steatosis_10X.jpg",
-          "credit": "Wikimedia Commons：Fatty change liver"
-        }
-      },
-      {
-        "id": "path-organ-0017",
-        "source": "新编拓展题（AI深度改编）",
-        "sourceFile": "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索",
-        "number": 34,
-        "type": "single",
-        "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-        "options": {
-          "A": "静脉",
-          "B": "肝",
-          "C": "动脉",
-          "D": "胃"
-        },
-        "answer": "B",
-        "explanation": "答案为 B：肝。该图对应诊断为肝脂肪变性；识别依据：肝小叶结构基本完好，小叶中央区肝细胞胞浆内有大小不等的脂肪空泡，严重者细胞核被挤向一边。 先判断组织来源，再结合局部病变形态确定诊断。",
-        "knowledge": [
-          "器官/组织识别"
-        ],
-        "image": {
-          "src": "./public/pathology-fatty-liver.jpg",
-          "alt": "病理显微切片图",
-          "caption": "",
-          "page": "https://commons.wikimedia.org/wiki/File:Fatty_change_liver_-_Lipid_steatosis_10X.jpg",
-          "credit": "Wikimedia Commons：Fatty change liver"
+          "page": "./extracted/pathology-slides-2023.pdf",
+          "credit": "病理切片复习2023Ver1.0(1).pdf 第18页"
         }
       }
     ]
