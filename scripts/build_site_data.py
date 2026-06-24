@@ -11,7 +11,7 @@ STATISTICS_DOCX_TEXT = ROOT / "extracted" / "medical-statistics-docx.txt"
 STATISTICS_EXTRA_QUESTIONS = ROOT / "extracted" / "statistics-extra-questions.json"
 PARASITOLOGY_DOC = ROOT / "extracted" / "parasitology-choices.doc"
 XIGAI_DOC = ROOT / "extracted" / "xigai-choices.doc"
-PATHOLOGY_DOC = ROOT / "extracted" / "pathology-slides.doc"
+PATHOLOGY_DOC = ROOT / "extracted" / "pathology-slides-2023.pdf"
 MICROBIOLOGY_PDF = ROOT / "extracted" / "microbiology-300.pdf"
 
 
@@ -1065,193 +1065,187 @@ PATHOLOGY_TOPICS = [
         "name": "妊娠滋养细胞与胎盘病变",
         "note": "重点识别绒毛水肿、间质血管消失和滋养层细胞增生。",
     },
-    {
-        "name": "器官/组织识别",
-        "note": "先从上皮、腺体、肺泡、肝小叶、血管壁、脑膜、胎盘绒毛等结构判断来源，再进入病变诊断。",
-    },
 ]
 
 
 PATHOLOGY_SLIDES = [
     {
-        "number": 3,
-        "diagnosis": "急性蜂窝织性阑尾炎",
-        "tissue": "阑尾",
+        "number": 1,
+        "diagnosis": "急性蜂窝织阑尾炎",
+        "aliases": ["急性蜂窝织性阑尾炎", "蜂窝织性阑尾炎", "急性阑尾炎"],
         "topic": "急性炎症与感染",
-        "features": "粘膜层、粘膜下层、肌层及浆膜层均充血水肿，组织内大量中性粒细胞弥漫性浸润，可见渗出物。",
-        "image": "./public/pathology-appendicitis.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Acute_Appendicitis,_HE_1.jpg",
-        "credit": "Wikimedia Commons：Acute Appendicitis, HE",
+        "features": "阑尾全层充血水肿，大量中性粒细胞浸润，管腔内有脓性渗出物，部分区域黏膜上皮坏死脱落。",
+        "image": "./public/pathology-2023-01.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第2页",
+    },
+    {
+        "number": 2,
+        "diagnosis": "肺水肿",
+        "aliases": [],
+        "topic": "循环障碍与血管病变",
+        "features": "肺泡腔内可见大量均质红染的浆液性渗出液。",
+        "image": "./public/pathology-2023-02.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第3页",
+    },
+    {
+        "number": 3,
+        "diagnosis": "肺组织脂肪栓塞",
+        "aliases": ["肺脂肪栓塞", "脂肪栓塞", "肺脂肪栓子"],
+        "topic": "循环障碍与血管病变",
+        "features": "肺间质血管和肺泡壁毛细血管内可见大小不一、圆形或不规则形的脂肪栓塞物。",
+        "image": "./public/pathology-2023-03.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第4页",
+    },
+    {
+        "number": 4,
+        "diagnosis": "肠腺癌",
+        "aliases": ["结肠腺癌", "肠癌"],
+        "topic": "肿瘤病理",
+        "features": "部分恶变肠腺排列紊乱，失去正常组织结构；高倍镜下细胞异型性明显，核质比例失调，可见异型核、巨核及病理性核分裂象。",
+        "image": "./public/pathology-2023-04.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第5页",
     },
     {
         "number": 5,
-        "diagnosis": "肺水肿",
-        "tissue": "肺",
-        "topic": "循环障碍与血管病变",
-        "features": "肺泡壁毛细血管扩张，充满红细胞；肺泡腔内有大量均匀红染的水肿液。",
-        "image": "./public/pathology-pulmonary-edema.jpg",
-        "page": "https://pathology.or.jp/corepicturesEN/05/c01/04.html",
-        "credit": "Japanese Society of Pathology Core Pictures：Pulmonary edema",
+        "diagnosis": "肝血吸虫病",
+        "aliases": ["血吸虫肝", "血吸虫病肝", "血吸虫病"],
+        "topic": "急性炎症与感染",
+        "features": "肝组织内有嗜酸性肉芽肿，中心为失活的血吸虫卵，周围可见放射状排列的嗜酸性管型及大量嗜酸性粒细胞浸润。",
+        "image": "./public/pathology-2023-05.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第6页",
     },
     {
         "number": 6,
-        "diagnosis": "肺脂肪栓塞",
-        "tissue": "肺",
-        "topic": "循环障碍与血管病变",
-        "features": "肺间质血管和肺泡壁毛细血管内可见大小不一的圆形或不规则形脂肪栓塞物。",
-        "image": "./public/pathology-fat-embolism.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Histopathology_of_a_pulmonary_artery_with_fat_embolism_and_a_bone_marrow_fragment.jpg",
-        "credit": "Wikimedia Commons：Pulmonary artery fat embolism",
+        "diagnosis": "葡萄胎",
+        "aliases": ["水泡状胎块"],
+        "topic": "妊娠滋养细胞与胎盘病变",
+        "features": "胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。",
+        "image": "./public/pathology-2023-06.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第7页",
     },
     {
         "number": 7,
-        "diagnosis": "肠腺癌",
-        "tissue": "结肠",
+        "diagnosis": "淋巴结转移印戒细胞癌",
+        "aliases": ["转移性印戒细胞癌", "印戒细胞癌淋巴结转移", "淋巴结转移性印戒细胞癌"],
         "topic": "肿瘤病理",
-        "features": "癌性腺体形状不规则、大小不一致，细胞异型性明显，呈浸润性生长。",
-        "image": "./public/pathology-colon-adenocarcinoma.jpg",
-        "page": "https://pathology.or.jp/corepicturesEN/09/c09/02.html",
-        "credit": "Japanese Society of Pathology Core Pictures：Colon adenocarcinoma",
+        "features": "淋巴结边缘窦内见大量异型细胞，胞质丰富，细胞核被挤压偏向一侧，呈印戒状。",
+        "image": "./public/pathology-2023-07.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第8页",
     },
     {
         "number": 8,
-        "diagnosis": "血吸虫肝",
-        "tissue": "肝",
+        "diagnosis": "鳞癌",
+        "aliases": ["鳞状细胞癌", "高分化鳞癌"],
+        "topic": "肿瘤病理",
+        "features": "癌细胞异型性明显，呈巢状排列，中央可见角化珠；高倍镜下可见细胞间桥。",
+        "image": "./public/pathology-2023-08.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第9页",
+    },
+    {
+        "number": 9,
+        "diagnosis": "大叶性肺炎",
+        "aliases": [],
         "topic": "急性炎症与感染",
-        "features": "慢性虫卵结节内可见异物巨细胞、淋巴细胞浸润和肉芽组织增生，可见钙化死卵。",
-        "image": "./public/pathology-schistosomiasis-liver.jpg",
-        "page": "https://pathology.or.jp/corepicturesEN/10/c06/02.html",
-        "credit": "Japanese Society of Pathology Core Pictures：Schistosomiasis",
+        "features": "肺泡间隔高度充血，肺泡腔内大量渗出液，充满纤维素和中性粒细胞，纤维素相互连接成网，部分纤维网经肺泡孔相连。",
+        "image": "./public/pathology-2023-09.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第10页",
+    },
+    {
+        "number": 10,
+        "diagnosis": "肝硬化",
+        "aliases": [],
+        "topic": "肝胆与消化系统病变",
+        "features": "肝小叶被纤维结缔组织分割为大小不等的肝细胞结节，假小叶内肝细胞排列紊乱，可见偏位中央静脉或中央静脉缺如，周围结缔组织有炎细胞浸润。",
+        "image": "./public/pathology-2023-10.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第11页",
+    },
+    {
+        "number": 11,
+        "diagnosis": "血栓",
+        "aliases": ["血栓形成"],
+        "topic": "循环障碍与血管病变",
+        "features": "纤维蛋白网眼中大片红细胞凝结成块。",
+        "image": "./public/pathology-2023-11.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第12页",
     },
     {
         "number": 12,
-        "diagnosis": "水泡状胎块",
-        "tissue": "胎盘",
-        "topic": "妊娠滋养细胞与胎盘病变",
-        "features": "胎盘绒毛高度水肿，间质内血管消失，表面滋养层细胞增生。",
-        "image": "./public/pathology-hydatidiform-mole.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Hydatidiform_mole_(1)_complete_type.jpg",
-        "credit": "Wikimedia Commons：Hydatidiform mole",
+        "diagnosis": "动脉粥样硬化",
+        "aliases": ["动脉粥样硬化症"],
+        "topic": "循环障碍与血管病变",
+        "features": "动脉纤维帽下可见大量不定形坏死崩解产物和胆固醇结晶；斑块底部与边缘可见肉芽组织，伴少量淋巴细胞和泡沫细胞。",
+        "image": "./public/pathology-2023-12.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第13页",
     },
     {
         "number": 13,
-        "diagnosis": "转移性印戒细胞癌",
-        "tissue": "淋巴结",
-        "topic": "肿瘤病理",
-        "features": "淋巴结边缘窦处可见大量印戒细胞，胞浆内黏液将细胞核挤向一侧。",
-        "image": "./public/pathology-signet-ring-node.jpg",
-        "page": "https://patologia.cm.umk.pl/atlas/lymphatics/signet/",
-        "credit": "Patologia CM UMK：Metastatic signet-ring cell carcinoma",
+        "diagnosis": "胃溃疡",
+        "aliases": ["慢性胃溃疡"],
+        "topic": "肝胆与消化系统病变",
+        "features": "黏膜层损伤破溃，溃疡由表及里分为炎性渗出层、坏死组织层、肉芽组织层和陈旧瘢痕层。",
+        "image": "./public/pathology-2023-13.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第14页",
+    },
+    {
+        "number": 14,
+        "diagnosis": "肺结核",
+        "aliases": ["肺结核病"],
+        "topic": "急性炎症与感染",
+        "features": "可见特征性结核结节，中心为均质红染无结构的干酪样坏死，周围环绕上皮样细胞，其间有朗罕氏巨细胞，外围有慢性炎细胞浸润及纤维组织增生。",
+        "image": "./public/pathology-2023-14.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第15页",
     },
     {
         "number": 15,
-        "diagnosis": "鳞状细胞癌",
-        "tissue": "皮肤",
-        "topic": "肿瘤病理",
-        "features": "癌细胞呈片状或巢状排列，细胞多边形、胞浆丰富、核异型明显；癌巢中心角化形成癌珠。",
-        "image": "./public/pathology-squamous-cell-carcinoma.jpg",
-        "page": "https://pathology.or.jp/corepictures2010/20/c09/04.html",
-        "credit": "Japanese Society of Pathology Core Pictures：Squamous cell carcinoma",
+        "diagnosis": "肾结核",
+        "aliases": ["肾结核病"],
+        "topic": "急性炎症与感染",
+        "features": "可见肾小球、肾小管结构；间质出现结核结节，中心为均质红染无结构物质，周围有上皮样细胞、散在朗罕氏巨细胞及结缔组织增生。",
+        "image": "./public/pathology-2023-15.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第16页",
+    },
+    {
+        "number": 16,
+        "diagnosis": "化脓性脑膜炎（流行性脑脊髓膜炎）",
+        "aliases": ["化脓性脑膜炎", "流行性脑脊髓膜炎", "流脑"],
+        "topic": "急性炎症与感染",
+        "features": "蛛网膜高度充血、浑浊，脑沟中可见大量炎细胞浸润。",
+        "image": "./public/pathology-2023-16.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第17页",
     },
     {
         "number": 17,
-        "diagnosis": "大叶性肺炎",
-        "tissue": "肺",
-        "topic": "急性炎症与感染",
-        "features": "病变均匀一致，肺泡腔内充满大量纤维素和嗜中性白细胞，纤维素互相结成网。",
-        "image": "./public/pathology-lobar-pneumonia.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Lung_biopsy_showing_lobar_pneumonia_10X.jpg",
-        "credit": "Wikimedia Commons：Lobar pneumonia",
-    },
-    {
-        "number": 18,
-        "diagnosis": "肝硬化",
-        "tissue": "肝",
+        "diagnosis": "肝脂肪变",
+        "aliases": ["肝脂肪变性", "脂肪肝"],
         "topic": "肝胆与消化系统病变",
-        "features": "肝小叶正常结构破坏，形成许多大小不等的假小叶，其间有纤维组织增生和大量炎细胞浸润。",
-        "image": "./public/pathology-cirrhosis.jpg",
-        "page": "https://pathology.or.jp/corepicturesEN/10/c01/08.html",
-        "credit": "Japanese Society of Pathology Core Pictures：Liver cirrhosis",
-    },
-    {
-        "number": 20,
-        "diagnosis": "血栓",
-        "tissue": "静脉",
-        "topic": "循环障碍与血管病变",
-        "features": "静脉内血栓由淡红色血小板和血细胞构成，局部可见裂隙及内皮覆盖，提示机化再通。",
-        "image": "./public/pathology-thrombus-recanalization.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Complete_organization_of_thromboembolus_with_recanalization.jpg",
-        "credit": "Wikimedia Commons：Organized thromboembolus with recanalization",
-    },
-    {
-        "number": 21,
-        "diagnosis": "动脉粥样硬化",
-        "tissue": "动脉",
-        "topic": "循环障碍与血管病变",
-        "features": "内膜表面纤维帽形成并可破溃，其下为粥样坏死灶，可见胆固醇结晶针状裂隙、钙盐沉积、泡沫细胞和肉芽组织。",
-        "image": "./public/pathology-atherosclerosis.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:RCA_atherosclerosis.jpg",
-        "credit": "Wikimedia Commons：Coronary atherosclerosis",
-    },
-    {
-        "number": 23,
-        "diagnosis": "胃溃疡",
-        "tissue": "胃",
-        "topic": "肝胆与消化系统病变",
-        "features": "可见渗出层、坏死层、肉芽组织层和瘢痕层；肉芽组织内有新生毛细血管、纤维母细胞及慢性炎细胞。",
-        "image": "./public/pathology-gastric-ulcer.jpg",
-        "page": "https://pathorama.ch/pathopic/4977/show",
-        "credit": "Pathorama：Gastric ulcer histology",
-    },
-    {
-        "number": 24,
-        "diagnosis": "肺结核",
-        "tissue": "肺",
-        "topic": "急性炎症与感染",
-        "features": "可见结核结节和干酪样坏死，周围有类上皮细胞、郎罕斯巨细胞及淋巴细胞浸润。",
-        "image": "./public/pathology-lung-tuberculosis.jpg",
-        "page": "https://eliph.klinikum.uni-heidelberg.de/allg/106/lungentuberkulose",
-        "credit": "Heidelberg ELIPH：Lung tuberculosis",
-    },
-    {
-        "number": 25,
-        "diagnosis": "肾结核",
-        "tissue": "肾",
-        "topic": "急性炎症与感染",
-        "features": "肾组织内可见结核结节，中央常发生干酪样坏死，周围为上皮样细胞、多核巨细胞、淋巴细胞和纤维细胞。",
-        "image": "./public/pathology-kidney-tuberculosis.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Tuberculous_caseous_granuloma_(1)_TBLB.jpg",
-        "credit": "Wikimedia Commons：Tuberculous caseous granuloma",
-    },
-    {
-        "number": 28,
-        "diagnosis": "化脓性脑膜炎",
-        "tissue": "脑",
-        "topic": "急性炎症与感染",
-        "features": "蛛网膜下腔增宽，血管高度扩张充血，可见大量嗜中性白细胞、单核细胞和淋巴细胞浸润，炎症未累及脑实质。",
-        "image": "./public/pathology-purulent-meningitis.jpg",
-        "page": "https://peir.path.uab.edu/library/picture.php?/10775",
-        "credit": "PEIR Digital Library：Bacterial meningitis",
-    },
-    {
-        "number": 30,
-        "diagnosis": "肝脂肪变性",
-        "tissue": "肝",
-        "topic": "肝胆与消化系统病变",
-        "features": "肝小叶结构基本完好，小叶中央区肝细胞胞浆内有大小不等的脂肪空泡，严重者细胞核被挤向一边。",
-        "image": "./public/pathology-fatty-liver.jpg",
-        "page": "https://commons.wikimedia.org/wiki/File:Fatty_change_liver_-_Lipid_steatosis_10X.jpg",
-        "credit": "Wikimedia Commons：Fatty change liver",
+        "features": "部分肝细胞胞质内出现透明脂肪空泡，肝细胞肿胀，细胞核被挤向一侧。",
+        "image": "./public/pathology-2023-17.jpg",
+        "page": "./extracted/pathology-slides-2023.pdf",
+        "credit": "病理切片复习2023Ver1.0(1).pdf 第18页",
     },
 ]
 
 
 def parse_pathology_questions():
-    letters = ["A", "B", "C", "D"]
     topic_notes = {topic["name"]: topic["note"] for topic in PATHOLOGY_TOPICS}
     questions = []
     diagnoses = [slide["diagnosis"] for slide in PATHOLOGY_SLIDES]
-    tissues = list(dict.fromkeys(slide["tissue"] for slide in PATHOLOGY_SLIDES))
 
     def image_payload(slide):
         return {
@@ -1262,71 +1256,24 @@ def parse_pathology_questions():
             "credit": slide["credit"],
         }
 
-    def choice_set(correct, pool, offset):
-        distractors = []
-        cursor = offset
-        candidates = [item for item in pool if item != correct]
-        while len(distractors) < 3 and candidates:
-            candidate = candidates[cursor % len(candidates)]
-            if candidate not in distractors:
-                distractors.append(candidate)
-            cursor += 1
-        correct_position = offset % 4
-        ordered = distractors[:]
-        ordered.insert(correct_position, correct)
-        return {letters[i]: ordered[i] for i in range(4)}, letters[correct_position]
-
     for index, slide in enumerate(PATHOLOGY_SLIDES):
-        same_topic = [
-            item
-            for item in PATHOLOGY_SLIDES
-            if item["diagnosis"] != slide["diagnosis"] and item["topic"] == slide["topic"]
-        ]
-        pool = same_topic + [
-            item
-            for item in PATHOLOGY_SLIDES
-            if item["diagnosis"] != slide["diagnosis"] and item not in same_topic
-        ]
-        options, answer = choice_set(slide["diagnosis"], [item["diagnosis"] for item in pool], index)
-        answer_text = options[answer]
-        source_file = "病理切片整理137937885386235187.1ea17c5a4335782.doc；网络显微图检索"
+        source_file = "病理切片复习2023Ver1.0(1).pdf"
         questions.append(
             {
                 "id": f"path-dx-{index + 1:04d}",
                 "source": "原题（老师配套习题）",
                 "sourceFile": source_file,
                 "number": index + 1,
-                "type": "single",
-                "stem": "观察图中显微切片的局部形态，最可能的病理诊断是？",
-                "options": options,
-                "answer": answer,
+                "type": "fill",
+                "stem": "观察图中显微切片的病变形态，填写最可能的病理诊断。",
+                "options": {},
+                "answer": slide["diagnosis"],
+                "acceptedAnswers": [slide["diagnosis"], *slide.get("aliases", [])],
                 "explanation": (
-                    f"答案为 {answer}：{answer_text}。镜下要点：{slide['features']} "
-                    f"器官/组织：{slide['tissue']}。"
+                    f"参考诊断：{slide['diagnosis']}。镜下要点：{slide['features']} "
                     f"考点：{slide['topic']}。{topic_notes[slide['topic']]}"
                 ),
                 "knowledge": [slide["topic"]],
-                "image": image_payload(slide),
-            }
-        )
-
-        organ_options, organ_answer = choice_set(slide["tissue"], tissues, index + 1)
-        organ_answer_text = organ_options[organ_answer]
-        questions.append(
-            {
-                "id": f"path-organ-{index + 1:04d}",
-                "source": "新编拓展题（AI深度改编）",
-                "sourceFile": source_file,
-                "number": len(PATHOLOGY_SLIDES) + index + 1,
-                "type": "single",
-                "stem": "观察图中显微切片的组织结构，最可能来源于哪个器官/组织？",
-                "options": organ_options,
-                "answer": organ_answer,
-                "explanation": (
-                    f"答案为 {organ_answer}：{organ_answer_text}。该图对应诊断为{slide['diagnosis']}；"
-                    f"识别依据：{slide['features']} 先判断组织来源，再结合局部病变形态确定诊断。"
-                ),
-                "knowledge": ["器官/组织识别"],
                 "image": image_payload(slide),
             }
         )
@@ -1336,8 +1283,8 @@ def parse_pathology_questions():
         "parsed": len(questions),
         "diagnoses": diagnoses,
         "localImages": sum(1 for slide in PATHOLOGY_SLIDES if slide["image"].startswith("./public/")),
-        "diagnosisQuestions": len(PATHOLOGY_SLIDES),
-        "organQuestions": len(PATHOLOGY_SLIDES),
+        "fillQuestions": len(PATHOLOGY_SLIDES),
+        "organQuestions": 0,
     }
     return questions, audit
 
@@ -1832,14 +1779,14 @@ def main():
             "originalCount": sum(1 for q in pathology if q["source"].startswith("原题")),
             "extendedCount": sum(1 for q in pathology if q["source"].startswith("新编")),
             "missingAnswerCount": sum(1 for q in pathology if not q.get("answer")),
-            "source": "病理切片整理137937885386235187.1ea17c5a4335782.doc",
+            "source": "病理切片复习2023Ver1.0(1).pdf",
             "parseAudit": pathology_audit,
         },
         "topics": PATHOLOGY_TOPICS,
         "resources": [
             {
                 "title": slide["diagnosis"],
-                "type": slide["tissue"],
+                "type": "切片图",
                 "src": slide["image"],
             }
             for slide in PATHOLOGY_SLIDES
