@@ -66,7 +66,7 @@ function savePracticeState() {
 
 function normalizeImported(items) {
   return items
-    .filter((item) => item && item.stem && item.options)
+    .filter((item) => item && item.stem && (item.options || item.type === "fill" || item.type === "blank"))
     .map((item, index) => ({
       id: item.id || `local-${index + 1}`,
       source: item.source || "新编拓展题（AI深度改编）",
@@ -74,8 +74,9 @@ function normalizeImported(items) {
       number: item.number || index + 1,
       type: item.type || ((item.answer || "").length > 1 ? "multiple" : "single"),
       stem: item.stem,
-      options: item.options,
-      answer: (item.answer || "").toUpperCase(),
+      options: item.options || {},
+      answer: item.type === "fill" || item.type === "blank" ? (item.answer || "") : (item.answer || "").toUpperCase(),
+      acceptedAnswers: item.acceptedAnswers || [],
       explanation: item.explanation || "本地导入题，解析待补充。",
       knowledge: item.knowledge || ["本地扩展"],
       image: item.image || null,
@@ -94,8 +95,9 @@ function escapeHtml(value = "") {
   ));
 }
 
-function optionAnswer(answer) {
+function optionAnswer(answer, q = null) {
   if (!answer) return "";
+  if (isFillQuestion(q)) return answer;
   return answer.length > 1 ? answer.split("").join(" / ") : answer;
 }
 
@@ -113,7 +115,28 @@ function selectionValue() {
 }
 
 function isMultipleQuestion(q) {
-  return q?.type === "multiple" || (q?.answer || "").length > 1;
+  return !isFillQuestion(q) && (q?.type === "multiple" || (q?.answer || "").length > 1);
+}
+
+function isFillQuestion(q) {
+  return q?.type === "fill" || q?.type === "blank";
+}
+
+function normalizeFillAnswer(value = "") {
+  return String(value)
+    .toLowerCase()
+    .replace(/[（(].*?[)）]/g, "")
+    .replace(/[\s,，.。;；:：、·\-—_/\\]/g, "")
+    .trim();
+}
+
+function fillAnswers(q) {
+  return [q?.answer, ...(q?.acceptedAnswers || [])].filter(Boolean);
+}
+
+function isFillAnswerCorrect(q, value) {
+  const normalized = normalizeFillAnswer(value);
+  return Boolean(normalized && fillAnswers(q).some((answer) => normalizeFillAnswer(answer) === normalized));
 }
 
 function getPracticeTotals() {
@@ -268,7 +291,25 @@ function renderExplanation(q, verdict) {
     ? `<br><small>显微图：<a href="${q.image.page}" target="_blank" rel="noreferrer">${escapeHtml(q.image.credit || q.image.page)}</a></small>`
     : "";
   els.explanation.hidden = false;
-  els.explanation.innerHTML = `<strong>${verdict}：${optionAnswer(answer) || "未提供"}</strong><br>${q.explanation || ""}<br><small>来源：${q.sourceFile || "资料库"}</small>${imageCredit}`;
+  els.explanation.innerHTML = `<strong>${verdict}：${optionAnswer(answer, q) || "未提供"}</strong><br>${q.explanation || ""}<br><small>来源：${q.sourceFile || "资料库"}</small>${imageCredit}`;
+}
+
+function renderFillInput(q, record) {
+  const value = selected[0] || "";
+  const wrapper = document.createElement("label");
+  wrapper.className = "fill-answer";
+  if (checked) {
+    wrapper.classList.add(record?.lastCorrect ? "correct" : "wrong");
+  }
+  wrapper.innerHTML = `
+    <span>填写病理诊断</span>
+    <input id="fill-answer-input" type="text" autocomplete="off" spellcheck="false" placeholder="例如：肝硬化" value="${escapeHtml(value)}" ${checked ? "disabled" : ""} />
+  `;
+  els.options.append(wrapper);
+  const input = wrapper.querySelector("input");
+  input?.addEventListener("input", () => {
+    selected = [input.value];
+  });
 }
 
 function renderQuestion() {
@@ -291,14 +332,14 @@ function renderQuestion() {
   }
 
   const record = retryingQuestions.has(q.id) ? null : practiceState.attempts[q.id];
-  selected = record?.lastSelected ? normalizeSelection(record.lastSelected) : [];
+  selected = record?.lastSelected ? (isFillQuestion(q) ? [record.lastSelected] : normalizeSelection(record.lastSelected)) : [];
   checked = Boolean(record?.lastSelected && q.answer);
   els.checkBtn.disabled = false;
   els.sourceBadge.textContent = q.source;
   els.topicBadge.textContent = (q.knowledge || ["未分类"])[0];
   els.progressBadge.textContent = `${currentIndex + 1} / ${filtered.length}`;
   els.stem.textContent = q.stem;
-  els.checkBtn.textContent = checked ? "重做此题" : q.answer ? (isMultipleQuestion(q) ? "提交多选" : "提交") : "待核验";
+  els.checkBtn.textContent = checked ? "重做此题" : q.answer ? (isFillQuestion(q) ? "提交填空" : isMultipleQuestion(q) ? "提交多选" : "提交") : "待核验";
 
   if (els.media && q.image?.src) {
     const href = q.image.page || q.image.src;
@@ -311,6 +352,14 @@ function renderQuestion() {
       </a>
       ${caption}
     `;
+  }
+
+  if (isFillQuestion(q)) {
+    renderFillInput(q, record);
+    if (checked) {
+      renderExplanation(q, record.lastCorrect ? "上次答对" : "上次答错");
+    }
+    return;
   }
 
   Object.entries(q.options).forEach(([key, value]) => {
@@ -362,6 +411,34 @@ function checkAnswer() {
   }
   checked = true;
   const answer = q.answer || "";
+  if (isFillQuestion(q)) {
+    const input = document.querySelector("#fill-answer-input");
+    const choice = (input?.value || selected[0] || "").trim();
+    selected = [choice];
+    const isSelectedCorrect = isFillAnswerCorrect(q, choice);
+    const wrapper = document.querySelector(".fill-answer");
+    wrapper?.classList.toggle("correct", Boolean(choice && isSelectedCorrect));
+    wrapper?.classList.toggle("wrong", Boolean(choice && !isSelectedCorrect));
+    if (input) input.disabled = true;
+    const verdict = answer
+      ? choice
+        ? isSelectedCorrect
+          ? "答对了"
+          : "再看一眼"
+        : "参考答案"
+      : "待核验";
+    if (choice && answer) {
+      retryingQuestions.delete(q.id);
+      recordAttempt(q, choice, isSelectedCorrect);
+      renderStats();
+      renderPracticeSummary();
+      renderQueue();
+    }
+    els.checkBtn.textContent = "重做此题";
+    renderExplanation(q, verdict);
+    return;
+  }
+
   const choice = selectionValue();
   const isSelectedCorrect = Boolean(choice && answerKeys(answer).join("") === choice);
 
