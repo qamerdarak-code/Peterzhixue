@@ -65,7 +65,7 @@
     "id": "string",
     "source": "原题（老师配套习题） | 新编拓展题（AI深度改编）",
     "sourceFile": "string",
-    "type": "single",
+    "type": "single | multiple | fill",
     "stem": "string",
     "options": {
       "A": "string",
@@ -75,6 +75,7 @@
       "E": "string | optional"
     },
     "answer": "string",
+    "acceptedAnswers": ["string | optional"],
     "explanation": "string",
     "knowledge": ["string"]
   }
