@@ -173,11 +173,58 @@ button {
   padding: 34px 0 64px;
 }
 
+.route-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(0, 113, 227, 0.14), transparent 28rem),
+    rgba(251, 251, 253, 0.94);
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.018);
+  transition:
+    opacity 220ms ease,
+    transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  backdrop-filter: blur(28px) saturate(1.35);
+}
+
+.route-transition span {
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-soft);
+  font-size: clamp(20px, 3vw, 36px);
+  font-weight: 800;
+}
+
+.route-transition.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.route-transition.active.leaving {
+  opacity: 0;
+  transform: scale(0.982);
+}
+
 .course-shell {
   display: none;
 }
 
 body.is-course .course-shell {
+  display: block;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
   display: block;
 }
 
@@ -288,6 +335,7 @@ body.is-course .course-shell {
   backdrop-filter: blur(18px) saturate(1.25);
   transition:
     transform 180ms ease,
+    opacity 180ms ease,
     box-shadow 180ms ease,
     border-color 180ms ease;
 }
@@ -521,13 +569,14 @@ textarea:focus {
 
 .practice-summary {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto auto;
   gap: 10px;
   margin-bottom: 14px;
 }
 
 .summary-metric,
-.wrong-book {
+.wrong-book,
+.reset-practice {
   min-height: 62px;
   padding: 12px 14px;
   border: 1px solid var(--line);
@@ -551,10 +600,15 @@ textarea:focus {
   line-height: 1;
 }
 
-.wrong-book {
+.wrong-book,
+.reset-practice {
   min-width: 124px;
   color: var(--ink);
   cursor: pointer;
+}
+
+.reset-practice {
+  background: rgba(251, 251, 253, 0.94);
 }
 
 .wrong-book.active {
@@ -563,7 +617,8 @@ textarea:focus {
   color: var(--rose);
 }
 
-.wrong-book:disabled {
+.wrong-book:disabled,
+.reset-practice:disabled {
   color: var(--muted);
   cursor: default;
   opacity: 0.66;
