@@ -13,6 +13,12 @@ PARASITOLOGY_DOC = ROOT / "extracted" / "parasitology-choices.doc"
 XIGAI_DOC = ROOT / "extracted" / "xigai-choices.doc"
 PATHOLOGY_DOC = ROOT / "extracted" / "pathology-slides-2023.pdf"
 MICROBIOLOGY_PDF = ROOT / "extracted" / "microbiology-300.pdf"
+PATHOLOGY_MCQ_PDFS = [
+    ROOT / "extracted" / "病理A.pdf",
+    ROOT / "extracted" / "病理学2A.pdf",
+    ROOT / "extracted" / "病理学3A.pdf",
+    ROOT / "extracted" / "病理4A.pdf",
+]
 
 
 TOPICS = [
@@ -1289,6 +1295,345 @@ def parse_pathology_questions():
     return questions, audit
 
 
+PATHOLOGY_MCQ_TOPICS = [
+    {
+        "name": "细胞损伤与修复",
+        "note": "重点掌握变性、坏死、萎缩、化生、再生、肉芽组织、机化和瘢痕修复等基础病变。",
+    },
+    {
+        "name": "炎症与感染",
+        "note": "重点区分渗出、变质、增生、化脓、纤维素性炎、肉芽肿性炎以及结核、伤寒、肝炎等感染性病变。",
+    },
+    {
+        "name": "循环障碍",
+        "note": "重点掌握充血、淤血、水肿、血栓、栓塞、梗死、出血以及常见器官循环障碍后果。",
+    },
+    {
+        "name": "肿瘤病理",
+        "note": "重点掌握良恶性肿瘤区别、分化与异型性、原位癌、浸润癌、转移途径和常见肿瘤组织学类型。",
+    },
+    {
+        "name": "心血管与呼吸系统病理",
+        "note": "重点掌握冠心病、高血压、风湿病、肺炎、慢性支气管炎、肺气肿、肺癌和肺结核等病变。",
+    },
+    {
+        "name": "消化与肝胆病理",
+        "note": "重点掌握胃炎、溃疡、食管癌、胃癌、肠癌、病毒性肝炎、肝硬化和原发性肝癌等考点。",
+    },
+    {
+        "name": "泌尿与生殖系统病理",
+        "note": "重点掌握肾小球肾炎、肾病综合征、膀胱癌、前列腺病变、宫颈癌、葡萄胎及卵巢肿瘤等考点。",
+    },
+    {
+        "name": "淋巴造血与内分泌病理",
+        "note": "重点掌握淋巴瘤、白血病、甲状腺肿瘤和常见内分泌相关病变的基本分类与诊断要点。",
+    },
+]
+
+
+PATHOLOGY_MCQ_KEYWORDS = {
+    "细胞损伤与修复": [
+        "坏死",
+        "变性",
+        "萎缩",
+        "化生",
+        "再生",
+        "肉芽",
+        "机化",
+        "瘢痕",
+        "修复",
+        "肥大",
+        "钙化",
+        "脂褐素",
+        "玻璃样变",
+    ],
+    "炎症与感染": [
+        "炎",
+        "炎症",
+        "脓",
+        "结核",
+        "伤寒",
+        "痢疾",
+        "肝炎",
+        "脑膜炎",
+        "白细胞",
+        "中性粒细胞",
+        "肉芽肿",
+        "渗出",
+    ],
+    "循环障碍": ["血栓", "栓塞", "梗死", "充血", "淤血", "水肿", "出血", "休克", "静脉", "动脉", "血管"],
+    "肿瘤病理": [
+        "肿瘤",
+        "癌",
+        "瘤",
+        "肉瘤",
+        "转移",
+        "原位癌",
+        "浸润",
+        "分化",
+        "异型",
+        "Krukenberg",
+        "印戒",
+    ],
+    "心血管与呼吸系统病理": [
+        "心",
+        "冠状动脉",
+        "高血压",
+        "风湿",
+        "瓣膜",
+        "肺",
+        "支气管",
+        "肺炎",
+        "肺气肿",
+        "肺癌",
+        "肺结核",
+        "肺心病",
+    ],
+    "消化与肝胆病理": [
+        "胃",
+        "食管",
+        "肠",
+        "结肠",
+        "直肠",
+        "溃疡",
+        "肝",
+        "胆",
+        "肝硬化",
+        "肝癌",
+        "病毒性肝炎",
+    ],
+    "泌尿与生殖系统病理": [
+        "肾",
+        "肾小球",
+        "肾炎",
+        "肾病",
+        "膀胱",
+        "前列腺",
+        "子宫",
+        "宫颈",
+        "卵巢",
+        "葡萄胎",
+        "绒毛膜",
+    ],
+    "淋巴造血与内分泌病理": ["淋巴", "白血病", "霍奇金", "甲状腺", "内分泌", "垂体", "肾上腺"],
+}
+
+
+PATHOLOGY_4A_ANSWERS = list(
+    "EAABBEBCCB"
+    "ECBBABDEDC"
+    "CBAEDBDAEE"
+    "ADEADABCBE"
+    "EADBDEDEDC"
+    "EEDEDDCDAD"
+    "CAEACBECEA"
+    "CABBCDEAAE"
+    "ACBCBDCCBD"
+    "ABAE"
+    "CBBADBACBD"
+    "BACEABCDBE"
+    "ACBEAEBCDC"
+    "AEDBCEDBAAC"
+)
+
+
+def decode_pathology_mcq_pdf(path):
+    if not path.exists():
+        return ""
+    try:
+        import pdfplumber
+    except ImportError:
+        return ""
+    pages = []
+    with pdfplumber.open(path) as pdf:
+        for page in pdf.pages:
+            pages.append(page.extract_text(x_tolerance=1, y_tolerance=3) or "")
+    return unicodedata.normalize("NFKC", "\n".join(pages))
+
+
+def clean_pathology_mcq_text(value):
+    value = unicodedata.normalize("NFKC", value or "")
+    value = re.sub(r"\(cid:\d+\)", "", value)
+    value = re.sub(r"\s+", " ", value)
+    return value.strip()
+
+
+def pathology_mcq_answer_map(text, filename):
+    answer_text = ""
+    if "答案:" in text:
+        answer_text = text.split("答案:", 1)[1]
+    elif "答案：" in text:
+        answer_text = text.split("答案：", 1)[1]
+    pairs = re.findall(r"(\d{1,3})\.\s*([A-E])", answer_text)
+    answers = {int(number): answer for number, answer in pairs if int(number) > 0}
+    if filename == "病理4A.pdf" and len(answers) < 100:
+        answers = {index + 1: answer for index, answer in enumerate(PATHOLOGY_4A_ANSWERS)}
+    return answers
+
+
+def pathology_mcq_lines(text):
+    body = text
+    for marker in ("答案:", "答案："):
+        if marker in body:
+            body = body.split(marker, 1)[0]
+            break
+    lines = []
+    for raw_line in body.splitlines():
+        line = clean_pathology_mcq_text(raw_line)
+        if not line:
+            continue
+        if line.startswith("--- PAGE") or line.startswith("[题库]") or line.startswith("病理"):
+            continue
+        if line.startswith("题型") or re.fullmatch(r"\d+", line):
+            continue
+        lines.append(line)
+    return lines
+
+
+def parse_pathology_mcq_options(lines):
+    option_re = re.compile(r"^([A-E])\s*[.．、]\s*(.*)")
+    options = {}
+    current = None
+    for line in lines:
+        if "共用备选答案" in line or line.startswith("题型"):
+            continue
+        match = option_re.match(line)
+        if match:
+            current = match.group(1)
+            options[current] = clean_pathology_mcq_text(match.group(2))
+        elif current:
+            options[current] = clean_pathology_mcq_text(options[current] + line)
+    return options
+
+
+def infer_pathology_mcq_topic(stem, options):
+    haystack = stem + " " + " ".join(options.values())
+    scored = []
+    for topic, keys in PATHOLOGY_MCQ_KEYWORDS.items():
+        score = sum(1 for key in keys if key and key in haystack)
+        if score:
+            scored.append((score, topic))
+    if scored:
+        return max(scored, key=lambda item: item[0])[1]
+    return "细胞损伤与修复"
+
+
+def parse_pathology_mcq_file(path):
+    text = decode_pathology_mcq_pdf(path)
+    if not text:
+        return [], {"source": path.name, "parsed": 0, "ignored": 0, "answers": 0}
+
+    lines = pathology_mcq_lines(text)
+    answers = pathology_mcq_answer_map(text, path.name)
+    number_re = re.compile(r"^(\d{1,3})[.．]\s*(.*)")
+    option_re = re.compile(r"^([A-E])\s*[.．、]\s*(.*)")
+    shared_re = re.compile(r"[（(](\d{1,3})\s*[～~\-－至]\s*(\d{1,3})\s*共用备选答案[）)]")
+
+    markers = []
+    previous_number = 0
+    for index, line in enumerate(lines):
+        match = number_re.match(line)
+        if not match:
+            continue
+        number = int(match.group(1))
+        if (previous_number == 0 and number == 1) or number == previous_number + 1:
+            markers.append((number, index))
+            previous_number = number
+
+    topic_notes = {topic["name"]: topic["note"] for topic in PATHOLOGY_MCQ_TOPICS}
+    questions = []
+    ignored = 0
+    active_range = (0, 0)
+    active_options = {}
+
+    for index, (number, start) in enumerate(markers):
+        previous_start = markers[index - 1][1] + 1 if index else 0
+        gap_lines = lines[previous_start:start]
+        for gap_index, line in enumerate(gap_lines):
+            shared_match = shared_re.search(line)
+            if shared_match:
+                active_range = (int(shared_match.group(1)), int(shared_match.group(2)))
+                active_options = parse_pathology_mcq_options(gap_lines[gap_index + 1 :])
+
+        next_start = markers[index + 1][1] if index + 1 < len(markers) else len(lines)
+        segment = lines[start:next_start]
+        first_line = number_re.match(segment[0]).group(2)
+        stem_lines = [first_line] if first_line else []
+        options = {}
+        current_option = None
+        in_options = False
+
+        for line in segment[1:]:
+            option_match = option_re.match(line)
+            if option_match:
+                in_options = True
+                current_option = option_match.group(1)
+                options[current_option] = clean_pathology_mcq_text(option_match.group(2))
+            elif in_options and current_option:
+                options[current_option] = clean_pathology_mcq_text(options[current_option] + line)
+            else:
+                stem_lines.append(line)
+
+        if len(options) < 4 and active_range[0] <= number <= active_range[1] and active_options:
+            options = dict(active_options)
+        if active_range[1] and number >= active_range[1]:
+            active_range = (0, 0)
+            active_options = {}
+
+        stem = clean_pathology_mcq_text("".join(stem_lines))
+        answer = answers.get(number)
+        if not stem or len(options) < 4 or not answer or answer not in options:
+            ignored += 1
+            continue
+
+        topic = infer_pathology_mcq_topic(stem, options)
+        answer_text = options.get(answer, "")
+        questions.append(
+            {
+                "id": "",
+                "source": "原题（老师配套习题）",
+                "sourceFile": path.name,
+                "number": number,
+                "sourceNumber": number,
+                "type": "single",
+                "stem": stem,
+                "options": options,
+                "answer": answer,
+                "explanation": f"答案为 {answer}：{answer_text}。考点：{topic}。{topic_notes[topic]}",
+                "knowledge": [topic],
+            }
+        )
+
+    audit = {
+        "source": path.name,
+        "questionMarkers": len(markers),
+        "answers": len(answers),
+        "parsed": len(questions),
+        "ignored": ignored,
+    }
+    return questions, audit
+
+
+def parse_pathology_mcq_questions():
+    all_questions = []
+    audits = []
+    for source_index, path in enumerate(PATHOLOGY_MCQ_PDFS, 1):
+        questions, audit = parse_pathology_mcq_file(path)
+        for question in questions:
+            question["id"] = f"pathology-{source_index}-{question['sourceNumber']:04d}"
+        all_questions.extend(questions)
+        audits.append(audit)
+
+    for index, question in enumerate(all_questions, 1):
+        question["number"] = index
+
+    return all_questions, {
+        "sources": audits,
+        "parsed": len(all_questions),
+        "ignored": sum(item.get("ignored", 0) for item in audits),
+    }
+
+
 MICROBIOLOGY_TOPICS = [
     {
         "name": "细菌学总论",
@@ -1769,6 +2114,24 @@ def main():
         "questions": xigai,
     }
 
+    pathology_mcq, pathology_mcq_audit = parse_pathology_mcq_questions()
+    pathology_mcq_payload = {
+        "meta": {
+            "project": "皮特智学",
+            "subject": "病理学",
+            "subjectId": "pathology",
+            "school": "扬州大学医学部",
+            "originalCount": len(pathology_mcq),
+            "extendedCount": 0,
+            "missingAnswerCount": sum(1 for q in pathology_mcq if not q.get("answer")),
+            "source": "病理A.pdf；病理学2A.pdf；病理学3A.pdf；病理4A.pdf",
+            "parseAudit": pathology_mcq_audit,
+        },
+        "topics": PATHOLOGY_MCQ_TOPICS,
+        "resources": [],
+        "questions": pathology_mcq,
+    }
+
     pathology, pathology_audit = parse_pathology_questions()
     pathology_payload = {
         "meta": {
@@ -1817,6 +2180,7 @@ def main():
         "medical-statistics": statistics_payload,
         "medical-parasitology": parasitology_payload,
         "xigai": xigai_payload,
+        "pathology": pathology_mcq_payload,
         "pathology-slides": pathology_payload,
         "medical-microbiology": microbiology_payload,
     }
