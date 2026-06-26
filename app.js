@@ -38,6 +38,8 @@ const els = {
   resetLocalBtn: document.querySelector("#reset-local-btn"),
   sourceLog: document.querySelector("#source-log"),
   practiceSummary: document.querySelector("#practice-summary"),
+  routeTransition: document.querySelector("#route-transition"),
+  routeTransitionTitle: document.querySelector("#route-transition-title"),
 };
 
 function readLocalQuestions() {
@@ -190,12 +192,16 @@ function renderPracticeSummary() {
     <button class="wrong-book ${wrongOnly ? "active" : ""}" id="wrong-only-btn" ${totals.wrongQuestions ? "" : "disabled"}>
       错题本 ${totals.wrongQuestions}
     </button>
+    <button class="reset-practice" id="reset-practice-btn" ${totals.totalAttempts ? "" : "disabled"}>
+      重置练习
+    </button>
   `;
   const wrongBtn = document.querySelector("#wrong-only-btn");
   wrongBtn?.addEventListener("click", () => {
     wrongOnly = !wrongOnly;
     applyFilters();
   });
+  document.querySelector("#reset-practice-btn")?.addEventListener("click", resetPracticeState);
 }
 
 function renderStats() {
@@ -572,6 +578,32 @@ function showView(view) {
   });
 }
 
+function transitionToSubject(subjectId, view = "practice") {
+  const subject = subjects[subjectId];
+  if (!subject) {
+    showView(view);
+    return;
+  }
+  if (!els.routeTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    selectSubject(subjectId);
+    showView(view);
+    window.scrollTo(0, 0);
+    return;
+  }
+  els.routeTransitionTitle.textContent = `进入 ${subject.meta.subject}`;
+  els.routeTransition.classList.remove("leaving");
+  els.routeTransition.classList.add("active");
+  window.setTimeout(() => {
+    selectSubject(subjectId);
+    showView(view);
+    window.scrollTo(0, 0);
+    els.routeTransition.classList.add("leaving");
+  }, 220);
+  window.setTimeout(() => {
+    els.routeTransition.classList.remove("active", "leaving");
+  }, 700);
+}
+
 function importQuestions() {
   try {
     const parsed = JSON.parse(els.importJson.value || "[]");
@@ -603,10 +635,27 @@ function resetLocal() {
   applyFilters();
 }
 
+function resetPracticeState() {
+  if (!window.confirm(`重置 ${data.meta.subject} 的练习记录、正确率和错题本？题库内容不会被删除。`)) return;
+  localStorage.removeItem(`pete-practice-state-${activeSubjectId}`);
+  practiceState = emptyPracticeState();
+  wrongOnly = false;
+  retryingQuestions.clear();
+  selected = [];
+  checked = false;
+  renderStats();
+  renderPracticeSummary();
+  applyFilters();
+}
+
 document.querySelectorAll("[data-view]").forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.dataset.subject) selectSubject(button.dataset.subject);
+    if (button.dataset.subject) {
+      transitionToSubject(button.dataset.subject, button.dataset.view);
+      return;
+    }
     showView(button.dataset.view);
+    if (button.dataset.view === "home") window.scrollTo(0, 0);
   });
 });
 
