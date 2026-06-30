@@ -9,6 +9,8 @@ let selected = [];
 let checked = false;
 let practiceState = readPracticeState();
 let wrongOnly = false;
+let activeMineTab = "favorites";
+let activeStatsScope = "subject";
 const retryingQuestions = new Set();
 
 const els = {
@@ -40,30 +42,56 @@ const els = {
   practiceSummary: document.querySelector("#practice-summary"),
   routeTransition: document.querySelector("#route-transition"),
   routeTransitionTitle: document.querySelector("#route-transition-title"),
+  statsBtn: document.querySelector("#stats-btn"),
+  favoriteBtn: document.querySelector("#favorite-btn"),
+  annotationBtn: document.querySelector("#annotation-btn"),
+  chopBtn: document.querySelector("#chop-btn"),
+  mineList: document.querySelector("#mine-list"),
+  favoriteCount: document.querySelector("#favorite-count"),
+  choppedCount: document.querySelector("#chopped-count"),
+  annotationDialog: document.querySelector("#annotation-dialog"),
+  annotationQuestion: document.querySelector("#annotation-question"),
+  annotationInput: document.querySelector("#annotation-input"),
+  annotationSaveBtn: document.querySelector("#annotation-save-btn"),
+  annotationDeleteBtn: document.querySelector("#annotation-delete-btn"),
+  statsDialog: document.querySelector("#stats-dialog"),
+  statsContext: document.querySelector("#stats-context"),
+  statsGrid: document.querySelector("#stats-grid"),
+  statsChart: document.querySelector("#stats-chart"),
+  statsCloseBtn: document.querySelector("#stats-close-btn"),
+  chopDialog: document.querySelector("#chop-dialog"),
+  chopDialogClose: document.querySelector("#chop-dialog-close"),
+  resetDialog: document.querySelector("#reset-dialog"),
+  resetMessage: document.querySelector("#reset-message"),
+  resetDialogCancel: document.querySelector("#reset-dialog-cancel"),
+  resetDialogConfirm: document.querySelector("#reset-dialog-confirm"),
 };
 
-function readLocalQuestions() {
-  return JSON.parse(localStorage.getItem(`pete-extra-questions-${activeSubjectId}`) || "[]");
+function readLocalQuestions(subjectId = activeSubjectId) {
+  return JSON.parse(localStorage.getItem(`pete-extra-questions-${subjectId}`) || "[]");
 }
 
 function emptyPracticeState() {
-  return { attempts: {}, wrongArchive: {} };
+  return { attempts: {}, wrongArchive: {}, chopped: {}, favorites: {}, annotations: {} };
 }
 
-function readPracticeState() {
+function readPracticeState(subjectId = activeSubjectId) {
   try {
-    const saved = JSON.parse(localStorage.getItem(`pete-practice-state-${activeSubjectId}`) || "{}");
+    const saved = JSON.parse(localStorage.getItem(`pete-practice-state-${subjectId}`) || "{}");
     return {
       attempts: saved.attempts || {},
       wrongArchive: saved.wrongArchive || {},
+      chopped: saved.chopped || {},
+      favorites: saved.favorites || {},
+      annotations: saved.annotations || {},
     };
   } catch {
     return emptyPracticeState();
   }
 }
 
-function savePracticeState() {
-  localStorage.setItem(`pete-practice-state-${activeSubjectId}`, JSON.stringify(practiceState));
+function savePracticeState(state = practiceState, subjectId = activeSubjectId) {
+  localStorage.setItem(`pete-practice-state-${subjectId}`, JSON.stringify(state));
 }
 
 function normalizeImported(items) {
@@ -83,6 +111,42 @@ function normalizeImported(items) {
       knowledge: item.knowledge || ["本地扩展"],
       image: item.image || null,
     }));
+}
+
+function questionsForSubject(subjectId) {
+  const subject = subjects[subjectId];
+  if (!subject) return [];
+  return [...subject.questions, ...normalizeImported(readLocalQuestions(subjectId))];
+}
+
+function questionById(subjectId, questionId) {
+  return questionsForSubject(subjectId).find((question) => question.id === questionId);
+}
+
+function openDialog(dialog) {
+  if (!dialog) return;
+  if (typeof dialog.showModal === "function") {
+    if (!dialog.open) dialog.showModal();
+    return;
+  }
+  dialog.setAttribute("open", "");
+}
+
+function closeDialog(dialog) {
+  if (!dialog) return;
+  if (typeof dialog.close === "function" && dialog.open) {
+    dialog.close();
+    return;
+  }
+  dialog.removeAttribute("open");
+}
+
+function setToolState(button, active, activeIcon = null, inactiveIcon = null) {
+  if (!button) return;
+  button.classList.toggle("active", Boolean(active));
+  button.setAttribute("aria-pressed", String(Boolean(active)));
+  const icon = button.querySelector("img");
+  if (icon && activeIcon && inactiveIcon) icon.src = active ? activeIcon : inactiveIcon;
 }
 
 function escapeHtml(value = "") {
@@ -141,14 +205,26 @@ function isFillAnswerCorrect(q, value) {
   return Boolean(normalized && fillAnswers(q).some((answer) => normalizeFillAnswer(answer) === normalized));
 }
 
-function getPracticeTotals() {
-  const records = Object.values(practiceState.attempts);
+function getPracticeTotals(state = practiceState) {
+  const records = Object.values(state.attempts);
   const totalAttempts = records.reduce((sum, item) => sum + (item.attempts || 0), 0);
   const correctAttempts = records.reduce((sum, item) => sum + (item.correct || 0), 0);
   const doneQuestions = records.length;
-  const wrongQuestions = Object.keys(practiceState.wrongArchive).length;
+  const wrongQuestions = Object.keys(state.wrongArchive).length;
+  const choppedQuestions = Object.keys(state.chopped).length;
+  const favoriteQuestions = Object.keys(state.favorites).length;
+  const annotatedQuestions = Object.keys(state.annotations).length;
   const accuracy = totalAttempts ? Math.round((correctAttempts / totalAttempts) * 100) : 0;
-  return { totalAttempts, correctAttempts, doneQuestions, wrongQuestions, accuracy };
+  return {
+    totalAttempts,
+    correctAttempts,
+    doneQuestions,
+    wrongQuestions,
+    choppedQuestions,
+    favoriteQuestions,
+    annotatedQuestions,
+    accuracy,
+  };
 }
 
 function recordAttempt(q, choice, isCorrect) {
@@ -192,8 +268,8 @@ function renderPracticeSummary() {
     <button class="wrong-book ${wrongOnly ? "active" : ""}" id="wrong-only-btn" ${totals.wrongQuestions ? "" : "disabled"}>
       错题本 ${totals.wrongQuestions}
     </button>
-    <button class="reset-practice" id="reset-practice-btn" ${totals.totalAttempts ? "" : "disabled"}>
-      重置练习
+    <button class="summary-icon-action" id="reset-practice-btn" aria-label="重置练习" data-tooltip="重置练习" ${(totals.totalAttempts || totals.choppedQuestions) ? "" : "disabled"}>
+      <img src="./public/icons/rotate-ccw.svg" alt="" aria-hidden="true" />
     </button>
   `;
   const wrongBtn = document.querySelector("#wrong-only-btn");
@@ -259,6 +335,7 @@ function selectSubject(subjectId) {
   initTopics();
   renderTopics();
   renderSources();
+  renderMine();
   applyFilters();
 }
 
@@ -273,10 +350,11 @@ function applyFilters() {
       (sourceValue === "todo" ? !q.answer : q.source === sourceValue);
     const topicOk = topicValue === "all" || (q.knowledge || []).includes(topicValue);
     const wrongOk = !wrongOnly || Boolean(practiceState.wrongArchive[q.id]);
+    const visibleOk = !practiceState.chopped[q.id];
     const imageText = q.image ? `${q.image.alt || ""} ${q.image.caption || ""} ${q.image.credit || ""}` : "";
     const haystack = `${q.stem} ${Object.values(q.options).join(" ")} ${imageText}`.toLowerCase();
     const keywordOk = !keyword || haystack.includes(keyword);
-    return sourceOk && topicOk && wrongOk && keywordOk;
+    return sourceOk && topicOk && wrongOk && visibleOk && keywordOk;
   });
 
   currentIndex = Math.min(currentIndex, Math.max(filtered.length - 1, 0));
@@ -318,6 +396,26 @@ function renderFillInput(q, record) {
   });
 }
 
+function updateQuestionTools(q) {
+  const disabled = !q;
+  [els.statsBtn, els.favoriteBtn, els.annotationBtn, els.chopBtn].forEach((button) => {
+    if (button) button.disabled = disabled;
+  });
+  if (!q) return;
+  const isFavorite = Boolean(practiceState.favorites[q.id]);
+  const hasAnnotation = Boolean(practiceState.annotations[q.id]?.text);
+  setToolState(
+    els.favoriteBtn,
+    isFavorite,
+    "./public/icons/bookmark-check.svg",
+    "./public/icons/bookmark.svg",
+  );
+  setToolState(els.annotationBtn, hasAnnotation);
+  els.favoriteBtn.setAttribute("aria-label", isFavorite ? "取消收藏当前题目" : "收藏当前题目");
+  els.favoriteBtn.dataset.tooltip = isFavorite ? "已收藏" : "收藏";
+  els.annotationBtn.dataset.tooltip = hasAnnotation ? "查看批注" : "批注";
+}
+
 function renderQuestion() {
   const q = currentQuestion();
   els.options.innerHTML = "";
@@ -329,6 +427,7 @@ function renderQuestion() {
   }
 
   if (!q) {
+    updateQuestionTools(null);
     els.sourceBadge.textContent = "无题目";
     els.topicBadge.textContent = "";
     els.progressBadge.textContent = "";
@@ -337,6 +436,7 @@ function renderQuestion() {
     return;
   }
 
+  updateQuestionTools(q);
   const record = retryingQuestions.has(q.id) ? null : practiceState.attempts[q.id];
   selected = record?.lastSelected ? (isFillQuestion(q) ? [record.lastSelected] : normalizeSelection(record.lastSelected)) : [];
   checked = Boolean(record?.lastSelected && q.answer);
@@ -345,6 +445,7 @@ function renderQuestion() {
   els.topicBadge.textContent = (q.knowledge || ["未分类"])[0];
   els.progressBadge.textContent = `${currentIndex + 1} / ${filtered.length}`;
   els.stem.textContent = q.stem;
+  els.stem.classList.toggle("has-annotation", Boolean(practiceState.annotations[q.id]?.text));
   els.checkBtn.textContent = checked ? "重做此题" : q.answer ? (isFillQuestion(q) ? "提交填空" : isMultipleQuestion(q) ? "提交多选" : "提交") : "待核验";
 
   if (els.media && q.image?.src) {
@@ -494,23 +595,270 @@ function renderQueue() {
     const chip = document.createElement("button");
     const record = practiceState.attempts[q.id];
     const archivedWrong = practiceState.wrongArchive[q.id];
+    const hasAnnotation = Boolean(practiceState.annotations[q.id]?.text);
+    const isFavorite = Boolean(practiceState.favorites[q.id]);
     chip.className = [
       "question-chip",
       index === currentIndex ? "active" : "",
       record ? "done" : "",
       record?.lastCorrect ? "last-correct" : "",
       archivedWrong ? "archived-wrong" : "",
+      hasAnnotation ? "annotated" : "",
+      isFavorite ? "favorited" : "",
     ]
       .filter(Boolean)
       .join(" ");
     const status = archivedWrong ? "错题" : record ? "已做" : "";
-    chip.innerHTML = `<small>${q.id}${status ? ` · ${status}` : ""}</small><span>${q.stem}</span>`;
+    const markers = `${isFavorite ? '<img src="./public/icons/bookmark.svg" alt="" title="已收藏" />' : ""}${hasAnnotation ? '<img src="./public/icons/notebook-pen.svg" alt="" title="有批注" />' : ""}`;
+    chip.innerHTML = `<small>${q.id}${status ? ` · ${status}` : ""}</small><span>${q.stem}</span><i>${markers}</i>`;
     chip.addEventListener("click", () => {
       currentIndex = index;
       renderQuestion();
       renderQueue();
     });
     els.questionList.append(chip);
+  });
+}
+
+function toggleFavorite() {
+  const q = currentQuestion();
+  if (!q) return;
+  if (practiceState.favorites[q.id]) {
+    delete practiceState.favorites[q.id];
+  } else {
+    practiceState.favorites[q.id] = { at: new Date().toISOString() };
+  }
+  savePracticeState();
+  updateQuestionTools(q);
+  renderQueue();
+  renderMine();
+}
+
+function chopCurrentQuestion() {
+  const q = currentQuestion();
+  if (!q) return;
+  practiceState.chopped[q.id] = {
+    at: new Date().toISOString(),
+    topic: (q.knowledge || [])[0] || "未分类",
+  };
+  savePracticeState();
+  retryingQuestions.delete(q.id);
+  applyFilters();
+  renderMine();
+  openDialog(els.chopDialog);
+}
+
+function openAnnotationDialog() {
+  const q = currentQuestion();
+  if (!q) return;
+  const annotation = practiceState.annotations[q.id];
+  els.annotationQuestion.textContent = q.stem;
+  els.annotationInput.value = annotation?.text || "";
+  els.annotationDeleteBtn.hidden = !annotation?.text;
+  openDialog(els.annotationDialog);
+  window.setTimeout(() => els.annotationInput.focus(), 0);
+}
+
+function saveAnnotation() {
+  const q = currentQuestion();
+  if (!q) return;
+  const text = els.annotationInput.value.trim();
+  if (text) {
+    practiceState.annotations[q.id] = {
+      text,
+      updatedAt: new Date().toISOString(),
+    };
+  } else {
+    delete practiceState.annotations[q.id];
+  }
+  savePracticeState();
+  closeDialog(els.annotationDialog);
+  updateQuestionTools(q);
+  renderQueue();
+  renderMine();
+}
+
+function deleteAnnotation() {
+  const q = currentQuestion();
+  if (!q) return;
+  delete practiceState.annotations[q.id];
+  savePracticeState();
+  closeDialog(els.annotationDialog);
+  updateQuestionTools(q);
+  renderQueue();
+  renderMine();
+}
+
+function currentChapter() {
+  const selectedTopic = els.topicFilter.value;
+  if (selectedTopic && selectedTopic !== "all") return selectedTopic;
+  return (currentQuestion()?.knowledge || [])[0] || "未分类";
+}
+
+function scopedStats(scope = activeStatsScope) {
+  const chapter = currentChapter();
+  const pool = scope === "chapter"
+    ? questions.filter((q) => (q.knowledge || []).includes(chapter))
+    : questions;
+  const answeredRecords = pool
+    .map((q) => practiceState.attempts[q.id])
+    .filter(Boolean);
+  const correct = answeredRecords.filter((record) => record.lastCorrect).length;
+  const wrong = answeredRecords.length - correct;
+  return {
+    total: pool.length,
+    answered: answeredRecords.length,
+    correct,
+    wrong,
+    unanswered: Math.max(pool.length - answeredRecords.length, 0),
+    label: scope === "chapter" ? chapter : data.meta.subject,
+  };
+}
+
+function renderStatsDialog(scope = activeStatsScope) {
+  activeStatsScope = scope;
+  document.querySelectorAll("[data-stats-scope]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.statsScope === scope);
+  });
+  const values = scopedStats(scope);
+  const pct = (value) => values.total ? Math.round((value / values.total) * 100) : 0;
+  els.statsContext.textContent = `${scope === "chapter" ? "当前章节" : "当前学科"} · ${values.label}`;
+  els.statsGrid.innerHTML = `
+    <div class="stat-metric total"><span>题量</span><strong>${values.total}</strong></div>
+    <div class="stat-metric answered"><span>答题数</span><strong>${values.answered}</strong></div>
+    <div class="stat-metric correct"><span>对</span><strong>${values.correct}</strong></div>
+    <div class="stat-metric wrong"><span>错</span><strong>${values.wrong}</strong></div>
+  `;
+  els.statsChart.innerHTML = `
+    <div class="chart-stack" aria-label="答题结果分布">
+      <span class="chart-correct" style="width:${pct(values.correct)}%"></span>
+      <span class="chart-wrong" style="width:${pct(values.wrong)}%"></span>
+      <span class="chart-unanswered" style="width:${pct(values.unanswered)}%"></span>
+    </div>
+    <div class="chart-legend">
+      <span><i class="correct-dot"></i>答对 ${pct(values.correct)}%</span>
+      <span><i class="wrong-dot"></i>答错 ${pct(values.wrong)}%</span>
+      <span><i class="unanswered-dot"></i>未作答 ${pct(values.unanswered)}%</span>
+    </div>
+    <div class="bar-chart">
+      <div><label>答对</label><b><i class="correct-bar" style="width:${pct(values.correct)}%"></i></b><span>${values.correct}</span></div>
+      <div><label>答错</label><b><i class="wrong-bar" style="width:${pct(values.wrong)}%"></i></b><span>${values.wrong}</span></div>
+      <div><label>未作答</label><b><i class="unanswered-bar" style="width:${pct(values.unanswered)}%"></i></b><span>${values.unanswered}</span></div>
+    </div>
+  `;
+}
+
+function openStatsDialog() {
+  activeStatsScope = "subject";
+  renderStatsDialog(activeStatsScope);
+  openDialog(els.statsDialog);
+}
+
+function savedItems(type) {
+  return Object.entries(subjects).flatMap(([subjectId, subject]) => {
+    const state = readPracticeState(subjectId);
+    const collection = type === "chopped" ? state.chopped : state.favorites;
+    return Object.entries(collection).map(([questionId, saved]) => {
+      const question = questionById(subjectId, questionId);
+      if (!question) return null;
+      return { subjectId, subject, state, question, saved };
+    });
+  }).filter(Boolean).sort((a, b) => String(b.saved.at || "").localeCompare(String(a.saved.at || "")));
+}
+
+function restoreChoppedQuestion(subjectId, questionId) {
+  const state = readPracticeState(subjectId);
+  delete state.chopped[questionId];
+  savePracticeState(state, subjectId);
+  if (subjectId === activeSubjectId) {
+    practiceState = state;
+    applyFilters();
+  }
+  renderMine();
+}
+
+function removeFavorite(subjectId, questionId) {
+  const state = readPracticeState(subjectId);
+  delete state.favorites[questionId];
+  savePracticeState(state, subjectId);
+  if (subjectId === activeSubjectId) {
+    practiceState = state;
+    updateQuestionTools(currentQuestion());
+    renderQueue();
+  }
+  renderMine();
+}
+
+function openSavedQuestion(subjectId, questionId) {
+  selectSubject(subjectId);
+  els.sourceFilter.value = "all";
+  els.topicFilter.value = "all";
+  els.searchInput.value = "";
+  wrongOnly = false;
+  applyFilters();
+  const index = filtered.findIndex((q) => q.id === questionId);
+  if (index >= 0) currentIndex = index;
+  showView("practice");
+  renderQuestion();
+  renderQueue();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderMine() {
+  if (!els.mineList) return;
+  const favorites = savedItems("favorites");
+  const chopped = savedItems("chopped");
+  els.favoriteCount.textContent = favorites.length;
+  els.choppedCount.textContent = chopped.length;
+  document.querySelectorAll("[data-mine-tab]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.mineTab === activeMineTab);
+  });
+  const items = activeMineTab === "favorites" ? favorites : chopped;
+  if (!items.length) {
+    els.mineList.innerHTML = `
+      <div class="mine-empty">
+        <img src="./public/icons/${activeMineTab === "favorites" ? "bookmark" : "scissors"}.svg" alt="" aria-hidden="true" />
+        <h2>${activeMineTab === "favorites" ? "收藏夹还是空的" : "还没有已斩试题"}</h2>
+        <p>${activeMineTab === "favorites" ? "刷题时点击收藏图标，重要题目就会出现在这里。" : "斩掉的题会从练习序列中隐藏，并集中保存在这里。"}</p>
+      </div>
+    `;
+    return;
+  }
+  els.mineList.innerHTML = "";
+  items.forEach(({ subjectId, subject, state, question }) => {
+    const note = state.annotations[question.id]?.text;
+    const isChopped = Boolean(state.chopped[question.id]);
+    const card = document.createElement("article");
+    card.className = "saved-question-card";
+    card.innerHTML = `
+      <div class="saved-question-meta">
+        <span>${escapeHtml(subject.meta.subject)}</span>
+        <span>${escapeHtml((question.knowledge || ["未分类"])[0])}</span>
+        ${isChopped ? "<span class=\"chopped-label\">已斩</span>" : ""}
+      </div>
+      <h3>${escapeHtml(question.stem)}</h3>
+      ${note ? `<p class="saved-note"><img src="./public/icons/notebook-pen.svg" alt="" aria-hidden="true" />${escapeHtml(note)}</p>` : ""}
+      <div class="saved-card-actions"></div>
+    `;
+    const actions = card.querySelector(".saved-card-actions");
+    if (activeMineTab === "favorites" && !isChopped) {
+      const openButton = document.createElement("button");
+      openButton.className = "primary compact-action";
+      openButton.textContent = "打开此题";
+      openButton.addEventListener("click", () => openSavedQuestion(subjectId, question.id));
+      actions.append(openButton);
+    }
+    const actionButton = document.createElement("button");
+    actionButton.className = "icon-label-action";
+    if (activeMineTab === "chopped") {
+      actionButton.innerHTML = '<img src="./public/icons/undo-2.svg" alt="" aria-hidden="true" />恢复到题库';
+      actionButton.addEventListener("click", () => restoreChoppedQuestion(subjectId, question.id));
+    } else {
+      actionButton.innerHTML = '<img src="./public/icons/trash-2.svg" alt="" aria-hidden="true" />取消收藏';
+      actionButton.addEventListener("click", () => removeFavorite(subjectId, question.id));
+    }
+    actions.append(actionButton);
+    els.mineList.append(card);
   });
 }
 
@@ -570,12 +918,14 @@ function showView(view) {
   document.querySelectorAll(".view").forEach((node) => node.classList.remove("active"));
   document.querySelector(`#${view}-view`).classList.add("active");
   document.querySelectorAll(".nav-item").forEach((button) => {
-    const active = isHome ? button.dataset.view === "home" : button.dataset.view !== "home";
+    const navView = isHome ? "home" : view === "mine" ? "mine" : "practice";
+    const active = button.dataset.view === navView;
     button.classList.toggle("active", active);
   });
   document.querySelectorAll(".course-tab").forEach((button) => {
     button.classList.toggle("active", button.dataset.view === view);
   });
+  if (view === "mine") renderMine();
 }
 
 function transitionToSubject(subjectId, view = "practice") {
@@ -616,6 +966,7 @@ function importQuestions() {
     renderPracticeSummary();
     renderTopics();
     renderSources();
+    renderMine();
     applyFilters();
     els.importJson.value = "";
   } catch (error) {
@@ -632,20 +983,31 @@ function resetLocal() {
   renderPracticeSummary();
   renderTopics();
   renderSources();
+  renderMine();
   applyFilters();
 }
 
 function resetPracticeState() {
-  if (!window.confirm(`重置 ${data.meta.subject} 的练习记录、正确率和错题本？题库内容不会被删除。`)) return;
-  localStorage.removeItem(`pete-practice-state-${activeSubjectId}`);
-  practiceState = emptyPracticeState();
+  els.resetMessage.textContent = `将清空 ${data.meta.subject} 的练习记录、正确率、错题本和已斩状态；收藏与批注会保留。`;
+  openDialog(els.resetDialog);
+}
+
+function confirmResetPracticeState() {
+  practiceState = {
+    ...emptyPracticeState(),
+    favorites: practiceState.favorites,
+    annotations: practiceState.annotations,
+  };
+  savePracticeState();
   wrongOnly = false;
   retryingQuestions.clear();
   selected = [];
   checked = false;
   renderStats();
   renderPracticeSummary();
+  renderMine();
   applyFilters();
+  closeDialog(els.resetDialog);
 }
 
 document.querySelectorAll("[data-view]").forEach((button) => {
@@ -668,6 +1030,33 @@ els.prevBtn.addEventListener("click", () => move(-1));
 els.nextBtn.addEventListener("click", () => move(1));
 els.importBtn.addEventListener("click", importQuestions);
 els.resetLocalBtn.addEventListener("click", resetLocal);
+els.favoriteBtn.addEventListener("click", toggleFavorite);
+els.annotationBtn.addEventListener("click", openAnnotationDialog);
+els.chopBtn.addEventListener("click", chopCurrentQuestion);
+els.statsBtn.addEventListener("click", openStatsDialog);
+els.annotationSaveBtn.addEventListener("click", saveAnnotation);
+els.annotationDeleteBtn.addEventListener("click", deleteAnnotation);
+els.statsCloseBtn.addEventListener("click", () => closeDialog(els.statsDialog));
+els.chopDialogClose.addEventListener("click", () => closeDialog(els.chopDialog));
+els.resetDialogCancel.addEventListener("click", () => closeDialog(els.resetDialog));
+els.resetDialogConfirm.addEventListener("click", confirmResetPracticeState);
+
+document.querySelectorAll("[data-mine-tab]").forEach((button) => {
+  button.addEventListener("click", () => {
+    activeMineTab = button.dataset.mineTab;
+    renderMine();
+  });
+});
+
+document.querySelectorAll("[data-stats-scope]").forEach((button) => {
+  button.addEventListener("click", () => renderStatsDialog(button.dataset.statsScope));
+});
+
+[els.annotationDialog, els.statsDialog, els.chopDialog, els.resetDialog].forEach((dialog) => {
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) closeDialog(dialog);
+  });
+});
 
 renderStats();
 selectSubject(activeSubjectId);
