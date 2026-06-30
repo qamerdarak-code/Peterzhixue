@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>皮特智学 | 扬州大学医学部复习空间</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260630-2" />
   </head>
   <body>
     <div class="app-shell">
@@ -19,10 +19,13 @@
 
         <nav class="nav" aria-label="主导航">
           <button class="nav-item active" data-view="home" title="首页">
-            <span>⌂</span><b>首页</b>
+            <img src="./public/icons/house.svg" alt="" aria-hidden="true" /><b>首页</b>
           </button>
           <button class="nav-item" data-view="practice" title="医学心理学">
-            <span>⌁</span><b>学科学习</b>
+            <img src="./public/icons/book-open-check.svg" alt="" aria-hidden="true" /><b>学科学习</b>
+          </button>
+          <button class="nav-item" data-view="mine" title="我的题库">
+            <img src="./public/icons/user-round.svg" alt="" aria-hidden="true" /><b>我的</b>
           </button>
         </nav>
 
@@ -134,6 +137,10 @@
             <button class="course-tab active" data-view="practice">刷题</button>
             <button class="course-tab" data-view="review">重点</button>
             <button class="course-tab" data-view="manage">资料</button>
+            <button class="course-tab course-tab-icon" data-view="mine">
+              <img src="./public/icons/user-round.svg" alt="" aria-hidden="true" />
+              <span>我的</span>
+            </button>
           </nav>
 
           <section class="workspace view" id="practice-view">
@@ -157,17 +164,35 @@
                 <span>搜索</span>
                 <input id="search-input" type="search" placeholder="题干 / 选项" />
               </label>
-              <button class="icon-btn" id="shuffle-btn" title="随机一题">↻</button>
+              <button class="icon-btn" id="shuffle-btn" title="随机一题" aria-label="随机一题" data-tooltip="随机一题">
+                <img src="./public/icons/shuffle.svg" alt="" aria-hidden="true" />
+              </button>
             </div>
 
             <div class="practice-summary" id="practice-summary"></div>
 
             <div class="quiz-layout">
               <section class="question-panel">
-                <div class="question-meta">
-                  <span id="source-badge"></span>
-                  <span id="topic-badge"></span>
-                  <span id="progress-badge"></span>
+                <div class="question-head">
+                  <div class="question-meta">
+                    <span id="source-badge"></span>
+                    <span id="topic-badge"></span>
+                    <span id="progress-badge"></span>
+                  </div>
+                  <div class="question-tools" aria-label="题目工具">
+                    <button class="tool-icon" id="stats-btn" aria-label="查看统计" data-tooltip="统计">
+                      <img src="./public/icons/chart-no-axes-column.svg" alt="" aria-hidden="true" />
+                    </button>
+                    <button class="tool-icon" id="favorite-btn" aria-label="收藏当前题目" aria-pressed="false" data-tooltip="收藏">
+                      <img src="./public/icons/bookmark.svg" alt="" aria-hidden="true" />
+                    </button>
+                    <button class="tool-icon" id="annotation-btn" aria-label="批注当前题目" aria-pressed="false" data-tooltip="批注">
+                      <img src="./public/icons/notebook-pen.svg" alt="" aria-hidden="true" />
+                    </button>
+                    <button class="tool-icon tool-icon-danger" id="chop-btn" aria-label="斩掉当前题目" data-tooltip="斩题">
+                      <img src="./public/icons/scissors.svg" alt="" aria-hidden="true" />
+                    </button>
+                  </div>
                 </div>
                 <h2 id="question-stem"></h2>
                 <div class="question-media" id="question-media" hidden></div>
@@ -212,6 +237,20 @@
               </section>
             </div>
           </section>
+
+          <section class="workspace view" id="mine-view">
+            <div class="mine-head">
+              <div>
+                <p class="eyebrow">我的题库</p>
+                <h2>把值得回看的题，留在这里。</h2>
+              </div>
+              <div class="segmented-control" aria-label="我的题库分类">
+                <button class="active" data-mine-tab="favorites">收藏夹 <span id="favorite-count">0</span></button>
+                <button data-mine-tab="chopped">已斩试题 <span id="chopped-count">0</span></button>
+              </div>
+            </div>
+            <div class="mine-list" id="mine-list"></div>
+          </section>
         </div>
 
         <footer class="site-footer">
@@ -230,7 +269,72 @@
       <span id="route-transition-title">进入学科题库</span>
     </div>
 
+    <dialog class="app-dialog" id="annotation-dialog" aria-labelledby="annotation-title">
+      <form method="dialog" class="dialog-card">
+        <div class="dialog-head">
+          <div>
+            <p class="eyebrow">题目批注</p>
+            <h2 id="annotation-title">写下你的理解</h2>
+          </div>
+          <button class="tool-icon dialog-close" value="cancel" aria-label="关闭批注弹窗" data-tooltip="关闭">
+            <img src="./public/icons/x.svg" alt="" aria-hidden="true" />
+          </button>
+        </div>
+        <p class="dialog-question" id="annotation-question"></p>
+        <textarea id="annotation-input" maxlength="1000" placeholder="记录易错点、记忆口诀或解题思路……"></textarea>
+        <div class="dialog-actions">
+          <button class="ghost danger-text" type="button" id="annotation-delete-btn">
+            <img src="./public/icons/trash-2.svg" alt="" aria-hidden="true" />
+            删除批注
+          </button>
+          <button class="primary" type="button" id="annotation-save-btn">保存批注</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="app-dialog stats-dialog" id="stats-dialog" aria-labelledby="stats-title">
+      <div class="dialog-card">
+        <div class="dialog-head">
+          <div>
+            <p class="eyebrow">学习统计</p>
+            <h2 id="stats-title">答题概览</h2>
+          </div>
+          <button class="tool-icon dialog-close" id="stats-close-btn" aria-label="关闭统计弹窗" data-tooltip="关闭">
+            <img src="./public/icons/x.svg" alt="" aria-hidden="true" />
+          </button>
+        </div>
+        <div class="segmented-control stats-scope" aria-label="统计范围">
+          <button class="active" data-stats-scope="subject">本学科</button>
+          <button data-stats-scope="chapter">本章节</button>
+        </div>
+        <p class="stats-context" id="stats-context"></p>
+        <div class="stats-grid" id="stats-grid"></div>
+        <div class="stats-chart" id="stats-chart"></div>
+      </div>
+    </dialog>
+
+    <dialog class="app-dialog notice-dialog" id="chop-dialog" aria-labelledby="chop-title">
+      <div class="dialog-card">
+        <div class="notice-icon"><img src="./public/icons/scissors.svg" alt="" aria-hidden="true" /></div>
+        <h2 id="chop-title">这道题已斩</h2>
+        <p>你可以在“我的-已斩试题”中查看全部已斩试题。</p>
+        <button class="primary" id="chop-dialog-close">知道了</button>
+      </div>
+    </dialog>
+
+    <dialog class="app-dialog notice-dialog" id="reset-dialog" aria-labelledby="reset-title">
+      <div class="dialog-card">
+        <div class="notice-icon reset-notice-icon"><img src="./public/icons/rotate-ccw.svg" alt="" aria-hidden="true" /></div>
+        <h2 id="reset-title">重置本学科练习</h2>
+        <p id="reset-message"></p>
+        <div class="notice-actions">
+          <button class="ghost" id="reset-dialog-cancel">取消</button>
+          <button class="primary" id="reset-dialog-confirm">确认重置</button>
+        </div>
+      </div>
+    </dialog>
+
     <script src="./public/questions.js"></script>
-    <script src="./app.js"></script>
+    <script src="./app.js?v=20260630-2"></script>
   </body>
 </html>
