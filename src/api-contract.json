@@ -12,6 +12,16 @@
   ],
   "endpoints": [
     {
+      "method": "GET",
+      "path": "/api/health",
+      "response": {
+        "success": "boolean",
+        "deepseekConfigured": "boolean",
+        "region": "string",
+        "timestamp": "ISO 8601 string"
+      }
+    },
+    {
       "method": "POST",
       "path": "/api/ai/explain",
       "request": {
