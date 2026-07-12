@@ -1,82 +1,66 @@
 {
   "project": "皮特智学",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "subjects": [
-    {
-      "id": "medical-psychology",
-      "name": "医学心理学",
-      "school": "扬州大学医学部",
-      "phase": "首期"
-    },
-    {
-      "id": "medical-statistics",
-      "name": "医学统计学",
-      "school": "扬州大学医学部",
-      "phase": "已上线"
-    },
-    {
-      "id": "medical-parasitology",
-      "name": "医学寄生虫学",
-      "school": "扬州大学医学部",
-      "phase": "已上线"
-    },
-    {
-      "id": "xigai",
-      "name": "习概",
-      "school": "扬州大学医学部",
-      "phase": "已上线"
-    },
-    {
-      "id": "pathology-slides",
-      "name": "病理切片",
-      "school": "扬州大学医学部",
-      "phase": "已上线"
-    },
-    {
-      "id": "medical-microbiology",
-      "name": "医学微生物学",
-      "school": "扬州大学医学部",
-      "phase": "已上线"
-    }
+    "medical-psychology",
+    "medical-statistics",
+    "medical-parasitology",
+    "xigai",
+    "pathology",
+    "pathology-slides",
+    "medical-microbiology"
   ],
-  "reservedEndpoints": [
+  "endpoints": [
     {
-      "method": "GET",
-      "path": "/api/subjects",
-      "purpose": "返回可复习科目列表，后续新增医学科目时扩展。"
-    },
-    {
-      "method": "GET",
-      "path": "/api/subjects/:subjectId/questions",
-      "purpose": "按科目返回原题与新编拓展题。"
+      "method": "POST",
+      "path": "/api/ai/explain",
+      "request": {
+        "questionId": "string, required",
+        "regenerate": "boolean, optional"
+      },
+      "response": {
+        "requestId": "string",
+        "cached": "boolean",
+        "explanation": {
+          "officialAnswer": "string",
+          "conclusion": "string",
+          "coreReasoning": ["string"],
+          "optionAnalysis": [
+            {
+              "option": "string",
+              "judgment": "正确 | 错误 | 有争议",
+              "explanation": "string"
+            }
+          ],
+          "knowledgePoints": ["string"],
+          "commonMistake": "string",
+          "mnemonic": "string",
+          "confidence": "number, 0 to 1",
+          "needsReview": "boolean",
+          "reviewReason": "string"
+        }
+      }
     },
     {
       "method": "POST",
-      "path": "/api/subjects/:subjectId/materials",
-      "purpose": "上传课程PPT、期末重点、配套练习题等资料。"
-    },
-    {
-      "method": "POST",
-      "path": "/api/subjects/:subjectId/questions/import",
-      "purpose": "导入结构化题库，字段兼容当前前端JSON导入格式。"
+      "path": "/api/ai/explanation-feedback",
+      "request": {
+        "questionId": "string, required",
+        "type": "like | dislike | incorrect | unclear | other"
+      },
+      "response": {
+        "success": "boolean",
+        "questionId": "string",
+        "type": "string",
+        "count": "number"
+      }
     }
   ],
-  "questionSchema": {
-    "id": "string",
-    "source": "原题（老师配套习题） | 新编拓展题（AI深度改编）",
-    "sourceFile": "string",
-    "type": "single | multiple | fill",
-    "stem": "string",
-    "options": {
-      "A": "string",
-      "B": "string",
-      "C": "string",
-      "D": "string",
-      "E": "string | optional"
-    },
-    "answer": "string",
-    "acceptedAnswers": ["string | optional"],
-    "explanation": "string",
-    "knowledge": ["string"]
+  "security": {
+    "questionSource": "server-side lookup by questionId",
+    "secretStorage": "server environment only",
+    "ipRateLimit": "5 generated explanations per minute",
+    "userRateLimit": "20 generated explanations per day",
+    "cacheHitsConsumeQuota": false
   }
 }
