@@ -30,10 +30,25 @@ function createDeepSeekClient(config, options = {}) {
       response_format: { type: "json_object" },
     };
 
-    let lastError = null;
-    for (let attempt = 1; attempt <= config.maxAttempts; attempt += 1) {
+    const maxAttempts = Math.min(2, Math.max(1, Number(config.maxAttempts) || 2));
+    const totalTimeoutMs = Math.max(1, Number(config.timeoutMs) || 18000);
+    const connectTimeoutMs = Math.min(
+      totalTimeoutMs,
+      Math.max(1, Number(config.connectTimeoutMs) || 5000),
+    );
+    let lastFailure = null;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), config.timeoutMs);
+      let timeoutType = "";
+      const connectTimer = setTimeout(() => {
+        timeoutType = "connect";
+        controller.abort();
+      }, connectTimeoutMs);
+      const totalTimer = setTimeout(() => {
+        timeoutType = "total";
+        controller.abort();
+      }, totalTimeoutMs);
       try {
         const response = await fetchImpl(`${config.baseUrl}/chat/completions`, {
           method: "POST",
@@ -44,11 +59,20 @@ function createDeepSeekClient(config, options = {}) {
           body: JSON.stringify(body),
           signal: controller.signal,
         });
+        clearTimeout(connectTimer);
         if (!response.ok) {
-          if (response.status >= 400 && response.status < 500 && response.status !== 429) {
-            throw new AppError("AI_REQUEST_REJECTED", "AI解析请求未被服务接受。", 502);
+          if (response.status === 401 || response.status === 403) {
+            throw new AppError("AI_AUTH_ERROR", "DeepSeek服务认证失败，请联系管理员更新配置。", 502);
           }
-          throw new Error(`Upstream status ${response.status}`);
+          if (response.status === 402) {
+            throw new AppError("AI_BALANCE_ERROR", "DeepSeek服务余额不足，请联系管理员处理。", 503);
+          }
+          if ([400, 404, 422].includes(response.status)) {
+            throw new AppError("AI_REQUEST_REJECTED", "DeepSeek请求配置异常，请联系管理员检查模型设置。", 502);
+          }
+          const upstreamError = new Error("DeepSeek upstream request failed");
+          upstreamError.upstreamStatus = response.status;
+          throw upstreamError;
         }
         const payload = await response.json();
         const content = payload?.choices?.[0]?.message?.content;
@@ -60,15 +84,26 @@ function createDeepSeekClient(config, options = {}) {
         };
       } catch (error) {
         if (error instanceof AppError) throw error;
-        lastError = error;
-        if (attempt < config.maxAttempts) await sleep(180 * attempt);
+        lastFailure = {
+          error,
+          timeoutType: error?.name === "AbortError" ? (timeoutType || "total") : "",
+          upstreamStatus: Number(error?.upstreamStatus) || 0,
+        };
+        if (attempt < maxAttempts) await sleep(250 * attempt);
       } finally {
-        clearTimeout(timer);
+        clearTimeout(connectTimer);
+        clearTimeout(totalTimer);
       }
     }
 
-    if (lastError?.name === "AbortError") {
+    if (lastFailure?.timeoutType === "connect") {
+      throw new AppError("AI_CONNECT_TIMEOUT", "连接DeepSeek服务超时，请稍后重试。", 504);
+    }
+    if (lastFailure?.timeoutType === "total") {
       throw new AppError("AI_TIMEOUT", "AI解析响应超时，请稍后重试。", 504);
+    }
+    if (lastFailure?.upstreamStatus === 429) {
+      throw new AppError("AI_UPSTREAM_RATE_LIMITED", "DeepSeek当前请求繁忙，请稍后重试。", 503);
     }
     throw new AppError("AI_SERVICE_UNAVAILABLE", "AI解析暂时不可用，请稍后重试。", 503);
   }
