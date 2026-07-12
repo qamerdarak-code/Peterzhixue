@@ -15,12 +15,17 @@ const retryingQuestions = new Set();
 const aiExplanationState = new Map();
 let aiRequestSequence = 0;
 let activeAiReportType = "";
-const isLocalPreview = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-const configuredAiApiBase = document.querySelector('meta[name="pete-ai-api-base"]')?.content?.trim().replace(/\/$/, "") || "";
-const aiApiBase = isLocalPreview ? "" : configuredAiApiBase;
 
-function aiApiUrl(path) {
-  return `${aiApiBase}${path}`;
+function aiResponseError(response, payload) {
+  const code = payload?.error?.code || "";
+  if (code === "AI_CONNECT_TIMEOUT") return "连接 AI 服务超时，请检查网络后重试。";
+  if (code === "AI_TIMEOUT") return "AI 解析用时过长，请稍后重试。";
+  if (code === "AI_AUTH_ERROR") return "DeepSeek 服务认证失败，请联系管理员更新配置。";
+  if (code === "AI_BALANCE_ERROR") return "DeepSeek 服务余额不足，请联系管理员处理。";
+  if (code === "AI_NOT_CONFIGURED") return "AI 解析服务尚未完成配置，请联系管理员。";
+  if (code === "AI_UPSTREAM_RATE_LIMITED") return "DeepSeek 当前请求繁忙，请稍后重试。";
+  if (response.status >= 500) return payload?.error?.message || "AI 服务端暂时异常，请稍后重试。";
+  return payload?.error?.message || "AI 解析请求失败，请稍后重试。";
 }
 
 const els = {
@@ -375,20 +380,21 @@ async function requestAiExplanation(regenerate = false) {
   state.open = true;
   state.error = "";
   renderAiPanel(q);
+  const controller = new AbortController();
+  const requestTimer = window.setTimeout(() => controller.abort(), 25000);
   try {
-    const response = await fetch(aiApiUrl("/api/ai/explain"), {
+    const response = await fetch("/api/ai/explain", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-Pete-Anon": getAnonymousUserId(),
       },
       body: JSON.stringify({ questionId: q.id, regenerate }),
+      signal: controller.signal,
     });
     const payload = await response.json().catch(() => null);
     if (!response.ok || !payload?.success || !payload.explanation) {
-      const message = payload?.error?.message
-        || (response.status === 404 ? "AI解析服务尚未部署到当前站点。" : "AI解析暂时不可用，请稍后重试。");
-      throw new Error(message);
+      throw new Error(aiResponseError(response, payload));
     }
     state.status = "success";
     state.data = payload.explanation;
@@ -396,10 +402,16 @@ async function requestAiExplanation(regenerate = false) {
     state.open = true;
   } catch (error) {
     state.status = "error";
-    state.error = error instanceof TypeError
-      ? "AI服务端连接失败，请检查 Vercel 部署与域名配置。"
-      : (error.message || "AI解析暂时不可用，请稍后重试。");
+    if (error?.name === "AbortError") {
+      state.error = "AI 解析请求超时，请检查网络后重试。";
+    } else if (error instanceof TypeError) {
+      state.error = "网络无法连接到 AI 服务，请检查当前网络后重试。";
+    } else {
+      state.error = error.message || "AI 服务端暂时异常，请稍后重试。";
+    }
     state.open = true;
+  } finally {
+    window.clearTimeout(requestTimer);
   }
   if (sequence === aiRequestSequence && currentQuestion()?.id === q.id) renderAiPanel(q);
 }
@@ -409,7 +421,7 @@ async function submitAiFeedback(type, button = null) {
   if (!q || !type) return false;
   if (button) button.disabled = true;
   try {
-    const response = await fetch(aiApiUrl("/api/ai/explanation-feedback"), {
+    const response = await fetch("/api/ai/explanation-feedback", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Pete-Anon": getAnonymousUserId() },
       body: JSON.stringify({ questionId: q.id, type }),
