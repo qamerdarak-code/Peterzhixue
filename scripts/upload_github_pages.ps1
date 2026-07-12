@@ -1,8 +1,7 @@
 param(
   [string]$Owner = "qamerdarak-code",
   [string]$Repo = "Peterzhixue",
-  [string]$Branch = "main",
-  [string]$CustomDomain = "peterzhixue.tech"
+  [string]$Branch = "main"
 )
 
 $ErrorActionPreference = "Stop"
@@ -91,7 +90,6 @@ $files = @(
   "index.html",
   "styles.css",
   "app.js",
-  "CNAME",
   ".nojekyll",
   ".gitignore",
   ".env.example",
@@ -161,6 +159,7 @@ $files += Get-ChildItem -LiteralPath "extracted" -Filter "*A.pdf" |
 $files = @($files | Select-Object -Unique)
 
 $deleteFiles = @(
+  "CNAME",
   "public/pathology-appendicitis.jpg",
   "public/pathology-pulmonary-edema.jpg",
   "public/pathology-fat-embolism.jpg",
@@ -222,7 +221,7 @@ $pages = Try-GitHub -Method GET -Path "/repos/$Owner/$Repo/pages"
 try {
   if ($pages) {
     Invoke-GitHub -Method PUT -Path "/repos/$Owner/$Repo/pages" -Body @{
-      cname = $CustomDomain
+      cname = $null
       source = @{
         branch = $Branch
         path   = "/"
@@ -236,13 +235,6 @@ try {
       }
     } | Out-Null
 
-    Invoke-GitHub -Method PUT -Path "/repos/$Owner/$Repo/pages" -Body @{
-      cname = $CustomDomain
-      source = @{
-        branch = $Branch
-        path   = "/"
-      }
-    } | Out-Null
   }
 } catch {
   $pagesError = $_.Exception.Message
