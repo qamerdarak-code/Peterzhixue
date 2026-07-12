@@ -1,11 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": ["hkg1"],
   "functions": {
-    "api/ai/*.js": {
+    "api/**/*.js": {
       "includeFiles": "public/questions.js",
+      "regions": ["hkg1"],
       "maxDuration": 30
     }
   },
+  "rewrites": [
+    {
+      "source": "/((?!api(?:/|$)).*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
