@@ -12,9 +12,22 @@ let wrongOnly = false;
 let activeMineTab = "favorites";
 let activeStatsScope = "subject";
 const retryingQuestions = new Set();
+const aiExplanationState = new Map();
+let aiRequestSequence = 0;
+let activeAiReportType = "";
+const isLocalPreview = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+const configuredAiApiBase = document.querySelector('meta[name="pete-ai-api-base"]')?.content?.trim().replace(/\/$/, "") || "";
+const aiApiBase = isLocalPreview ? "" : configuredAiApiBase;
+
+function aiApiUrl(path) {
+  return `${aiApiBase}${path}`;
+}
 
 const els = {
   homeStats: document.querySelector("#home-stats"),
+  continueLearningBtn: document.querySelector("#continue-learning-btn"),
+  recordsOverview: document.querySelector("#records-overview"),
+  recordsGrid: document.querySelector("#records-grid"),
   stats: document.querySelector("#stats"),
   courseEyebrow: document.querySelector("#course-eyebrow"),
   courseTitle: document.querySelector("#course-title"),
@@ -38,7 +51,8 @@ const els = {
   importJson: document.querySelector("#import-json"),
   importBtn: document.querySelector("#import-btn"),
   resetLocalBtn: document.querySelector("#reset-local-btn"),
-  sourceLog: document.querySelector("#source-log"),
+  resourceLog: document.querySelector("#resource-log"),
+  contentSourceLog: document.querySelector("#content-source-log"),
   practiceSummary: document.querySelector("#practice-summary"),
   routeTransition: document.querySelector("#route-transition"),
   routeTransitionTitle: document.querySelector("#route-transition-title"),
@@ -49,6 +63,8 @@ const els = {
   mineList: document.querySelector("#mine-list"),
   favoriteCount: document.querySelector("#favorite-count"),
   choppedCount: document.querySelector("#chopped-count"),
+  aboutPanel: document.querySelector("#about-panel"),
+  settingsPanel: document.querySelector("#settings-panel"),
   annotationDialog: document.querySelector("#annotation-dialog"),
   annotationQuestion: document.querySelector("#annotation-question"),
   annotationInput: document.querySelector("#annotation-input"),
@@ -65,6 +81,17 @@ const els = {
   resetMessage: document.querySelector("#reset-message"),
   resetDialogCancel: document.querySelector("#reset-dialog-cancel"),
   resetDialogConfirm: document.querySelector("#reset-dialog-confirm"),
+  aiExplainShell: document.querySelector("#ai-explanation-shell"),
+  aiExplainBtn: document.querySelector("#ai-explain-btn"),
+  aiExplainRegion: document.querySelector("#ai-explanation-region"),
+  aiStatus: document.querySelector("#ai-status"),
+  aiContent: document.querySelector("#ai-explanation-content"),
+  aiFeedbackRow: document.querySelector("#ai-feedback-row"),
+  aiReportBtn: document.querySelector("#ai-report-btn"),
+  aiFeedbackDialog: document.querySelector("#ai-feedback-dialog"),
+  aiFeedbackClose: document.querySelector("#ai-feedback-close"),
+  aiFeedbackSubmit: document.querySelector("#ai-feedback-submit"),
+  aiFeedbackMessage: document.querySelector("#ai-feedback-message"),
 };
 
 function readLocalQuestions(subjectId = activeSubjectId) {
@@ -161,6 +188,252 @@ function escapeHtml(value = "") {
   ));
 }
 
+function getAnonymousUserId() {
+  const key = "pete-ai-anonymous-id";
+  let value = localStorage.getItem(key);
+  if (value) return value;
+  value = window.crypto?.randomUUID?.() || `pete-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
+  localStorage.setItem(key, value);
+  return value;
+}
+
+function element(tag, className = "", text = "") {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== "") node.textContent = String(text);
+  return node;
+}
+
+function setAiTrigger(label, { disabled = false, expanded = false } = {}) {
+  if (!els.aiExplainBtn) return;
+  const labelNode = els.aiExplainBtn.querySelector("span");
+  if (labelNode) labelNode.textContent = label;
+  els.aiExplainBtn.disabled = disabled;
+  els.aiExplainBtn.setAttribute("aria-expanded", String(expanded));
+}
+
+function aiStateFor(questionId) {
+  if (!aiExplanationState.has(questionId)) {
+    aiExplanationState.set(questionId, { status: "idle", open: false, data: null, source: "" });
+  }
+  return aiExplanationState.get(questionId);
+}
+
+function renderAiSkeleton() {
+  els.aiStatus.textContent = "AI正在思考…";
+  els.aiContent.innerHTML = '<div class="ai-skeleton" aria-hidden="true"><i></i><i></i><i></i></div>';
+  els.aiFeedbackRow.hidden = true;
+}
+
+function addAiSection(container, title, content) {
+  if (!content) return;
+  const section = element("section", "ai-section");
+  section.append(element("h3", "", title));
+  section.append(element("p", "", content));
+  container.append(section);
+}
+
+function renderAiExplanation(questionId) {
+  const state = aiStateFor(questionId);
+  const explanation = state.data;
+  if (!explanation) return;
+  els.aiStatus.textContent = "";
+  els.aiContent.innerHTML = "";
+
+  const head = element("div", "ai-explanation-head");
+  const titleBlock = element("div");
+  titleBlock.append(element("span", "ai-source-badge", state.source === "reviewed" ? "已核验解析" : "AI解析"));
+  const answerLine = element("p", "ai-answer-line");
+  answerLine.append(document.createTextNode("题库官方答案 "));
+  answerLine.append(element("strong", "", explanation.officialAnswer));
+  titleBlock.append(answerLine);
+  const regenerate = element("button", "ai-regenerate-button", "重新生成");
+  regenerate.type = "button";
+  regenerate.addEventListener("click", () => requestAiExplanation(true));
+  head.append(titleBlock, regenerate);
+  els.aiContent.append(head);
+
+  if (explanation.needsReview) {
+    const warning = element(
+      "div",
+      "ai-review-warning",
+      "本题可能存在歧义，当前仍以题库官方答案为准，已标记待核验。",
+    );
+    if (explanation.reviewReason) warning.title = explanation.reviewReason;
+    els.aiContent.append(warning);
+  }
+
+  addAiSection(els.aiContent, "一句话结论", explanation.conclusion);
+
+  const reasoning = element("section", "ai-section");
+  reasoning.append(element("h3", "", "核心思路"));
+  const reasonList = element("ol", "ai-reason-list");
+  (explanation.coreReasoning || []).forEach((item, index) => {
+    const row = element("li");
+    row.append(element("b", "", index + 1), element("span", "", item));
+    reasonList.append(row);
+  });
+  reasoning.append(reasonList);
+  els.aiContent.append(reasoning);
+
+  const optionSection = element("section", "ai-section");
+  optionSection.append(element("h3", "", "逐项分析"));
+  const optionList = element("div", "ai-option-list");
+  (explanation.optionAnalysis || []).forEach((item) => {
+    const card = element("article", "ai-option-analysis");
+    card.dataset.judgment = item.judgment;
+    card.append(element("span", "ai-option-letter", item.option));
+    const body = element("div");
+    const header = element("header");
+    header.append(element("strong", "", item.judgment));
+    body.append(header, element("p", "", item.explanation));
+    card.append(body);
+    optionList.append(card);
+  });
+  optionSection.append(optionList);
+  els.aiContent.append(optionSection);
+
+  const knowledge = element("section", "ai-section");
+  knowledge.append(element("h3", "", "核心知识点"));
+  const knowledgeList = element("div", "ai-knowledge-list");
+  (explanation.knowledgePoints || []).forEach((item) => knowledgeList.append(element("span", "", item)));
+  knowledge.append(knowledgeList);
+  els.aiContent.append(knowledge);
+
+  const noteGrid = element("div", "ai-note-grid");
+  const mistake = element("article", "ai-note-card");
+  mistake.append(element("strong", "", "易错点"), element("p", "", explanation.commonMistake || "暂无补充"));
+  const mnemonic = element("article", "ai-note-card");
+  mnemonic.append(element("strong", "", "记忆提示"), element("p", "", explanation.mnemonic || "这道题更适合理解记忆"));
+  noteGrid.append(mistake, mnemonic);
+  els.aiContent.append(noteGrid);
+  els.aiContent.append(element("span", "ai-confidence", `AI置信度 ${Math.round(Number(explanation.confidence || 0) * 100)}%`));
+  els.aiFeedbackRow.hidden = false;
+}
+
+function renderAiError(message) {
+  els.aiStatus.textContent = "";
+  els.aiContent.innerHTML = "";
+  const wrapper = element("div", "ai-error-state");
+  wrapper.append(element("span", "", message || "AI解析暂时不可用，请稍后重试。"));
+  const retry = element("button", "", "重试");
+  retry.type = "button";
+  retry.addEventListener("click", () => requestAiExplanation(false));
+  wrapper.append(retry);
+  els.aiContent.append(wrapper);
+  els.aiFeedbackRow.hidden = true;
+}
+
+function renderAiPanel(q) {
+  if (!els.aiExplainShell) return;
+  els.aiExplainShell.hidden = !q;
+  if (!q) return;
+  const state = aiStateFor(q.id);
+  document.querySelectorAll("[data-ai-feedback]").forEach((button) => {
+    button.disabled = false;
+    button.classList.toggle("active", button.dataset.aiFeedback === state.feedbackType);
+  });
+  els.aiExplainRegion.hidden = !state.open;
+  if (state.status === "loading") {
+    state.open = true;
+    els.aiExplainRegion.hidden = false;
+    setAiTrigger("AI正在思考…", { disabled: true, expanded: true });
+    renderAiSkeleton();
+    return;
+  }
+  if (state.status === "success") {
+    setAiTrigger(state.open ? "收起 AI解析" : "查看 AI解析", { expanded: state.open });
+    if (state.open) renderAiExplanation(q.id);
+    return;
+  }
+  if (state.status === "error") {
+    state.open = true;
+    els.aiExplainRegion.hidden = false;
+    setAiTrigger("重新尝试 AI解析", { expanded: true });
+    renderAiError(state.error);
+    return;
+  }
+  setAiTrigger("AI解析", { expanded: false });
+  els.aiStatus.textContent = "";
+  els.aiContent.innerHTML = "";
+  els.aiFeedbackRow.hidden = true;
+}
+
+async function requestAiExplanation(regenerate = false) {
+  const q = currentQuestion();
+  if (!q) return;
+  const state = aiStateFor(q.id);
+  if (state.status === "loading") return;
+  if (state.status === "success" && !regenerate) {
+    state.open = !state.open;
+    renderAiPanel(q);
+    return;
+  }
+
+  const sequence = ++aiRequestSequence;
+  state.status = "loading";
+  state.open = true;
+  state.error = "";
+  renderAiPanel(q);
+  try {
+    const response = await fetch(aiApiUrl("/api/ai/explain"), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Pete-Anon": getAnonymousUserId(),
+      },
+      body: JSON.stringify({ questionId: q.id, regenerate }),
+    });
+    const payload = await response.json().catch(() => null);
+    if (!response.ok || !payload?.success || !payload.explanation) {
+      const message = payload?.error?.message
+        || (response.status === 404 ? "AI解析服务尚未部署到当前站点。" : "AI解析暂时不可用，请稍后重试。");
+      throw new Error(message);
+    }
+    state.status = "success";
+    state.data = payload.explanation;
+    state.source = payload.source || "generated";
+    state.open = true;
+  } catch (error) {
+    state.status = "error";
+    state.error = error instanceof TypeError
+      ? "AI服务端连接失败，请检查 Vercel 部署与域名配置。"
+      : (error.message || "AI解析暂时不可用，请稍后重试。");
+    state.open = true;
+  }
+  if (sequence === aiRequestSequence && currentQuestion()?.id === q.id) renderAiPanel(q);
+}
+
+async function submitAiFeedback(type, button = null) {
+  const q = currentQuestion();
+  if (!q || !type) return false;
+  if (button) button.disabled = true;
+  try {
+    const response = await fetch(aiApiUrl("/api/ai/explanation-feedback"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Pete-Anon": getAnonymousUserId() },
+      body: JSON.stringify({ questionId: q.id, type }),
+    });
+    const payload = await response.json().catch(() => null);
+    if (!response.ok || !payload?.success) throw new Error(payload?.error?.message || "反馈提交失败");
+    const state = aiStateFor(q.id);
+    state.feedbackType = type;
+    if (button) button.classList.add("active");
+    return true;
+  } catch {
+    if (button) button.disabled = false;
+    return false;
+  }
+}
+
+function openAiFeedbackDialog() {
+  activeAiReportType = "";
+  els.aiFeedbackMessage.textContent = "";
+  els.aiFeedbackSubmit.disabled = true;
+  document.querySelectorAll("[data-ai-report-type]").forEach((button) => button.classList.remove("active"));
+  openDialog(els.aiFeedbackDialog);
+}
+
 function optionAnswer(answer, q = null) {
   if (!answer) return "";
   if (isFillQuestion(q)) return answer;
@@ -227,6 +500,86 @@ function getPracticeTotals(state = practiceState) {
   };
 }
 
+function subjectLearningSnapshot(subjectId) {
+  const subject = subjects[subjectId];
+  const state = readPracticeState(subjectId);
+  const totals = getPracticeTotals(state);
+  const totalQuestions = subject?.questions?.length || 0;
+  const progress = totalQuestions ? Math.min(100, Math.round((totals.doneQuestions / totalQuestions) * 100)) : 0;
+  const attemptDates = Object.values(state.attempts)
+    .map((item) => item.lastAt || "")
+    .sort();
+  const latestAt = attemptDates[attemptDates.length - 1] || "";
+  return { subject, state, totals, totalQuestions, progress, latestAt };
+}
+
+function mostRecentSubjectId() {
+  const stored = localStorage.getItem("pete-last-subject");
+  const snapshots = Object.keys(subjects)
+    .map((subjectId) => ({ subjectId, ...subjectLearningSnapshot(subjectId) }))
+    .sort((a, b) => b.latestAt.localeCompare(a.latestAt));
+  return snapshots[0]?.latestAt ? snapshots[0].subjectId : (subjects[stored] ? stored : "medical-psychology");
+}
+
+function renderHomeSubjects() {
+  document.querySelectorAll(".subject-card[data-subject]").forEach((card) => {
+    const subjectId = card.dataset.subject;
+    const snapshot = subjectLearningSnapshot(subjectId);
+    const meta = card.querySelector(".subject-meta");
+    const fill = card.querySelector(".subject-progress i");
+    const value = card.querySelector(".subject-progress b");
+    const action = card.querySelector(".subject-action strong");
+    if (meta) meta.textContent = `${snapshot.totalQuestions} 道题 · ${snapshot.subject.topics.length} 个章节`;
+    if (fill) fill.style.width = `${snapshot.progress}%`;
+    if (value) value.textContent = `${snapshot.progress}%`;
+    if (action) action.textContent = snapshot.totals.doneQuestions ? "继续学习" : "开始学习";
+    card.setAttribute("aria-label", `${snapshot.subject.meta.subject}，${snapshot.totalQuestions} 道题，已完成 ${snapshot.progress}%`);
+  });
+
+  const recentId = mostRecentSubjectId();
+  const recent = subjectLearningSnapshot(recentId);
+  if (els.continueLearningBtn) {
+    els.continueLearningBtn.dataset.subject = recentId;
+    const label = els.continueLearningBtn.querySelector("span");
+    if (label) label.textContent = recent.totals.doneQuestions ? `继续 ${recent.subject.meta.subject}` : `开始 ${recent.subject.meta.subject}`;
+  }
+}
+
+function renderLearningRecords() {
+  if (!els.recordsOverview || !els.recordsGrid) return;
+  const snapshots = Object.keys(subjects).map((subjectId) => ({ subjectId, ...subjectLearningSnapshot(subjectId) }));
+  const totalQuestions = snapshots.reduce((sum, item) => sum + item.totalQuestions, 0);
+  const doneQuestions = snapshots.reduce((sum, item) => sum + item.totals.doneQuestions, 0);
+  const attempts = snapshots.reduce((sum, item) => sum + item.totals.totalAttempts, 0);
+  const correct = snapshots.reduce((sum, item) => sum + item.totals.correctAttempts, 0);
+  const accuracy = attempts ? Math.round((correct / attempts) * 100) : 0;
+  els.recordsOverview.innerHTML = `
+    <div><span>收录题目</span><strong>${totalQuestions}</strong></div>
+    <div><span>已做题目</span><strong>${doneQuestions}</strong></div>
+    <div><span>答题次数</span><strong>${attempts}</strong></div>
+    <div><span>综合正确率</span><strong>${accuracy}%</strong></div>
+  `;
+  els.recordsGrid.innerHTML = snapshots.map(({ subjectId, subject, totals, totalQuestions: total, progress }) => `
+    <article class="record-card">
+      <div class="record-card-head">
+        <div><span>${subject.topics.length} 个章节</span><h2>${escapeHtml(subject.meta.subject)}</h2></div>
+        <strong>${progress}%</strong>
+      </div>
+      <div class="record-progress"><i style="width:${progress}%"></i></div>
+      <div class="record-metrics">
+        <span>题量 <b>${total}</b></span>
+        <span>已答 <b>${totals.doneQuestions}</b></span>
+        <span>错题 <b>${totals.wrongQuestions}</b></span>
+        <span>正确率 <b>${totals.accuracy}%</b></span>
+      </div>
+      <button class="record-open" data-record-subject="${subjectId}">${totals.doneQuestions ? "继续学习" : "开始学习"}<img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></button>
+    </article>
+  `).join("");
+  els.recordsGrid.querySelectorAll("[data-record-subject]").forEach((button) => {
+    button.addEventListener("click", () => transitionToSubject(button.dataset.recordSubject));
+  });
+}
+
 function recordAttempt(q, choice, isCorrect) {
   if (!q || !q.answer || !choice) return;
   const previous = practiceState.attempts[q.id] || {
@@ -281,14 +634,10 @@ function renderPracticeSummary() {
 }
 
 function renderStats() {
-  const original = questions.filter((q) => q.source.includes("原题")).length;
-  const ai = questions.filter((q) => q.source.includes("新编")).length;
-  const todo = questions.filter((q) => !q.answer).length;
   const totals = getPracticeTotals();
   const markup = `
-    <span>原题 ${original}</span>
-    <span>新编 ${ai}</span>
-    <span>待核验 ${todo}</span>
+    <span>收录 ${questions.length}</span>
+    <span>已做 ${totals.doneQuestions}</span>
     <span>正确率 ${totals.accuracy}%</span>
     <span>错题 ${totals.wrongQuestions}</span>
   `;
@@ -302,6 +651,8 @@ function renderStats() {
       <span>当前 ${data.meta.subject}</span>
     `;
   }
+  renderHomeSubjects();
+  renderLearningRecords();
 }
 
 function initTopics() {
@@ -418,6 +769,7 @@ function updateQuestionTools(q) {
 
 function renderQuestion() {
   const q = currentQuestion();
+  renderAiPanel(q);
   els.options.innerHTML = "";
   els.explanation.hidden = true;
   els.explanation.textContent = "";
@@ -446,7 +798,7 @@ function renderQuestion() {
   els.progressBadge.textContent = `${currentIndex + 1} / ${filtered.length}`;
   els.stem.textContent = q.stem;
   els.stem.classList.toggle("has-annotation", Boolean(practiceState.annotations[q.id]?.text));
-  els.checkBtn.textContent = checked ? "重做此题" : q.answer ? (isFillQuestion(q) ? "提交填空" : isMultipleQuestion(q) ? "提交多选" : "提交") : "待核验";
+  els.checkBtn.textContent = checked ? "重做此题" : q.answer ? (isFillQuestion(q) ? "提交填空" : isMultipleQuestion(q) ? "提交多选" : "提交") : "答案校对中";
 
   if (els.media && q.image?.src) {
     const href = q.image.page || q.image.src;
@@ -533,7 +885,7 @@ function checkAnswer() {
           ? "答对了"
           : "再看一眼"
         : "参考答案"
-      : "待核验";
+      : "答案校对中";
     if (choice && answer) {
       retryingQuestions.delete(q.id);
       recordAttempt(q, choice, isSelectedCorrect);
@@ -562,7 +914,7 @@ function checkAnswer() {
         ? "答对了"
         : "再看一眼"
       : "参考答案"
-    : "待核验";
+    : "答案校对中";
   if (choice && answer) {
     retryingQuestions.delete(q.id);
     recordAttempt(q, choice, isSelectedCorrect);
@@ -790,6 +1142,7 @@ function removeFavorite(subjectId, questionId) {
 }
 
 function openSavedQuestion(subjectId, questionId) {
+  localStorage.setItem("pete-last-subject", subjectId);
   selectSubject(subjectId);
   els.sourceFilter.value = "all";
   els.topicFilter.value = "all";
@@ -813,6 +1166,14 @@ function renderMine() {
   document.querySelectorAll("[data-mine-tab]").forEach((button) => {
     button.classList.toggle("active", button.dataset.mineTab === activeMineTab);
   });
+  const showsList = activeMineTab === "favorites" || activeMineTab === "chopped";
+  els.mineList.hidden = !showsList;
+  if (els.aboutPanel) els.aboutPanel.hidden = activeMineTab !== "about";
+  if (els.settingsPanel) els.settingsPanel.hidden = activeMineTab !== "settings";
+  if (!showsList) {
+    if (activeMineTab === "settings") renderSources();
+    return;
+  }
   const items = activeMineTab === "favorites" ? favorites : chopped;
   if (!items.length) {
     els.mineList.innerHTML = `
@@ -902,29 +1263,49 @@ function renderSources() {
     </div>
   `
     : "";
-  els.sourceLog.innerHTML = `
-    <div class="source-row"><strong>题库</strong><small>原题 ${data.meta.originalCount}；新编 ${data.meta.extendedCount}；待核验 ${data.meta.missingAnswerCount}</small></div>
-    <div class="source-row"><strong>当前学科</strong><small>${data.meta.subject}；${data.meta.source || data.meta.latestAudit?.source || "资料库已同步"}</small></div>
-    <div class="source-row"><strong>待转换课件</strong><small>${skipped.join("；") || "无"}</small></div>
-    <div class="source-row"><strong>扩展接口</strong><small>支持 JSON 导入并写入 localStorage；后续可替换为 /api/subjects/:id/questions</small></div>
-    ${resourceMarkup}
-  `;
+  if (els.resourceLog) {
+    const auditCopy = data.meta.missingAnswerCount
+      ? `${data.meta.missingAnswerCount} 道题答案校对中`
+      : "答案已完成校对";
+    els.resourceLog.innerHTML = `
+      <div class="material-summary">
+        <div><span>精选习题</span><strong>${questions.length} 道</strong></div>
+        <div><span>复习章节</span><strong>${data.topics.length} 个</strong></div>
+        <div><span>内容更新</span><strong>${auditCopy}</strong></div>
+      </div>
+      ${resourceMarkup || `<div class="resource-empty"><img src="./public/icons/library-big.svg" alt="" aria-hidden="true" /><h2>复习资料整理中</h2><p>当前可先使用题库和重点页面复习。</p></div>`}
+    `;
+  }
+  if (els.contentSourceLog) {
+    els.contentSourceLog.innerHTML = `
+      <div class="source-row"><strong>题库状态</strong><small>原题 ${data.meta.originalCount}；新编 ${data.meta.extendedCount}；答案校对中 ${data.meta.missingAnswerCount}</small></div>
+      <div class="source-row"><strong>资料来源</strong><small>${data.meta.source || data.meta.latestAudit?.source || "资料库已同步"}</small></div>
+      <div class="source-row"><strong>待转换课件</strong><small>${skipped.join("；") || "无"}</small></div>
+      <div class="source-row"><strong>本地内容管理</strong><small>支持 JSON 导入并保存在当前浏览器中。</small></div>
+    `;
+  }
 }
 
 function showView(view) {
-  const isHome = view === "home";
-  document.body.classList.toggle("is-home", isHome);
-  document.body.classList.toggle("is-course", !isHome);
+  const isCourse = ["practice", "review", "manage"].includes(view);
+  const actualView = view === "subjects" ? "home" : view;
+  document.body.classList.toggle("is-home", actualView === "home");
+  document.body.classList.toggle("is-course", isCourse);
+  document.body.classList.toggle("is-global", !isCourse && actualView !== "home");
   document.querySelectorAll(".view").forEach((node) => node.classList.remove("active"));
-  document.querySelector(`#${view}-view`).classList.add("active");
+  document.querySelector(`#${actualView}-view`)?.classList.add("active");
   document.querySelectorAll(".nav-item").forEach((button) => {
-    const navView = isHome ? "home" : view === "mine" ? "mine" : "practice";
+    const navView = isCourse ? "subjects" : view;
     const active = button.dataset.view === navView;
     button.classList.toggle("active", active);
   });
   document.querySelectorAll(".course-tab").forEach((button) => {
     button.classList.toggle("active", button.dataset.view === view);
   });
+  if (view === "subjects") {
+    window.setTimeout(() => document.querySelector("#subject-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  }
+  if (view === "records") renderLearningRecords();
   if (view === "mine") renderMine();
 }
 
@@ -934,6 +1315,7 @@ function transitionToSubject(subjectId, view = "practice") {
     showView(view);
     return;
   }
+  localStorage.setItem("pete-last-subject", subjectId);
   if (!els.routeTransition || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     selectSubject(subjectId);
     showView(view);
@@ -1021,6 +1403,21 @@ document.querySelectorAll("[data-view]").forEach((button) => {
   });
 });
 
+document.querySelectorAll(".subject-card[data-subject]").forEach((card) => {
+  const openSubject = () => transitionToSubject(card.dataset.subject);
+  card.addEventListener("click", openSubject);
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openSubject();
+    }
+  });
+});
+
+els.continueLearningBtn?.addEventListener("click", () => {
+  transitionToSubject(els.continueLearningBtn.dataset.subject || mostRecentSubjectId());
+});
+
 els.sourceFilter.addEventListener("change", applyFilters);
 els.topicFilter.addEventListener("change", applyFilters);
 els.searchInput.addEventListener("input", applyFilters);
@@ -1040,6 +1437,32 @@ els.statsCloseBtn.addEventListener("click", () => closeDialog(els.statsDialog));
 els.chopDialogClose.addEventListener("click", () => closeDialog(els.chopDialog));
 els.resetDialogCancel.addEventListener("click", () => closeDialog(els.resetDialog));
 els.resetDialogConfirm.addEventListener("click", confirmResetPracticeState);
+els.aiExplainBtn?.addEventListener("click", () => requestAiExplanation(false));
+els.aiReportBtn?.addEventListener("click", openAiFeedbackDialog);
+els.aiFeedbackClose?.addEventListener("click", () => closeDialog(els.aiFeedbackDialog));
+
+document.querySelectorAll("[data-ai-feedback]").forEach((button) => {
+  button.addEventListener("click", () => submitAiFeedback(button.dataset.aiFeedback, button));
+});
+
+document.querySelectorAll("[data-ai-report-type]").forEach((button) => {
+  button.addEventListener("click", () => {
+    activeAiReportType = button.dataset.aiReportType;
+    document.querySelectorAll("[data-ai-report-type]").forEach((item) => {
+      item.classList.toggle("active", item === button);
+    });
+    els.aiFeedbackSubmit.disabled = false;
+  });
+});
+
+els.aiFeedbackSubmit?.addEventListener("click", async () => {
+  if (!activeAiReportType) return;
+  els.aiFeedbackSubmit.disabled = true;
+  const sent = await submitAiFeedback(activeAiReportType);
+  els.aiFeedbackMessage.textContent = sent ? "已收到，谢谢你的反馈。" : "提交失败，请稍后重试。";
+  if (sent) window.setTimeout(() => closeDialog(els.aiFeedbackDialog), 700);
+  else els.aiFeedbackSubmit.disabled = false;
+});
 
 document.querySelectorAll("[data-mine-tab]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -1052,7 +1475,7 @@ document.querySelectorAll("[data-stats-scope]").forEach((button) => {
   button.addEventListener("click", () => renderStatsDialog(button.dataset.statsScope));
 });
 
-[els.annotationDialog, els.statsDialog, els.chopDialog, els.resetDialog].forEach((dialog) => {
+[els.annotationDialog, els.statsDialog, els.chopDialog, els.resetDialog, els.aiFeedbackDialog].forEach((dialog) => {
   dialog?.addEventListener("click", (event) => {
     if (event.target === dialog) closeDialog(dialog);
   });
