@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="pete-ai-api-base" content="https://peterzhixue.vercel.app" />
     <title>皮特智学 | 扬州大学医学部复习空间</title>
-    <link rel="stylesheet" href="./styles.css?v=20260630-2" />
+    <link rel="icon" href="./public/pete-logo.png" />
+    <link rel="stylesheet" href="./styles.css?v=20260712-2" />
   </head>
   <body>
     <div class="app-shell">
@@ -21,8 +23,11 @@
           <button class="nav-item active" data-view="home" title="首页">
             <img src="./public/icons/house.svg" alt="" aria-hidden="true" /><b>首页</b>
           </button>
-          <button class="nav-item" data-view="practice" title="医学心理学">
-            <img src="./public/icons/book-open-check.svg" alt="" aria-hidden="true" /><b>学科学习</b>
+          <button class="nav-item" data-view="subjects" title="选择学科">
+            <img src="./public/icons/library-big.svg" alt="" aria-hidden="true" /><b>学科</b>
+          </button>
+          <button class="nav-item" data-view="records" title="学习记录">
+            <img src="./public/icons/history.svg" alt="" aria-hidden="true" /><b>学习记录</b>
           </button>
           <button class="nav-item" data-view="mine" title="我的题库">
             <img src="./public/icons/user-round.svg" alt="" aria-hidden="true" /><b>我的</b>
@@ -30,7 +35,7 @@
         </nav>
 
         <div class="pete-mini" aria-hidden="true">
-          <img src="./public/pete-avatar.jpg" alt="" />
+          <img src="./public/pete-logo.png" alt="" />
           <div class="pulse-ring"></div>
         </div>
       </aside>
@@ -44,84 +49,94 @@
               </video>
               <div class="hero-overlay">
                 <p class="eyebrow">Peter Zhixue</p>
-                <h1>把医学部期末复习，放进一个清爽的学科空间。</h1>
+                <h1>医学部期末复习，一站搞定</h1>
+                <p class="hero-subtitle">选择学科，开始刷题、复习重点与整理错题</p>
+                <button class="hero-continue" id="continue-learning-btn">
+                  <img src="./public/icons/play.svg" alt="" aria-hidden="true" />
+                  <span>继续上次学习</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <section class="subject-section">
+          <section class="subject-section" id="subject-section">
             <div class="section-head">
-              <p class="eyebrow">学科空间</p>
-              <h2>选择一个复习页面</h2>
+              <div>
+                <p class="eyebrow">COURSES</p>
+                <h2>我的学科</h2>
+              </div>
+              <p>每个学科独立记录进度、错题、收藏与批注</p>
             </div>
             <div class="subject-grid">
-              <article class="subject-card subject-ready">
-                <div>
-                  <span class="subject-pill">已上线</span>
+              <article class="subject-card" data-subject="medical-psychology" role="button" tabindex="0">
+                <div class="subject-card-top">
+                  <span class="subject-icon"><img src="./public/icons/brain.svg" alt="" aria-hidden="true" /></span>
+                  <span class="subject-status">资料更新</span>
+                </div>
+                <div class="subject-copy">
                   <h2>医学心理学</h2>
-                  <p>老师配套原题、AI 拓展题、重点考点与资料导入都已整合。</p>
+                  <p class="subject-meta">加载中</p>
                 </div>
-                <button class="primary" data-view="practice" data-subject="medical-psychology">开始刷题</button>
+                <div class="subject-progress"><span><i></i></span><b>0%</b></div>
+                <div class="subject-action"><strong>开始学习</strong><img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></div>
               </article>
-              <article class="subject-card subject-ready">
-                <div>
-                  <span class="subject-pill">已上线</span>
-                  <h2>医学统计学</h2>
-                  <p>已接入选择题与思维导图资料，支持刷题、按考点复习与后续资料扩展。</p>
+              <article class="subject-card" data-subject="medical-statistics" role="button" tabindex="0">
+                <div class="subject-card-top">
+                  <span class="subject-icon"><img src="./public/icons/chart-no-axes-column-increasing.svg" alt="" aria-hidden="true" /></span>
+                  <span class="subject-status is-new">新增</span>
                 </div>
-                <button class="primary" data-view="practice" data-subject="medical-statistics">开始刷题</button>
+                <div class="subject-copy"><h2>医学统计学</h2><p class="subject-meta">加载中</p></div>
+                <div class="subject-progress"><span><i></i></span><b>0%</b></div>
+                <div class="subject-action"><strong>开始学习</strong><img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></div>
               </article>
-              <article class="subject-card subject-ready">
-                <div>
-                  <span class="subject-pill">已上线</span>
-                  <h2>医学寄生虫学</h2>
-                  <p>已接入寄生虫学选择题，按总论、蠕虫、原虫和节肢动物分区复习。</p>
-                </div>
-                <button class="primary" data-view="practice" data-subject="medical-parasitology">开始刷题</button>
+              <article class="subject-card" data-subject="medical-parasitology" role="button" tabindex="0">
+                <div class="subject-card-top"><span class="subject-icon"><img src="./public/icons/bug.svg" alt="" aria-hidden="true" /></span></div>
+                <div class="subject-copy"><h2>医学寄生虫学</h2><p class="subject-meta">加载中</p></div>
+                <div class="subject-progress"><span><i></i></span><b>0%</b></div>
+                <div class="subject-action"><strong>开始学习</strong><img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></div>
               </article>
-              <article class="subject-card subject-ready">
-                <div>
-                  <span class="subject-pill">已上线</span>
-                  <h2>习概</h2>
-                  <p>已接入期末选择题资料，覆盖导论、现代化、党的建设、法治文化、生态安全与外交等章节。</p>
-                </div>
-                <button class="primary" data-view="practice" data-subject="xigai">开始刷题</button>
+              <article class="subject-card" data-subject="xigai" role="button" tabindex="0">
+                <div class="subject-card-top"><span class="subject-icon"><img src="./public/icons/landmark.svg" alt="" aria-hidden="true" /></span></div>
+                <div class="subject-copy"><h2>习概</h2><p class="subject-meta">加载中</p></div>
+                <div class="subject-progress"><span><i></i></span><b>0%</b></div>
+                <div class="subject-action"><strong>开始学习</strong><img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></div>
               </article>
-              <article class="subject-card subject-ready">
-                <div>
-                  <span class="subject-pill">已上线</span>
-                  <h2>病理学</h2>
-                  <p>已接入 4 套病理学选择题，覆盖基础病变、炎症、肿瘤和各系统病理。</p>
-                </div>
-                <button class="primary" data-view="practice" data-subject="pathology">开始刷题</button>
+              <article class="subject-card" data-subject="pathology" role="button" tabindex="0">
+                <div class="subject-card-top"><span class="subject-icon"><img src="./public/icons/heart-pulse.svg" alt="" aria-hidden="true" /></span><span class="subject-status is-focus">题库扩充</span></div>
+                <div class="subject-copy"><h2>病理学</h2><p class="subject-meta">加载中</p></div>
+                <div class="subject-progress"><span><i></i></span><b>0%</b></div>
+                <div class="subject-action"><strong>开始学习</strong><img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></div>
               </article>
-              <article class="subject-card subject-ready">
-                <div>
-                  <span class="subject-pill">已上线</span>
-                  <h2>病理切片</h2>
-                  <p>改用期末复习 PDF 原图，训练看显微切片直接填写病理诊断。</p>
-                </div>
-                <button class="primary" data-view="practice" data-subject="pathology-slides">开始刷题</button>
+              <article class="subject-card" data-subject="pathology-slides" role="button" tabindex="0">
+                <div class="subject-card-top"><span class="subject-icon"><img src="./public/icons/scan-search.svg" alt="" aria-hidden="true" /></span><span class="subject-status is-new">新增</span></div>
+                <div class="subject-copy"><h2>病理切片</h2><p class="subject-meta">加载中</p></div>
+                <div class="subject-progress"><span><i></i></span><b>0%</b></div>
+                <div class="subject-action"><strong>开始学习</strong><img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></div>
               </article>
-              <article class="subject-card subject-ready">
-                <div>
-                  <span class="subject-pill">已上线</span>
-                  <h2>医学微生物学</h2>
-                  <p>已接入 PDF 可见 298 道选择题，按细菌、病毒、真菌、免疫疫苗和检验防治分区复习。</p>
-                </div>
-                <button class="primary" data-view="practice" data-subject="medical-microbiology">开始刷题</button>
+              <article class="subject-card" data-subject="medical-microbiology" role="button" tabindex="0">
+                <div class="subject-card-top"><span class="subject-icon"><img src="./public/icons/dna.svg" alt="" aria-hidden="true" /></span></div>
+                <div class="subject-copy"><h2>医学微生物学</h2><p class="subject-meta">加载中</p></div>
+                <div class="subject-progress"><span><i></i></span><b>0%</b></div>
+                <div class="subject-action"><strong>开始学习</strong><img src="./public/icons/arrow-right.svg" alt="" aria-hidden="true" /></div>
               </article>
-              <article class="subject-card subject-soon">
-                <div>
-                  <span class="subject-pill">预留</span>
-                  <h2>更多医学科目</h2>
-                  <p>后续导入资料后，可以按相同结构扩展独立题库和重点页。</p>
-                </div>
-                <button class="ghost" disabled>待添加</button>
+              <article class="subject-card subject-soon" aria-disabled="true">
+                <div class="subject-card-top"><span class="subject-icon"><img src="./public/icons/plus.svg" alt="" aria-hidden="true" /></span><span class="subject-status is-building">建设中</span></div>
+                <div class="subject-copy"><h2>更多医学科目</h2><p class="subject-meta">新的独立题库与复习资料会持续加入</p></div>
+                <div class="subject-action"><strong>持续更新中</strong></div>
               </article>
             </div>
             <div class="home-stats" id="home-stats" hidden></div>
           </section>
+        </section>
+
+        <section class="records-view view" id="records-view">
+          <header class="page-heading">
+            <p class="eyebrow">LEARNING RECORDS</p>
+            <h1>学习记录</h1>
+            <p>按学科查看进度、答题情况和正确率。</p>
+          </header>
+          <div class="records-overview" id="records-overview"></div>
+          <div class="records-grid" id="records-grid"></div>
         </section>
 
         <div class="course-shell">
@@ -137,10 +152,6 @@
             <button class="course-tab active" data-view="practice">刷题</button>
             <button class="course-tab" data-view="review">重点</button>
             <button class="course-tab" data-view="manage">资料</button>
-            <button class="course-tab course-tab-icon" data-view="mine">
-              <img src="./public/icons/user-round.svg" alt="" aria-hidden="true" />
-              <span>我的</span>
-            </button>
           </nav>
 
           <section class="workspace view" id="practice-view">
@@ -151,7 +162,7 @@
                   <option value="all">全部</option>
                   <option value="原题（老师配套习题）">原题</option>
                   <option value="新编拓展题（AI深度改编）">新编</option>
-                  <option value="todo">待核验</option>
+                  <option value="todo">答案校对中</option>
                 </select>
               </label>
               <label>
@@ -203,6 +214,32 @@
                   <button class="ghost" id="next-btn">下一题</button>
                 </div>
                 <div class="explanation" id="explanation" hidden></div>
+                <section class="ai-explanation-shell" id="ai-explanation-shell">
+                  <button class="ai-explain-trigger" id="ai-explain-btn" type="button">
+                    <img src="./public/icons/brain.svg" alt="" aria-hidden="true" />
+                    <span>AI解析</span>
+                    <img class="ai-trigger-chevron" src="./public/icons/chevron-down.svg" alt="" aria-hidden="true" />
+                  </button>
+                  <div class="ai-explanation-region" id="ai-explanation-region" hidden>
+                    <div class="ai-status" id="ai-status" aria-live="polite"></div>
+                    <div class="ai-explanation-content" id="ai-explanation-content"></div>
+                    <div class="ai-feedback-row" id="ai-feedback-row" hidden>
+                      <span>这份解析有帮助吗？</span>
+                      <div>
+                        <button class="ai-feedback-button" type="button" data-ai-feedback="like" aria-label="点赞AI解析">
+                          <img src="./public/icons/thumbs-up.svg" alt="" aria-hidden="true" />
+                        </button>
+                        <button class="ai-feedback-button" type="button" data-ai-feedback="dislike" aria-label="点踩AI解析">
+                          <img src="./public/icons/thumbs-down.svg" alt="" aria-hidden="true" />
+                        </button>
+                        <button class="ai-report-button" id="ai-report-btn" type="button">
+                          <img src="./public/icons/flag.svg" alt="" aria-hidden="true" />
+                          反馈错误
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </section>
 
               <section class="queue-panel">
@@ -220,48 +257,73 @@
           </section>
 
           <section class="workspace view" id="manage-view">
+            <div class="resource-page">
+              <header>
+                <p class="eyebrow">STUDY MATERIALS</p>
+                <h2>复习资料</h2>
+                <p>课程重点、思维导图和配套资料都整理在这里。</p>
+              </header>
+              <div class="source-log" id="resource-log"></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="mine-view view" id="mine-view">
+          <div class="mine-head">
+            <div>
+              <p class="eyebrow">MY PETER ZHIXUE</p>
+              <h1>我的</h1>
+              <p>管理收藏、已斩试题与个人学习设置。</p>
+            </div>
+            <div class="segmented-control" aria-label="我的页面分类">
+              <button class="active" data-mine-tab="favorites">收藏夹 <span id="favorite-count">0</span></button>
+              <button data-mine-tab="chopped">已斩试题 <span id="chopped-count">0</span></button>
+              <button data-mine-tab="about">关于</button>
+              <button data-mine-tab="settings">设置</button>
+            </div>
+          </div>
+          <div class="mine-list" id="mine-list"></div>
+          <section class="mine-static-panel about-panel" id="about-panel" hidden>
+            <div class="about-brand">
+              <img src="./public/pete-logo.png" alt="皮特智学品牌形象" />
+              <div>
+                <p class="eyebrow">PETER ZHIXUE</p>
+                <h2>皮特智学</h2>
+                <p>为扬州大学医学部学生设计的期末复习空间。</p>
+              </div>
+            </div>
+            <div class="developer-card">
+              <img src="./public/chairman-zhou-pete.jpg" alt="皮特智学设计与维护者周皮特" />
+              <div>
+                <span>设计与维护</span>
+                <strong>周皮特</strong>
+                <p>皮特科技有限公司 · 持续打磨中</p>
+              </div>
+            </div>
+          </section>
+          <section class="mine-static-panel settings-panel" id="settings-panel" hidden>
+            <div class="settings-heading">
+              <span class="settings-icon"><img src="./public/icons/folder-cog.svg" alt="" aria-hidden="true" /></span>
+              <div><h2>内容管理</h2><p>用于导入和维护本地题库，普通学习时无需操作。</p></div>
+            </div>
             <div class="manage-layout">
               <section>
                 <p class="eyebrow">题库扩容</p>
                 <h2>导入 JSON</h2>
                 <textarea id="import-json" spellcheck="false" placeholder='[{"stem":"...","options":{"A":"..."},"answer":"A"}]'></textarea>
                 <div class="actions">
-                  <button class="primary" id="import-btn">导入</button>
-                  <button class="ghost" id="reset-local-btn">清空本地导入</button>
+                  <button class="primary" id="import-btn">导入题库</button>
+                  <button class="ghost" id="reset-local-btn">删除导入题库</button>
                 </div>
               </section>
               <section>
-                <p class="eyebrow">资料状态</p>
-                <h2>首期资料</h2>
-                <div class="source-log" id="source-log"></div>
+                <p class="eyebrow">内容更新</p>
+                <h2>当前题库</h2>
+                <div class="source-log" id="content-source-log"></div>
               </section>
             </div>
           </section>
-
-          <section class="workspace view" id="mine-view">
-            <div class="mine-head">
-              <div>
-                <p class="eyebrow">我的题库</p>
-                <h2>把值得回看的题，留在这里。</h2>
-              </div>
-              <div class="segmented-control" aria-label="我的题库分类">
-                <button class="active" data-mine-tab="favorites">收藏夹 <span id="favorite-count">0</span></button>
-                <button data-mine-tab="chopped">已斩试题 <span id="chopped-count">0</span></button>
-              </div>
-            </div>
-            <div class="mine-list" id="mine-list"></div>
-          </section>
-        </div>
-
-        <footer class="site-footer">
-          <div class="chairman-card">
-            <img src="./public/chairman-zhou-pete.jpg" alt="皮特科技有限公司董事长周皮特" />
-            <div>
-              <p class="eyebrow">皮特科技有限公司</p>
-              <h2>董事长周皮特</h2>
-            </div>
-          </div>
-        </footer>
+        </section>
       </main>
     </div>
 
@@ -334,7 +396,31 @@
       </div>
     </dialog>
 
+    <dialog class="app-dialog ai-feedback-dialog" id="ai-feedback-dialog" aria-labelledby="ai-feedback-title">
+      <div class="dialog-card">
+        <div class="dialog-head">
+          <div>
+            <p class="eyebrow">AI PARSER FEEDBACK</p>
+            <h2 id="ai-feedback-title">这份解析哪里需要改进？</h2>
+          </div>
+          <button class="tool-icon dialog-close" id="ai-feedback-close" type="button" aria-label="关闭反馈弹窗" data-tooltip="关闭">
+            <img src="./public/icons/x.svg" alt="" aria-hidden="true" />
+          </button>
+        </div>
+        <div class="ai-feedback-options" role="radiogroup" aria-label="反馈类型">
+          <button type="button" data-ai-report-type="incorrect">结论或内容有误</button>
+          <button type="button" data-ai-report-type="unclear">表达不清楚</button>
+          <button type="button" data-ai-report-type="other">其他问题</button>
+        </div>
+        <p class="ai-feedback-hint">反馈只用于改进解析质量，不会触发新的 AI 请求。</p>
+        <div class="dialog-actions ai-feedback-actions">
+          <span id="ai-feedback-message" aria-live="polite"></span>
+          <button class="primary" id="ai-feedback-submit" type="button" disabled>提交反馈</button>
+        </div>
+      </div>
+    </dialog>
+
     <script src="./public/questions.js"></script>
-    <script src="./app.js?v=20260630-2"></script>
+    <script src="./app.js?v=20260712-3"></script>
   </body>
 </html>
