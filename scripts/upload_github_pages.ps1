@@ -32,27 +32,32 @@ function Invoke-GitHub {
   )
 
   $uri = "$api$Path"
-  if ($null -eq $Body) {
+  $json = if ($null -ne $Body) { $Body | ConvertTo-Json -Depth 20 -Compress } else { $null }
+  $maxAttempts = 4
+
+  for ($attempt = 1; $attempt -le $maxAttempts; $attempt += 1) {
     try {
-      return Invoke-RestMethod -Method $Method -Uri $uri -Headers $headers
+      if ($null -eq $Body) {
+        return Invoke-RestMethod -Method $Method -Uri $uri -Headers $headers
+      }
+      return Invoke-RestMethod -Method $Method -Uri $uri -Headers $headers -Body $json -ContentType "application/json"
     } catch {
       $status = if ($_.Exception.Response) { [int]$_.Exception.Response.StatusCode } else { $null }
       if ($status -eq 401) {
         throw "GitHub token unauthorized (401). Token is invalid, expired, revoked, or not allowed for this repository. Create a new PAT with Contents read/write permission for $Owner/$Repo."
       }
+      $retryable = ($null -eq $status) -or ($status -eq 429) -or ($status -ge 500 -and $status -le 599)
+      if ($retryable -and $attempt -lt $maxAttempts) {
+        $delaySeconds = [Math]::Pow(2, $attempt - 1)
+        Write-Host "GitHub API temporary error ($status) for $Method $Path. Retry $attempt/$maxAttempts in $delaySeconds second(s)..."
+        Start-Sleep -Seconds $delaySeconds
+        continue
+      }
+      if ($retryable) {
+        throw "GitHub request failed after $maxAttempts attempts: $Method $uri (HTTP $status)."
+      }
       throw
     }
-  }
-
-  $json = $Body | ConvertTo-Json -Depth 20 -Compress
-  try {
-    return Invoke-RestMethod -Method $Method -Uri $uri -Headers $headers -Body $json -ContentType "application/json"
-  } catch {
-    $status = if ($_.Exception.Response) { [int]$_.Exception.Response.StatusCode } else { $null }
-    if ($status -eq 401) {
-      throw "GitHub token unauthorized (401). Token is invalid, expired, revoked, or not allowed for this repository. Create a new PAT with Contents read/write permission for $Owner/$Repo."
-    }
-    throw
   }
 }
 
