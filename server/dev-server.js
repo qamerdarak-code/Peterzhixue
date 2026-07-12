@@ -25,6 +25,7 @@ loadEnvFile(path.join(ROOT, ".env"));
 
 const explainHandler = require("../api/ai/explain");
 const feedbackHandler = require("../api/ai/explanation-feedback");
+const healthHandler = require("../api/health");
 
 const MIME = {
   ".css": "text/css; charset=utf-8",
@@ -75,6 +76,7 @@ function serveStatic(req, res, pathname) {
 function createServer() {
   return http.createServer(async (req, res) => {
     const url = new URL(req.url, "http://127.0.0.1");
+    if (url.pathname === "/api/health") return healthHandler(req, res);
     if (url.pathname === "/api/ai/explain") return explainHandler(req, res);
     if (url.pathname === "/api/ai/explanation-feedback") return feedbackHandler(req, res);
     return serveStatic(req, res, url.pathname);
