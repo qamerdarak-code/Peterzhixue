@@ -2,15 +2,11 @@ const { getRuntime } = require("../../server/runtime");
 const {
   sendJson,
   readJsonBody,
-  setCorsHeaders,
-  handleOptions,
   methodNotAllowed,
   handleError,
 } = require("../../server/http");
 
 module.exports = async function handler(req, res) {
-  if (req.method === "OPTIONS") return handleOptions(req, res);
-  setCorsHeaders(req, res);
   if (req.method !== "POST") return methodNotAllowed(res);
   let questionId = "";
   try {
