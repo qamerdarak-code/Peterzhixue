@@ -12,7 +12,13 @@ function loadConfig() {
       model: process.env.DEEPSEEK_MODEL || "deepseek-v4-flash",
       temperature: numberFromEnv("DEEPSEEK_TEMPERATURE", 0.2, 0, 1),
       maxTokens: numberFromEnv("DEEPSEEK_MAX_TOKENS", 1400, 300, 4000),
-      timeoutMs: numberFromEnv("DEEPSEEK_TIMEOUT_MS", 18000, 3000, 60000),
+      connectTimeoutMs: numberFromEnv("DEEPSEEK_CONNECT_TIMEOUT_MS", 5000, 1000, 20000),
+      timeoutMs: numberFromEnv(
+        "DEEPSEEK_TOTAL_TIMEOUT_MS",
+        numberFromEnv("DEEPSEEK_TIMEOUT_MS", 18000, 3000, 60000),
+        3000,
+        60000,
+      ),
       maxAttempts: 2,
     },
     cache: {
