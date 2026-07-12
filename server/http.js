@@ -1,29 +1,5 @@
 const { AppError, publicError } = require("./errors");
 
-const ALLOWED_ORIGINS = new Set([
-  "https://peterzhixue.tech",
-  "https://www.peterzhixue.tech",
-  "https://qamerdarak-code.github.io",
-  "https://peterzhixue.vercel.app",
-]);
-
-function setCorsHeaders(req, res) {
-  const origin = req.headers?.origin;
-  if (origin && ALLOWED_ORIGINS.has(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Vary", "Origin");
-  }
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Pete-Anon");
-  res.setHeader("Access-Control-Max-Age", "86400");
-}
-
-function handleOptions(req, res) {
-  setCorsHeaders(req, res);
-  res.statusCode = 204;
-  res.end();
-}
-
 function setJsonHeaders(res) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");
@@ -91,8 +67,6 @@ function handleError(res, error, context = {}) {
 }
 
 module.exports = {
-  setCorsHeaders,
-  handleOptions,
   sendJson,
   readJsonBody,
   clientIp,
